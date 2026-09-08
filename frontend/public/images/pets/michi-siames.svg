@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgCat" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fdf4ff"/>
+      <stop offset="100%" stop-color="#fae8ff"/>
+    </linearGradient>
+    <linearGradient id="catCream" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fef3c7"/>
+      <stop offset="100%" stop-color="#f5e6d3"/>
+    </linearGradient>
+    <linearGradient id="darkMask" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#451a03"/>
+      <stop offset="100%" stop-color="#270e02"/>
+    </linearGradient>
+  </defs>
+  <circle cx="150" cy="150" r="145" fill="url(#bgCat)" stroke="#d946ef" stroke-width="4"/>
+
+  <g transform="translate(0, 15)">
+    <!-- Large Siamese Cat Ears -->
+    <polygon points="65,100 80,25 120,85" fill="url(#darkMask)"/>
+    <polygon points="75,90 85,40 112,80" fill="#fda4af"/>
+
+    <polygon points="235,100 220,25 180,85" fill="url(#darkMask)"/>
+    <polygon points="225,90 215,40 188,80" fill="#fda4af"/>
+
+    <!-- Head -->
+    <ellipse cx="150" cy="130" rx="65" ry="58" fill="url(#catCream)"/>
+
+    <!-- Dark Seal Point Mask -->
+    <path d="M 150 95 C 130 95, 115 115, 115 145 C 115 175, 130 195, 150 195 C 170 195, 185 175, 185 145 C 185 115, 170 95, 150 95 Z" fill="url(#darkMask)"/>
+
+    <!-- Striking Sapphire Blue Cat Eyes -->
+    <ellipse cx="128" cy="135" rx="10" ry="13" fill="#0284c7" transform="rotate(-5 128 135)"/>
+    <ellipse cx="172" cy="135" rx="10" ry="13" fill="#0284c7" transform="rotate(5 172 135)"/>
+    <!-- Cat Slit Pupils -->
+    <ellipse cx="128" cy="135" rx="3" ry="11" fill="#0f172a"/>
+    <ellipse cx="172" cy="135" rx="3" ry="11" fill="#0f172a"/>
+    <circle cx="125" cy="130" r="3" fill="#ffffff"/>
+    <circle cx="169" cy="130" r="3" fill="#ffffff"/>
+
+    <!-- Pink Nose -->
+    <polygon points="144,162 156,162 150,170" fill="#f472b6"/>
+    <path d="M 150 170 L 150 176 M 150 176 Q 144 180 138 176 M 150 176 Q 156 180 162 176" stroke="#fbcfe8" stroke-width="2" fill="none"/>
+
+    <!-- Whiskers -->
+    <path d="M 125 168 L 70 160 M 123 173 L 65 174 M 125 178 L 75 188" stroke="#ffffff" stroke-width="1.8" opacity="0.85"/>
+    <path d="M 175 168 L 230 160 M 177 173 L 235 174 M 175 178 L 225 188" stroke="#ffffff" stroke-width="1.8" opacity="0.85"/>
+
+    <!-- Bell Collar -->
+    <path d="M 95 195 Q 150 215 205 195 L 210 212 Q 150 235 90 212 Z" fill="#ec4899"/>
+    <circle cx="150" cy="225" r="10" fill="#fbbf24"/>
+    <line x1="145" y1="225" x2="155" y2="225" stroke="#78350f" stroke-width="2"/>
+  </g>
+</svg>

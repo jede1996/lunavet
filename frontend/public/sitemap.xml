@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+  <!-- Página Principal / Landing Page -->
+  <url>
+    <loc>https://lunavet.lat/</loc>
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.00</priority>
+  </url>
+  <!-- Catálogo de Servicios Veterinarios Especializados -->
+  <url>
+    <loc>https://lunavet.lat/servicios</loc>
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <!-- Farmacia Veterinaria & Tienda Click & Collect -->
+  <url>
+    <loc>https://lunavet.lat/tienda</loc>
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <!-- Agendamiento de Citas Médicas y Quirúrgicas -->
+  <url>
+    <loc>https://lunavet.lat/citas</loc>
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <!-- Blog de Salud y Consejos Veterinarios -->
+  <url>
+    <loc>https://lunavet.lat/blog</loc>
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  <!-- Generador de Placas y Códigos QR de Identificación -->
+  <url>
+    <loc>https://lunavet.lat/qr</loc>
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  <!-- Aviso de Privacidad Integral (LFPDPPP) -->
+  <url>
+    <loc>https://lunavet.lat/privacidad</loc>
+    <lastmod>2026-09-07</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.30</priority>
+  </url>
+</urlset>

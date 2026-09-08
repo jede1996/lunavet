@@ -1,0 +1,51 @@
+{
+  "name": "lunavet-backend",
+  "version": "1.0.0",
+  "description": "API REST y Core del Sistema LunaVet - Single Tenant para cPanel + Passenger",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "test": "cross-env NODE_ENV=test jest --runInBand --detectOpenHandles",
+    "test:coverage": "cross-env NODE_ENV=test jest --coverage --runInBand --detectOpenHandles",
+    "lint": "eslint \"src/**/*.js\" \"tests/**/*.js\" \"scripts/**/*.js\"",
+    "lint:fix": "eslint \"src/**/*.js\" \"tests/**/*.js\" \"scripts/**/*.js\" --fix",
+    "db:init": "node scripts/init-db.js",
+    "db:seed": "node scripts/seed-admin.js",
+    "doctor": "node scripts/doctor.js"
+  },
+  "keywords": [
+    "veterinaria",
+    "lunavet",
+    "cpanel",
+    "passenger",
+    "mysql",
+    "rbac"
+  ],
+  "author": "LunaVet Development Team",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "helmet": "^8.0.0",
+    "jsonwebtoken": "^9.0.3",
+    "knex": "^3.1.0",
+    "multer": "^2.3.0",
+    "mysql2": "^3.12.0",
+    "pdfkit": "^0.20.2",
+    "qrcode": "^1.5.4",
+    "sqlite3": "^6.0.1",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "eslint": "^8.57.1",
+    "jest": "^29.7.0",
+    "supertest": "^7.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

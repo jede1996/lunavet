@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgSchnau" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f1f5f9"/>
+      <stop offset="100%" stop-color="#e2e8f0"/>
+    </linearGradient>
+    <linearGradient id="schnauGrey" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#475569"/>
+      <stop offset="100%" stop-color="#334155"/>
+    </linearGradient>
+  </defs>
+  <circle cx="150" cy="150" r="145" fill="url(#bgSchnau)" stroke="#64748b" stroke-width="4"/>
+
+  <g transform="translate(0, 10)">
+    <!-- Folded Terrier Ears -->
+    <polygon points="75,80 110,75 85,130" fill="url(#schnauGrey)"/>
+    <polygon points="225,80 190,75 215,130" fill="url(#schnauGrey)"/>
+
+    <!-- Head -->
+    <rect x="95" y="85" width="110" height="110" rx="20" fill="url(#schnauGrey)"/>
+
+    <!-- Prominent Schnauzer Bushy Eyebrows -->
+    <polygon points="105,120 145,125 110,100" fill="#f8fafc"/>
+    <polygon points="195,120 155,125 190,100" fill="#f8fafc"/>
+
+    <!-- Keen Eyes peeking under brows -->
+    <ellipse cx="125" cy="125" rx="7" ry="8" fill="#1e293b"/>
+    <ellipse cx="175" cy="125" rx="7" ry="8" fill="#1e293b"/>
+    <circle cx="123" cy="123" r="2.5" fill="#ffffff"/>
+    <circle cx="173" cy="123" r="2.5" fill="#ffffff"/>
+
+    <!-- Long Schnauzer Beard & Muzzle -->
+    <path d="M 110 145 Q 150 140 190 145 L 205 215 Q 150 230 95 215 Z" fill="#f8fafc"/>
+
+    <!-- Black Nose on Beard -->
+    <ellipse cx="150" cy="152" rx="15" ry="10" fill="#0f172a"/>
+    
+    <!-- Red Collar -->
+    <path d="M 90 215 Q 150 235 210 215 L 215 235 Q 150 258 85 235 Z" fill="#ef4444"/>
+    <circle cx="150" cy="245" r="12" fill="#fbbf24"/>
+  </g>
+</svg>

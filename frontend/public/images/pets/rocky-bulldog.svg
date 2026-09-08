@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgBull" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ecfdf5"/>
+      <stop offset="100%" stop-color="#d1fae5"/>
+    </linearGradient>
+    <linearGradient id="bullFawn" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#d97706"/>
+      <stop offset="100%" stop-color="#b45309"/>
+    </linearGradient>
+  </defs>
+  <circle cx="150" cy="150" r="145" fill="url(#bgBull)" stroke="#10b981" stroke-width="4"/>
+
+  <g transform="translate(0, 10)">
+    <!-- French Bulldog Bat Ears -->
+    <path d="M 65 110 C 45 40, 95 30, 115 85 Z" fill="url(#bullFawn)"/>
+    <path d="M 75 100 C 60 50, 90 45, 105 85 Z" fill="#fecdd3"/>
+
+    <path d="M 235 110 C 255 40, 205 30, 185 85 Z" fill="url(#bullFawn)"/>
+    <path d="M 225 100 C 240 50, 210 45, 195 85 Z" fill="#fecdd3"/>
+
+    <!-- Wide Head -->
+    <ellipse cx="150" cy="135" rx="78" ry="60" fill="url(#bullFawn)"/>
+
+    <!-- Black Mask & Wrinkles -->
+    <ellipse cx="150" cy="165" rx="50" ry="38" fill="#1e293b"/>
+    <path d="M 125 125 Q 150 115 175 125" stroke="#92400e" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <path d="M 130 115 Q 150 108 170 115" stroke="#92400e" stroke-width="3" fill="none" stroke-linecap="round"/>
+
+    <!-- Big round expressive eyes -->
+    <ellipse cx="115" cy="130" rx="10" ry="12" fill="#451a03"/>
+    <ellipse cx="185" cy="130" rx="10" ry="12" fill="#451a03"/>
+    <circle cx="112" cy="126" r="4" fill="#ffffff"/>
+    <circle cx="182" cy="126" r="4" fill="#ffffff"/>
+
+    <!-- Short Snout & Nose -->
+    <ellipse cx="150" cy="155" rx="18" ry="12" fill="#0f172a"/>
+    <circle cx="144" cy="155" r="2.5" fill="#475569"/>
+    <circle cx="156" cy="155" r="2.5" fill="#475569"/>
+
+    <!-- Jowls / Cheeks -->
+    <path d="M 150 165 L 150 178 M 150 178 Q 132 188 122 176 M 150 178 Q 168 188 178 176" stroke="#ffffff" stroke-width="3" fill="none" stroke-linecap="round"/>
+
+    <!-- Green Tactical Collar -->
+    <path d="M 85 205 Q 150 225 215 205 L 220 225 Q 150 248 80 225 Z" fill="#059669"/>
+    <rect x="140" y="222" width="20" height="22" rx="4" fill="#fbbf24"/>
+  </g>
+</svg>

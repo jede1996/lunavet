@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgMelo" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#311042"/>
+      <stop offset="50%" stop-color="#1c0a29"/>
+      <stop offset="100%" stop-color="#0f0517"/>
+    </linearGradient>
+    <linearGradient id="bottleAmber" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#78350f"/>
+      <stop offset="50%" stop-color="#b45309"/>
+      <stop offset="100%" stop-color="#92400e"/>
+    </linearGradient>
+    <filter id="shadowMelo" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#000" flood-opacity="0.45"/>
+    </filter>
+  </defs>
+  <rect width="400" height="400" rx="32" fill="url(#bgMelo)"/>
+  <circle cx="200" cy="200" r="140" fill="#a855f7" opacity="0.15" filter="blur(30px)"/>
+
+  <g filter="url(#shadowMelo)">
+    <!-- Dropper Cap -->
+    <rect x="185" y="45" width="30" height="40" rx="6" fill="#f8fafc"/>
+    <rect x="175" y="85" width="50" height="15" rx="4" fill="#a855f7"/>
+
+    <!-- Amber Glass Dropper Bottle -->
+    <rect x="145" y="100" width="110" height="190" rx="16" fill="url(#bottleAmber)"/>
+
+    <!-- Medical Label -->
+    <rect x="155" y="125" width="90" height="145" rx="6" fill="#ffffff" opacity="0.95"/>
+    <rect x="155" y="125" width="90" height="24" rx="0" fill="#9333ea"/>
+    <text x="200" y="142" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="11" font-weight="900" fill="#ffffff" text-anchor="middle">MELOXICAM</text>
+
+    <text x="200" y="170" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="12" font-weight="800" fill="#581c87" text-anchor="middle">SUSPENSIÓN</text>
+    <text x="200" y="185" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="10" font-weight="700" fill="#0f172a" text-anchor="middle">ORAL 0.5%</text>
+
+    <rect x="165" y="198" width="70" height="15" rx="7" fill="#fae8ff"/>
+    <text x="200" y="210" font-family="sans-serif" font-size="8" font-weight="bold" fill="#a855f7" text-anchor="middle">ANTIINFLAMATORIO</text>
+
+    <text x="200" y="235" font-family="sans-serif" font-size="16" text-anchor="middle">💊</text>
+    <text x="200" y="258" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="10" font-weight="800" fill="#64748b" text-anchor="middle">10 ML</text>
+  </g>
+</svg>

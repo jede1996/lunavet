@@ -1,0 +1,24 @@
+# Robots.txt para Clínica Veterinaria Luna-Vet (Acapulco)
+# https://lunavet.lat
+
+User-agent: *
+Allow: /
+Allow: /servicios
+Allow: /tienda
+Allow: /citas
+Allow: /blog
+Allow: /qr
+Allow: /privacidad
+
+# Rutas privadas, administrativas y autenticadas
+Disallow: /portal
+Disallow: /admin
+Disallow: /admin/*
+Disallow: /staff-agenda
+Disallow: /consultas
+Disallow: /checkout
+Disallow: /login
+Disallow: /registro
+
+# Declaración de Sitemap oficial
+Sitemap: https://lunavet.lat/sitemap.xml

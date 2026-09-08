@@ -1,0 +1,39 @@
+# ==============================================================================
+# LUNAVET WEB PLATFORM v4.0 - CONFIGURACIÓN APACHE / CPANEL PASSENGER
+# ==============================================================================
+
+# 1. Deshabilitar listado de directorios y firmas de servidor
+Options -Indexes
+ServerSignature Off
+
+# 2. Bloquear acceso a archivos sensibles, variables de entorno y metadatos
+<FilesMatch "(\.env|\.git|\.eslintrc.*|package\.json|package-lock\.json|schema\.sql|\.md|\.log)$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
+</FilesMatch>
+
+# 3. Defensa en profundidad: Cabeceras de seguridad HTTP
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set X-XSS-Protection "1; mode=block"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header unset X-Powered-By
+</IfModule>
+
+# 4. Codificación predeterminada UTF-8
+AddDefaultCharset UTF-8
+
+# 5. Phusion Passenger Directives (cPanel Node.js App)
+# Descomentar o ajustar según la ruta de usuario en cPanel si no se usa el asistente gráfico
+<IfModule mod_passenger.c>
+    PassengerAppType node
+    PassengerStartupFile src/server.js
+    PassengerAppEnv production
+    PassengerFriendlyErrorPages off
+</IfModule>

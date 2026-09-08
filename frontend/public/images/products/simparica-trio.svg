@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGradSimp" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#451a03"/>
+      <stop offset="50%" stop-color="#291503"/>
+      <stop offset="100%" stop-color="#1c0f02"/>
+    </linearGradient>
+    <linearGradient id="boxGradSimp" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ea580c"/>
+      <stop offset="50%" stop-color="#f97316"/>
+      <stop offset="100%" stop-color="#fb923c"/>
+    </linearGradient>
+    <filter id="shadowSimp" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#000" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+  <rect width="400" height="400" rx="32" fill="url(#bgGradSimp)"/>
+  <circle cx="200" cy="190" r="140" fill="#f97316" opacity="0.15" filter="blur(30px)"/>
+
+  <g filter="url(#shadowSimp)">
+    <rect x="70" y="85" width="260" height="230" rx="16" fill="url(#boxGradSimp)"/>
+    <path d="M 70 101 A 16 16 0 0 1 86 85 L 314 85 A 16 16 0 0 1 330 101 L 330 135 L 70 135 Z" fill="#7c2d12"/>
+
+    <text x="88" y="122" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="23" font-weight="800" fill="#ffffff" letter-spacing="1">Simparica</text>
+    <text x="215" y="122" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="18" font-weight="900" fill="#fef08a">TRIO</text>
+
+    <g transform="translate(88, 148)">
+      <rect width="130" height="26" rx="13" fill="#ffffff"/>
+      <text x="12" y="18" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="13" font-weight="800" fill="#c2410c">5 a 10 kg (S)</text>
+    </g>
+
+    <g transform="translate(245, 160)">
+      <circle cx="35" cy="40" r="26" fill="#7c2d12"/>
+      <circle cx="35" cy="40" r="22" fill="#9a3412"/>
+      <text x="22" y="44" font-family="sans-serif" font-size="11" font-weight="bold" fill="#ffedd5">3 en 1</text>
+    </g>
+
+    <g transform="translate(88, 190)">
+      <circle cx="10" cy="12" r="8" fill="#ffffff" opacity="0.25"/>
+      <path d="M6 12 L9 15 L15 8" stroke="#ffffff" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+      <text x="24" y="16" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="12" font-weight="600" fill="#fff7ed">Pulgas y Garrapatas</text>
+
+      <circle cx="10" cy="38" r="8" fill="#ffffff" opacity="0.25"/>
+      <path d="M6 38 L9 41 L15 34" stroke="#ffffff" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+      <text x="24" y="42" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="12" font-weight="600" fill="#fff7ed">Parásitos Intestinales</text>
+
+      <circle cx="10" cy="64" r="8" fill="#ffffff" opacity="0.25"/>
+      <path d="M6 64 L9 67 L15 60" stroke="#ffffff" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+      <text x="24" y="68" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="12" font-weight="600" fill="#fff7ed">Dirofilaria Mensual</text>
+    </g>
+
+    <rect x="70" y="285" width="260" height="30" rx="0" fill="#7c2d12"/>
+    <text x="88" y="305" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="11" font-weight="700" fill="#fed7aa" letter-spacing="0.5">SAROLANER + MOXIDECTINA + PIRANTEL</text>
+  </g>
+</svg>

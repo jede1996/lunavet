@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgPech" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e1b4b"/>
+      <stop offset="50%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#020617"/>
+    </linearGradient>
+    <linearGradient id="strapGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2563eb"/>
+      <stop offset="50%" stop-color="#3b82f6"/>
+      <stop offset="100%" stop-color="#1d4ed8"/>
+    </linearGradient>
+    <filter id="shadowPech" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#000" flood-opacity="0.45"/>
+    </filter>
+  </defs>
+  <rect width="400" height="400" rx="32" fill="url(#bgPech)"/>
+  <circle cx="200" cy="200" r="140" fill="#3b82f6" opacity="0.15" filter="blur(30px)"/>
+
+  <g filter="url(#shadowPech)" transform="translate(40, 30)">
+    <!-- Harness Padded Backplate -->
+    <path d="M 120 70 C 180 50, 220 50, 200 130 C 190 170, 130 170, 120 70 Z" fill="#1e293b"/>
+    <path d="M 110 90 Q 160 70 210 90 L 230 160 Q 160 200 90 160 Z" fill="url(#strapGrad)" rx="12"/>
+
+    <!-- Reflective Strips -->
+    <path d="M 115 110 Q 160 95 205 110" stroke="#f8fafc" stroke-width="6" fill="none" stroke-linecap="round" opacity="0.9"/>
+    <path d="M 105 135 Q 160 165 215 135" stroke="#f8fafc" stroke-width="6" fill="none" stroke-linecap="round" opacity="0.9"/>
+
+    <!-- Stainless steel D-Ring -->
+    <ellipse cx="160" cy="115" rx="14" ry="10" fill="none" stroke="#cbd5e1" stroke-width="5"/>
+
+    <!-- Heavy duty Buckles -->
+    <rect x="75" y="150" width="22" height="16" rx="4" fill="#0f172a" stroke="#475569" stroke-width="2"/>
+    <rect x="225" y="150" width="22" height="16" rx="4" fill="#0f172a" stroke="#475569" stroke-width="2"/>
+
+    <!-- Chest Straps -->
+    <path d="M 85 160 L 60 220 L 90 230 L 110 170 Z" fill="#1d4ed8"/>
+    <path d="M 235 160 L 260 220 L 230 230 L 210 170 Z" fill="#1d4ed8"/>
+    <path d="M 75 225 Q 160 250 245 225" stroke="#2563eb" stroke-width="24" fill="none" stroke-linecap="round"/>
+
+    <!-- Handle on top -->
+    <path d="M 130 75 Q 160 60 190 75" stroke="#0f172a" stroke-width="12" fill="none" stroke-linecap="round"/>
+
+    <!-- Label Badge -->
+    <rect x="110" y="270" width="100" height="24" rx="12" fill="#0f172a" opacity="0.9"/>
+    <text x="160" y="286" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="11" font-weight="800" fill="#60a5fa" text-anchor="middle">ANTIJALONES</text>
+  </g>
+</svg>

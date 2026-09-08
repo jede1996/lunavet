@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgHusky" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e0f2fe"/>
+      <stop offset="100%" stop-color="#bae6fd"/>
+    </linearGradient>
+    <linearGradient id="huskyGrey" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#475569"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+  </defs>
+  <circle cx="150" cy="150" r="145" fill="url(#bgHusky)" stroke="#0ea5e9" stroke-width="4"/>
+
+  <g transform="translate(0, 10)">
+    <!-- Pointy Ears -->
+    <polygon points="75,110 95,35 125,95" fill="url(#huskyGrey)"/>
+    <polygon points="85,100 95,50 115,90" fill="#fecdd3"/>
+
+    <polygon points="225,110 205,35 175,95" fill="url(#huskyGrey)"/>
+    <polygon points="215,100 205,50 185,90" fill="#fecdd3"/>
+
+    <!-- Head -->
+    <ellipse cx="150" cy="130" rx="72" ry="65" fill="url(#huskyGrey)"/>
+
+    <!-- White Mask Face -->
+    <path d="M 150 90 C 130 90, 110 110, 100 145 C 90 180, 120 205, 150 205 C 180 205, 210 180, 200 145 C 190 110, 170 90, 150 90 Z" fill="#ffffff"/>
+
+    <!-- Distinctive Husky Cap / Forehead markings -->
+    <polygon points="150,110 140,85 160,85" fill="#334155"/>
+
+    <!-- Striking Ice-Blue Eyes -->
+    <ellipse cx="124" cy="130" rx="8" ry="11" fill="#0284c7"/>
+    <ellipse cx="176" cy="130" rx="8" ry="11" fill="#0284c7"/>
+    <ellipse cx="124" cy="130" rx="4" ry="6" fill="#0369a1"/>
+    <ellipse cx="176" cy="130" rx="4" ry="6" fill="#0369a1"/>
+    <circle cx="122" cy="126" r="3" fill="#ffffff"/>
+    <circle cx="174" cy="126" r="3" fill="#ffffff"/>
+
+    <!-- Snout & Black Nose -->
+    <ellipse cx="150" cy="168" rx="30" ry="24" fill="#f8fafc"/>
+    <path d="M 140 155 C 144 152, 156 152, 160 155 C 164 162, 154 170, 150 170 C 146 170, 136 162, 140 155 Z" fill="#0f172a"/>
+
+    <path d="M 150 170 L 150 180 M 150 180 Q 140 186 135 180 M 150 180 Q 160 186 165 180" stroke="#0f172a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+
+    <!-- Purple Collar -->
+    <path d="M 90 205 Q 150 225 210 205 L 215 225 Q 150 248 85 225 Z" fill="#7c3aed"/>
+    <circle cx="150" cy="235" r="13" fill="#cbd5e1"/>
+    <text x="144" y="240" font-family="sans-serif" font-size="12" font-weight="900" fill="#334155">☽</text>
+  </g>
+</svg>

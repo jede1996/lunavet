@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgSuero" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#082f49"/>
+      <stop offset="50%" stop-color="#0c4a6e"/>
+      <stop offset="100%" stop-color="#075985"/>
+    </linearGradient>
+    <linearGradient id="bottleSuero" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="50%" stop-color="#7dd3fc"/>
+      <stop offset="100%" stop-color="#0284c7"/>
+    </linearGradient>
+    <filter id="shadowSuero" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#000" flood-opacity="0.45"/>
+    </filter>
+  </defs>
+  <rect width="400" height="400" rx="32" fill="url(#bgSuero)"/>
+  <circle cx="200" cy="200" r="140" fill="#38bdf8" opacity="0.15" filter="blur(30px)"/>
+
+  <g filter="url(#shadowSuero)">
+    <rect x="180" y="55" width="40" height="25" rx="6" fill="#0284c7"/>
+    <path d="M 140 100 Q 200 80 260 100 L 265 300 Q 200 320 135 300 Z" fill="url(#bottleSuero)" opacity="0.85"/>
+    
+    <!-- Label -->
+    <rect x="150" y="130" width="100" height="145" rx="8" fill="#ffffff" opacity="0.95"/>
+    <circle cx="200" cy="160" r="18" fill="#0284c7"/>
+    <text x="193" y="167" font-size="18">💧</text>
+
+    <text x="200" y="195" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="12" font-weight="900" fill="#0369a1" text-anchor="middle">ELECTROLITOS</text>
+    <text x="200" y="210" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="10" font-weight="700" fill="#0f172a" text-anchor="middle">SUERO ORAL</text>
+    <text x="200" y="225" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="9" font-weight="800" fill="#ea580c" text-anchor="middle">SABOR CARNE</text>
+
+    <rect x="160" y="235" width="80" height="16" rx="8" fill="#e0f2fe"/>
+    <text x="200" y="247" font-family="sans-serif" font-size="9" font-weight="bold" fill="#0284c7" text-anchor="middle">GOLPE DE CALOR</text>
+
+    <text x="200" y="266" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="10" font-weight="800" fill="#64748b" text-anchor="middle">500 ML</text>
+  </g>
+</svg>
