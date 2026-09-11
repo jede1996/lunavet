@@ -4,29 +4,40 @@
 #  Documentación: https://docs.cpanel.net/cpanel/files/git-version-control/
 #
 #  Flujo:
-#    1. Haz `npm run build` localmente en frontend/
-#    2. Haz commit de la carpeta frontend/dist/
-#    3. Haz push al repositorio remoto de cPanel
-#    4. cPanel ejecuta automáticamente este archivo
+#    1. Haz push a la rama main
+#    2. En cPanel → Git Version Control → Deploy HEAD Commit
+#    3. Este script instala dependencias, compila y despliega
 # ============================================================
 
 deployment:
   tasks:
     # ---------------------------------------------------------
-    # 1. Copiar los archivos del build al directorio público
-    #    Ajusta "public_html" si tu dominio usa un subdirectorio
-    #    (ej. public_html/app o public_html/lunavet)
+    # 1. Instalar dependencias del frontend
+    # ---------------------------------------------------------
+    - /usr/local/bin/node --version
+    - cd frontend && /usr/local/bin/npm install --omit=dev
+
+    # ---------------------------------------------------------
+    # 2. Compilar el frontend (genera frontend/dist/)
+    # ---------------------------------------------------------
+    - cd frontend && /usr/local/bin/npm run build
+
+    # ---------------------------------------------------------
+    # 3. Copiar el build al directorio público
+    #    Ajusta si tu dominio usa un subdirectorio
+    #    (ej. /home/$USER/public_html/app)
     # ---------------------------------------------------------
     - export DEPLOYPATH=/home/$USER/public_html
+    - /bin/rm -rf $DEPLOYPATH/assets
     - /bin/cp -r frontend/dist/. $DEPLOYPATH/
 
     # ---------------------------------------------------------
-    # 2. Crear .htaccess para React Router (SPA fallback)
+    # 4. Crear .htaccess para React Router (SPA fallback)
     #    Redirige todas las rutas al index.html para que
     #    react-router-dom maneje la navegación en el cliente.
     # ---------------------------------------------------------
     - |
-      cat > $DEPLOYPATH/.htaccess << 'EOF'
+      cat > /home/$USER/public_html/.htaccess << 'EOF'
       Options -MultiViews
       RewriteEngine On
       RewriteCond %{REQUEST_FILENAME} !-f
