@@ -1,46 +1,30 @@
 ---
 # ============================================================
 #  LunaVet — Deploy Frontend a cPanel (Git Version Control)
-#  Documentación: https://docs.cpanel.net/cpanel/files/git-version-control/
+#  Ref: https://docs.cpanel.net/knowledge-base/web-services/guide-to-git-deployment/
 #
-#  Flujo:
-#    1. Haz push a la rama main
-#    2. En cPanel → Git Version Control → Deploy HEAD Commit
-#    3. Este script instala dependencias, compila y despliega
+#  Flujo (pull deployment):
+#    1. git push origin main         (desde tu máquina)
+#    2. cPanel → "Update from Remote"
+#    3. cPanel → "Deploy HEAD Commit"
+#
+#  Nota: cada tarea es un proceso bash independiente.
+#        Las variables exportadas NO persisten entre tareas.
 # ============================================================
 
 deployment:
   tasks:
-    # ---------------------------------------------------------
     # 1. Instalar dependencias del frontend
-    # ---------------------------------------------------------
-    - /usr/local/bin/node --version
-    - cd frontend && /usr/local/bin/npm install --omit=dev
+    - cd $HOME/repositories/luna_vet_front && cd frontend && npm install
 
-    # ---------------------------------------------------------
     # 2. Compilar el frontend (genera frontend/dist/)
-    # ---------------------------------------------------------
-    - cd frontend && /usr/local/bin/npm run build
+    - cd $HOME/repositories/luna_vet_front && cd frontend && npm run build
 
-    # ---------------------------------------------------------
-    # 3. Copiar el build al directorio público
-    #    Ajusta si tu dominio usa un subdirectorio
-    #    (ej. /home/$USER/public_html/app)
-    # ---------------------------------------------------------
-    - export DEPLOYPATH=/home/$USER/public_html
-    - /bin/rm -rf $DEPLOYPATH/assets
-    - /bin/cp -r frontend/dist/. $DEPLOYPATH/
+    # 3. Limpiar archivos anteriores del public_html (excepto .htaccess y archivos del backend)
+    - /bin/rm -rf $HOME/public_html/assets
 
-    # ---------------------------------------------------------
-    # 4. Crear .htaccess para React Router (SPA fallback)
-    #    Redirige todas las rutas al index.html para que
-    #    react-router-dom maneje la navegación en el cliente.
-    # ---------------------------------------------------------
-    - |
-      cat > /home/$USER/public_html/.htaccess << 'EOF'
-      Options -MultiViews
-      RewriteEngine On
-      RewriteCond %{REQUEST_FILENAME} !-f
-      RewriteCond %{REQUEST_FILENAME} !-d
-      RewriteRule ^ index.html [QSA,L]
-      EOF
+    # 4. Copiar el build al directorio público
+    - /bin/cp -r $HOME/repositories/luna_vet_front/frontend/dist/. $HOME/public_html/
+
+    # 5. Crear/actualizar .htaccess para React Router (SPA fallback)
+    - /bin/cp $HOME/repositories/luna_vet_front/frontend/.htaccess $HOME/public_html/.htaccess
