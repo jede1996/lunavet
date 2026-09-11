@@ -36,3 +36,6 @@ temp/
 dist/
 build/
 .vite/
+
+# Excepción: el build del frontend se incluye para el deploy automático en cPanel
+!frontend/dist/

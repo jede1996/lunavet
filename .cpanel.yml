@@ -1,0 +1,35 @@
+---
+# ============================================================
+#  LunaVet — Deploy Frontend a cPanel (Git Version Control)
+#  Documentación: https://docs.cpanel.net/cpanel/files/git-version-control/
+#
+#  Flujo:
+#    1. Haz `npm run build` localmente en frontend/
+#    2. Haz commit de la carpeta frontend/dist/
+#    3. Haz push al repositorio remoto de cPanel
+#    4. cPanel ejecuta automáticamente este archivo
+# ============================================================
+
+deployment:
+  tasks:
+    # ---------------------------------------------------------
+    # 1. Copiar los archivos del build al directorio público
+    #    Ajusta "public_html" si tu dominio usa un subdirectorio
+    #    (ej. public_html/app o public_html/lunavet)
+    # ---------------------------------------------------------
+    - export DEPLOYPATH=/home/$USER/public_html
+    - /bin/cp -r frontend/dist/. $DEPLOYPATH/
+
+    # ---------------------------------------------------------
+    # 2. Crear .htaccess para React Router (SPA fallback)
+    #    Redirige todas las rutas al index.html para que
+    #    react-router-dom maneje la navegación en el cliente.
+    # ---------------------------------------------------------
+    - |
+      cat > $DEPLOYPATH/.htaccess << 'EOF'
+      Options -MultiViews
+      RewriteEngine On
+      RewriteCond %{REQUEST_FILENAME} !-f
+      RewriteCond %{REQUEST_FILENAME} !-d
+      RewriteRule ^ index.html [QSA,L]
+      EOF
