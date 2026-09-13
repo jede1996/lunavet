@@ -3,7 +3,7 @@
  * Gestiona autenticación con JWT, rotación automática de refresh tokens y manejo de errores.
  */
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || '/api';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://api.lunavet.lat/api';
 
 export class ApiError extends Error {
   constructor(message, statusCode, code, details = null) {
