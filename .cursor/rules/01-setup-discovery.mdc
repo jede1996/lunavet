@@ -1,0 +1,22 @@
+---
+description: Fase 1 del SDLC - Setup, descubrimiento de dependencias y ruteo de modelos para Luna-Vet
+globs: **/*
+alwaysApply: false
+---
+
+# Fase 1: Setup & Discovery Rule
+
+Esta regla rige el inicio de cualquier tarea en el repositorio de Luna-Vet Acapulco.
+
+## Skills Involucradas
+- \`.skills/phase-1-setup/claude-code-setup\`
+- \`.skills/phase-1-setup/find-skills\`
+- \`.skills/phase-1-setup/omniroute\`
+
+## Directivas Obligatorias
+1. **Inspección Previa**: Antes de escribir o editar código, analiza el entorno, las dependencias de \`package.json\` tanto en \`frontend/\` como en \`backend/\`, y las variables de configuración en \`.env\`.
+2. **Carga de Skills**: Utiliza la lógica de \`find-skills\` para seleccionar únicamente las skills de las fases posteriores que aplican a la tarea solicitada.
+3. **Estrategia de Contexto (OmniRoute)**:
+   - Para refactorizaciones transversales, auditorías de seguridad o revisión masiva de código: recurre a modelos con ventana de contexto extendida (Gemini Pro/Flash).
+   - Para lógica algorítmica fina, matemática de dosificación o componentes React complejos: utiliza modelos de alta precisión (Claude Sonnet).
+   - Para formateo, commits o tareas mecánicas: utiliza modelos de soporte rápidos.

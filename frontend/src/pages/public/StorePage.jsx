@@ -3,11 +3,17 @@ import { api } from '../../services/api.client';
 import { useCart } from '../../contexts/CartContext';
 import { LoadingSpinner } from '../../components/common/LoadingSpinner';
 import { usePageSeo } from '../../hooks/usePageSeo';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 export function StorePage() {
+  const { t, isEnglish } = useLanguage();
   usePageSeo(
-    'Farmacia Veterinaria & Tienda Click & Collect',
-    'Compra medicamentos veterinarios, antiparasitarios Bravecto, Simparica, alimentos premium y accesorios con recogida en mostrador en El Coloso, Acapulco.'
+    isEnglish
+      ? 'Veterinary Pharmacy & Curbside Store | Luna-Vet'
+      : 'Farmacia Veterinaria & Tienda Click & Collect',
+    isEnglish
+      ? 'Order veterinary medicines, Bravecto, Simparica, prescription diets, and pet supplies with counter pickup in El Coloso, Acapulco.'
+      : 'Compra medicamentos veterinarios, antiparasitarios Bravecto, Simparica, alimentos premium y accesorios con recogida en mostrador en El Coloso, Acapulco.'
   );
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -70,14 +76,16 @@ export function StorePage() {
         {/* Encabezado */}
         <div className="text-center mb-4">
           <span className="badge bg-primary-subtle text-primary px-3 py-2 rounded-pill mb-2 fw-semibold">
-            <i className="bi bi-hospital me-1"></i> Farmacia Oficial Luna-Vet • Acapulco
+            <i className="bi bi-hospital me-1"></i> {isEnglish ? 'Official Luna-Vet Pharmacy • Acapulco' : 'Farmacia Oficial Luna-Vet • Acapulco'}
           </span>
-          <h1 className="fw-bold text-emphasis">Medicamentos Veterinarios & Alimentos</h1>
+          <h1 className="fw-bold text-emphasis">{t('store.title', 'Medicamentos Veterinarios & Alimentos')}</h1>
           <p className="text-secondary mb-1">
-            Recoge en mostrador (<em>Click & Collect</em>) en <strong>Av. Peña Blanca, Etapa 38, El Coloso</strong> sin costo de envío.
+            {isEnglish
+              ? 'Counter pickup (Curbside Pickup) at Av. Peña Blanca, Etapa 38, El Coloso with zero shipping fee.'
+              : 'Recoge en mostrador (Click & Collect) en Av. Peña Blanca, Etapa 38, El Coloso sin costo de envío.'}
           </p>
           <small className="text-secondary">
-            Para dudas sobre dosis o recetas, escríbenos al WhatsApp{' '}
+            {isEnglish ? 'For prescription or dosage inquiries, message our WhatsApp ' : 'Para dudas sobre dosis o recetas, escríbenos al WhatsApp '}
             <a
               href="https://wa.me/527442130868"
               target="_blank"
@@ -93,7 +101,7 @@ export function StorePage() {
         {addedAlert && (
           <div className="alert alert-success alert-dismissible fade show shadow-sm text-center py-2 mb-4" role="alert">
             <i className="bi bi-check2-circle me-2"></i>
-            ¡<strong>{addedAlert}</strong> se agregó a tu carrito Click & Collect!
+            ¡<strong>{addedAlert}</strong> {isEnglish ? 'was added to your shopping bag!' : 'se agregó a tu carrito Click & Collect!'}
             <button type="button" className="btn-close py-2" onClick={() => setAddedAlert(null)}></button>
           </div>
         )}
@@ -109,7 +117,7 @@ export function StorePage() {
                 <input
                   type="text"
                   className="form-control bg-body border-start-0"
-                  placeholder="Buscar medicamentos, alimentos, antiparasitarios..."
+                  placeholder={t('store.searchPlaceholder', 'Buscar medicamentos, alimentos, antiparasitarios...')}
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                 />
@@ -122,7 +130,9 @@ export function StorePage() {
                 value={selectedCat}
                 onChange={(e) => setSelectedCat(e.target.value)}
               >
-                <option value="all">Todas las Categorías ({products.length} productos)</option>
+                <option value="all">
+                  {isEnglish ? `All Categories (${products.length} products)` : `Todas las Categorías (${products.length} productos)`}
+                </option>
                 {categories.map(c => (
                   <option key={c.id} value={c.id}>{c.nombre}</option>
                 ))}
@@ -133,12 +143,14 @@ export function StorePage() {
 
         {/* Catálogo de Productos */}
         {loading ? (
-          <LoadingSpinner message="Consultando inventario de farmacia..." />
+          <LoadingSpinner message={t('common.loading', 'Consultando inventario de farmacia...')} />
         ) : filteredProducts.length === 0 ? (
           <div className="card shadow-sm border-0 rounded-4 p-5 text-center bg-body-tertiary">
             <i className="bi bi-inboxes text-secondary display-4 mb-3 d-block"></i>
-            <h5 className="text-secondary">No se encontraron productos</h5>
-            <p className="small text-secondary mb-0">Intenta con otro término de búsqueda o selecciona otra categoría.</p>
+            <h5 className="text-secondary">{isEnglish ? 'No products found' : 'No se encontraron productos'}</h5>
+            <p className="small text-secondary mb-0">
+              {isEnglish ? 'Try another search term or pick another category.' : 'Intenta con otro término de búsqueda o selecciona otra categoría.'}
+            </p>
           </div>
         ) : (
           <div className="row g-4">

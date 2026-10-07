@@ -44,7 +44,27 @@ export function ControlledMedsPage() {
   };
 
   useEffect(() => {
-    loadPendingOrders();
+    let active = true;
+    api.get('/admin/reports/controlled-medications')
+      .then(res => {
+        if (!active) return;
+        const list = Array.isArray(res?.data?.data)
+          ? res.data.data
+          : Array.isArray(res?.data)
+          ? res.data
+          : [];
+        setOrders(list);
+      })
+      .catch(() => {
+        if (!active) return;
+        setOrders([]);
+      })
+      .finally(() => {
+        if (active) setLoading(false);
+      });
+    return () => {
+      active = false;
+    };
   }, []);
 
   const handleOpenSenasica = () => {
@@ -138,7 +158,7 @@ export function ControlledMedsPage() {
                       <td>{item.mascotaNombre || item.mascota_nombre || 'N/A'}</td>
                       <td>{item.veterinarioNombre ? `Dr. ${item.veterinarioNombre} ${item.veterinarioApellido || ''}` : `Dr. ${item.veterinario_nombre || 'Médico de Guardia'}`}</td>
                       <td><code>{item.cedulaProfesional || item.cedula_profesional || 'DGP-984512'}</code></td>
-                      <td>{new Date(item.fechaEmision || item.fecha_emision || Date.now()).toLocaleDateString()}</td>
+                      <td>{(item.fechaEmision || item.fecha_emision) ? new Date(item.fechaEmision || item.fecha_emision).toLocaleDateString() : 'Pendiente'}</td>
                       <td className="text-end">
                         <button
                           className="btn btn-success btn-sm rounded-pill px-3"

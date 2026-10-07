@@ -38,7 +38,7 @@ export function BrandProvider({ children }) {
 
   // Mantener el favicon del documento sincronizado con la configuración de marca activa
   useEffect(() => {
-    const currentTheme = localStorage.getItem('lunavet_theme') || 'light';
+    const currentTheme = localStorage.getItem('lunavet_theme') || 'apple';
     updateFavicon(brand, currentTheme);
   }, [brand]);
 
@@ -84,7 +84,7 @@ export function BrandProvider({ children }) {
     setBrand(merged);
     localStorage.setItem('lunavet_brand_config', JSON.stringify(merged));
 
-    const currentTheme = localStorage.getItem('lunavet_theme') || 'light';
+    const currentTheme = localStorage.getItem('lunavet_theme') || 'apple';
     updateFavicon(merged, currentTheme);
 
     // Persistir en CMS backend si el usuario tiene permisos de administrador

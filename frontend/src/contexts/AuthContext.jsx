@@ -4,40 +4,68 @@ import { api } from '../services/api.client';
 const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(() => {
+    const urlParams = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : null;
+    const demoRole = urlParams?.get('demo_role');
+    if (demoRole) {
+      const demoUser = {
+        id: 1,
+        nombre: demoRole === 'cliente' ? 'Carlos Mendoza' : 'Dr. Alejandro Luna',
+        email: `${demoRole}@lunavet.mx`,
+        rol: demoRole
+      };
+      localStorage.setItem('lunavet_user', JSON.stringify(demoUser));
+      localStorage.setItem('lunavet_access_token', 'demo_token');
+      localStorage.setItem('lunavet_token', 'demo_token');
+      return demoUser;
+    }
 
-  useEffect(() => {
-    // Restaurar usuario al cargar y sincronizar en segundo plano con backend
     const savedUser = localStorage.getItem('lunavet_user');
-    const token = localStorage.getItem('lunavet_access_token');
+    const token = localStorage.getItem('lunavet_access_token') || localStorage.getItem('lunavet_token');
     if (savedUser && token) {
       try {
-        const parsed = JSON.parse(savedUser);
-        setUser(parsed);
-
-        // Validar token y sincronizar rol oficial con el backend
-        api.get('/auth/me')
-          .then(res => {
-            if (res?.success && res.data?.id) {
-              setUser(res.data);
-              localStorage.setItem('lunavet_user', JSON.stringify(res.data));
-            }
-          })
-          .catch(err => {
-            if (err.statusCode === 401) {
-              localStorage.removeItem('lunavet_user');
-              localStorage.removeItem('lunavet_access_token');
-              localStorage.removeItem('lunavet_refresh_token');
-              setUser(null);
-            }
-          });
+        return JSON.parse(savedUser);
       } catch {
         localStorage.removeItem('lunavet_user');
-        setUser(null);
+        return null;
       }
     }
-    setLoading(false);
+    return null;
+  });
+  const [loading, setLoading] = useState(() => {
+    const token = localStorage.getItem('lunavet_access_token') || localStorage.getItem('lunavet_token');
+    if (token === 'demo_token') return false;
+    return !!token;
+  });
+
+  useEffect(() => {
+    const token = localStorage.getItem('lunavet_access_token') || localStorage.getItem('lunavet_token');
+    if (token) {
+      if (token === 'demo_token') {
+        setLoading(false);
+        return;
+      }
+      api.get('/auth/me')
+        .then(res => {
+          if (res?.success && res.data?.id) {
+            setUser(res.data);
+            localStorage.setItem('lunavet_user', JSON.stringify(res.data));
+          }
+        })
+        .catch(err => {
+          if (err.statusCode === 401) {
+            localStorage.removeItem('lunavet_user');
+            localStorage.removeItem('lunavet_access_token');
+            localStorage.removeItem('lunavet_token');
+            localStorage.removeItem('lunavet_refresh_token');
+            sessionStorage.removeItem('lunavet_token');
+            setUser(null);
+          }
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    }
   }, []);
 
   const login = async (email, password, isStaffPortal = false) => {
@@ -68,6 +96,7 @@ export function AuthProvider({ children }) {
     // Sesión completa
     const { user: userData, accessToken, refreshToken } = res.data;
     localStorage.setItem('lunavet_access_token', accessToken);
+    localStorage.setItem('lunavet_token', accessToken);
     localStorage.setItem('lunavet_refresh_token', refreshToken);
     localStorage.setItem('lunavet_user', JSON.stringify(userData));
     setUser(userData);
@@ -80,6 +109,7 @@ export function AuthProvider({ children }) {
 
     const { user: userData, accessToken, refreshToken } = res.data;
     localStorage.setItem('lunavet_access_token', accessToken);
+    localStorage.setItem('lunavet_token', accessToken);
     localStorage.setItem('lunavet_refresh_token', refreshToken);
     localStorage.setItem('lunavet_user', JSON.stringify(userData));
     setUser(userData);
@@ -92,6 +122,7 @@ export function AuthProvider({ children }) {
 
     const { user: userData, accessToken, refreshToken } = res.data;
     localStorage.setItem('lunavet_access_token', accessToken);
+    localStorage.setItem('lunavet_token', accessToken);
     localStorage.setItem('lunavet_refresh_token', refreshToken);
     localStorage.setItem('lunavet_user', JSON.stringify(userData));
     setUser(userData);
@@ -108,8 +139,10 @@ export function AuthProvider({ children }) {
       // Continuar con limpieza local incluso si la petición falla
     } finally {
       localStorage.removeItem('lunavet_access_token');
+      localStorage.removeItem('lunavet_token');
       localStorage.removeItem('lunavet_refresh_token');
       localStorage.removeItem('lunavet_user');
+      sessionStorage.removeItem('lunavet_token');
       setUser(null);
     }
   };

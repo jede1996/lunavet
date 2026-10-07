@@ -1,0 +1,55 @@
+/* =========================================================================
+   TEMA CLÁSICO NEUMÓRFICO — COMPONENTES
+   Bordes suaves, botones degradados y pozos inset neumórficos.
+   ========================================================================= */
+
+.theme-classic .card,
+.theme-classic .nm-card,
+.theme-classic .card.shadow-sm,
+.theme-classic .card.shadow,
+.theme-classic .card.border-0 {
+  background-color: var(--bs-card-bg);
+  border: 1px solid var(--bs-card-border-color) !important;
+  box-shadow: var(--nm-flat) !important;
+  border-radius: 0.85rem !important;
+  transition: box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), transform 0.25s ease;
+}
+
+.theme-classic .card:hover,
+.theme-classic .nm-card:hover {
+  box-shadow: var(--nm-flat-hover) !important;
+}
+
+.theme-classic .nm-inset-well,
+.theme-classic .bg-light.rounded-3,
+.theme-classic .bg-body-tertiary.rounded-3,
+.theme-classic .input-group.rounded-pill {
+  box-shadow: var(--nm-inset) !important;
+}
+
+.theme-classic .form-control,
+.theme-classic .form-select {
+  background-color: var(--bs-tertiary-bg);
+  color: var(--bs-body-color);
+  border: 1px solid var(--bs-border-color);
+  box-shadow: var(--nm-inset) !important;
+  border-radius: 0.65rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.theme-classic .form-control:focus,
+.theme-classic .form-select:focus {
+  border-color: var(--bs-primary);
+  box-shadow: 0 0 0 3px rgba(var(--bs-primary-rgb), 0.18), var(--nm-inset) !important;
+}
+
+.theme-classic .btn-primary {
+  background: linear-gradient(135deg, var(--bs-primary) 0%, #3b82f6 100%);
+  border: none;
+  box-shadow: 4px 4px 12px rgba(var(--bs-primary-rgb), 0.28);
+  color: #ffffff;
+}
+
+.theme-classic .btn-light {
+  box-shadow: var(--nm-button);
+}

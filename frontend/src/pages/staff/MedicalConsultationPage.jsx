@@ -6,7 +6,6 @@ import { LoadingSpinner } from '../../components/common/LoadingSpinner';
 export function MedicalConsultationPage() {
   const [searchParams] = useSearchParams();
   const paramMascotaId = searchParams.get('mascotaId');
-  const paramCitaId = searchParams.get('citaId');
 
   const [pets, setPets] = useState([]);
   const [selectedPetId, setSelectedPetId] = useState(paramMascotaId || '');
@@ -37,9 +36,7 @@ export function MedicalConsultationPage() {
         const res = await api.get('/pets');
         if (res.success) {
           setPets(res.data || []);
-          if (!selectedPetId && res.data.length > 0) {
-            setSelectedPetId(String(res.data[0].id));
-          }
+          setSelectedPetId(curr => curr || (res.data && res.data[0] ? String(res.data[0].id) : ''));
         }
       } catch (err) {
         console.error(err);
@@ -75,7 +72,7 @@ export function MedicalConsultationPage() {
 
     try {
       // 1. Guardar consulta clínica
-      const recRes = await api.post(`/clinical/pets/${selectedPetId}/records`, {
+      await api.post(`/clinical/pets/${selectedPetId}/records`, {
         motivo,
         diagnostico,
         tratamiento,

@@ -1,6 +1,6 @@
 const { initTestDb, closeDb, db } = require('../../src/config/database');
 const { VeterinaryDoseCalculator } = require('../../src/core/veterinaryDoseCalculator');
-const { cacheService, MemoryCache } = require('../../src/core/cache.service');
+const { MemoryCache } = require('../../src/core/cache.service');
 const { compressionMiddleware } = require('../../src/core/compression.middleware');
 const HospitalizationService = require('../../src/modules/clinical/hospitalization.service');
 const ConsentService = require('../../src/modules/clinical/consent.service');

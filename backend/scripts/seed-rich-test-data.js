@@ -321,7 +321,7 @@ async function seedRichTestData() {
     const petsImgDir = path.resolve(__dirname, '../../frontend/public/images/pets');
 
     for (const p of petsData) {
-      let pet = await db('mascotas').where({ microchip: p.microchip }).first();
+      const pet = await db('mascotas').where({ microchip: p.microchip }).first();
       let petId;
 
       if (!pet) {
@@ -407,7 +407,7 @@ async function seedRichTestData() {
     const servConsulta = servicios.find(s => s.nombre.includes('Consulta')) || servicios[0];
     const servEstetica = servicios.find(s => s.nombre.includes('Estética')) || servicios[1];
     const servVacuna = servicios.find(s => s.nombre.includes('Vacunación')) || servicios[2];
-    const servEsteril = servicios.find(s => s.nombre.includes('Esterilización')) || servicios[0];
+    const _servEsteril = servicios.find(s => s.nombre.includes('Esterilización')) || servicios[0];
 
     const todayStr = new Date().toISOString().split('T')[0];
     const sampleAppointments = [

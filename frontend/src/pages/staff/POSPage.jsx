@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { useAuth } from '../../contexts/AuthContext';
 import CashRegisterModal from '../../components/commerce/CashRegisterModal';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 export default function POSPage() {
-  const { user } = useAuth();
+  const { t, isEnglish } = useLanguage();
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState({ productos: [], servicios: [] });
   const [cart, setCart] = useState([]);
@@ -58,8 +58,37 @@ export default function POSPage() {
   };
 
   useEffect(() => {
-    checkActiveShift();
-    handleSearch('');
+    let active = true;
+    const initPOS = async () => {
+      const token = localStorage.getItem('lunavet_token') || sessionStorage.getItem('lunavet_token');
+      try {
+        const [shiftRes, searchRes] = await Promise.all([
+          fetch('/api/commerce/cash-register/active', {
+            headers: { Authorization: `Bearer ${token}` }
+          }),
+          fetch('/api/commerce/pos/search?q=', {
+            headers: { Authorization: `Bearer ${token}` }
+          })
+        ]);
+        if (!active) return;
+        if (shiftRes.ok) {
+          const shiftJson = await shiftRes.json();
+          setActiveShift(shiftJson.data || null);
+        }
+        if (searchRes.ok) {
+          const searchJson = await searchRes.json();
+          setSearchResults(searchJson.data || { productos: [], servicios: [] });
+        }
+      } catch (err) {
+        console.error(err);
+      } finally {
+        if (active) setLoadingSearch(false);
+      }
+    };
+    initPOS();
+    return () => {
+      active = false;
+    };
   }, []);
 
   const addToCart = (item) => {
@@ -138,7 +167,7 @@ export default function POSPage() {
       } else {
         alert(json.message || 'Error al procesar la venta');
       }
-    } catch (err) {
+    } catch {
       alert('Error de conexión al procesar venta');
     }
   };
@@ -149,10 +178,12 @@ export default function POSPage() {
       <div className="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-3">
         <div>
           <h2 className="fw-bolder mb-1 d-flex align-items-center gap-2">
-            <i className="bi bi-shop text-primary"></i> Punto de Venta (POS) Mostrador
+            <i className="bi bi-shop text-primary"></i> {t('staff.posTitle', 'Punto de Venta (POS) Mostrador')}
           </h2>
           <p className="text-muted mb-0 small">
-            Cobro unificado de farmacia, estética, vacunas y honorarios médicos con arqueo de caja chica.
+            {isEnglish
+              ? 'Unified billing for pharmacy, grooming, vaccines, and medical consultations with cash register reconciliation.'
+              : 'Cobro unificado de farmacia, estética, vacunas y honorarios médicos con arqueo de caja chica.'}
           </p>
         </div>
 
@@ -164,7 +195,7 @@ export default function POSPage() {
               onClick={() => setShowRegisterModal(true)}
             >
               <span className="badge bg-success rounded-circle p-1"></span>
-              <span>Caja Abierta: <strong>${activeShift.monto_cierre_esperado?.toFixed(2)}</strong></span>
+              <span>{isEnglish ? 'Register Open:' : 'Caja Abierta:'} <strong>${activeShift.monto_cierre_esperado?.toFixed(2)}</strong></span>
             </button>
           ) : (
             <button
@@ -172,7 +203,7 @@ export default function POSPage() {
               className="btn btn-warning rounded-pill px-3 fw-semibold shadow-sm animate__animated animate__pulse"
               onClick={() => setShowRegisterModal(true)}
             >
-              <i className="bi bi-exclamation-circle me-1"></i> Abrir Turno de Caja
+              <i className="bi bi-exclamation-circle me-1"></i> {t('staff.openShiftBtn', 'Abrir Turno de Caja')}
             </button>
           )}
         </div>
@@ -197,6 +228,11 @@ export default function POSPage() {
                   handleSearch(e.target.value);
                 }}
               />
+              {loadingSearch && (
+                <span className="input-group-text bg-body border-0 pe-4">
+                  <span className="spinner-border spinner-border-sm text-primary" role="status"></span>
+                </span>
+              )}
             </div>
 
             {/* Lista de Resultados */}
@@ -324,25 +360,25 @@ export default function POSPage() {
 
             {/* Total */}
             <div className="d-flex justify-content-between align-items-center py-2 border-top border-bottom mb-3">
-              <span className="fs-5 fw-bold">TOTAL A COBRAR:</span>
+              <span className="fs-5 fw-bold">{isEnglish ? 'TOTAL DUE:' : 'TOTAL A COBRAR:'}</span>
               <span className="fs-3 fw-bolder text-primary">${totalCart.toFixed(2)}</span>
             </div>
 
             {/* Forma de Pago */}
             <div className="mb-3">
-              <label className="form-label small fw-semibold text-muted mb-1">Método de Pago:</label>
+              <label className="form-label small fw-semibold text-muted mb-1">{t('common.paymentMethod', 'Método de Pago')}:</label>
               <div className="btn-group w-100" role="group">
                 <input type="radio" className="btn-check" name="paymentRadio" id="pagoEfectivo" checked={paymentMethod === 'efectivo'} onChange={() => setPaymentMethod('efectivo')} />
-                <label className="btn btn-outline-primary btn-sm rounded-start-pill" htmlFor="pagoEfectivo">Efectivo</label>
+                <label className="btn btn-outline-primary btn-sm rounded-start-pill" htmlFor="pagoEfectivo">{t('common.cash', 'Efectivo')}</label>
 
                 <input type="radio" className="btn-check" name="paymentRadio" id="pagoTarjeta" checked={paymentMethod === 'tarjeta'} onChange={() => setPaymentMethod('tarjeta')} />
-                <label className="btn btn-outline-primary btn-sm" htmlFor="pagoTarjeta">Tarjeta</label>
+                <label className="btn btn-outline-primary btn-sm" htmlFor="pagoTarjeta">{t('common.card', 'Tarjeta')}</label>
 
                 <input type="radio" className="btn-check" name="paymentRadio" id="pagoTransf" checked={paymentMethod === 'transferencia'} onChange={() => setPaymentMethod('transferencia')} />
-                <label className="btn btn-outline-primary btn-sm" htmlFor="pagoTransf">Transferencia</label>
+                <label className="btn btn-outline-primary btn-sm" htmlFor="pagoTransf">{t('common.transfer', 'Transferencia')}</label>
 
                 <input type="radio" className="btn-check" name="paymentRadio" id="pagoMixto" checked={paymentMethod === 'mixto'} onChange={() => setPaymentMethod('mixto')} />
-                <label className="btn btn-outline-primary btn-sm rounded-end-pill" htmlFor="pagoMixto">Mixto</label>
+                <label className="btn btn-outline-primary btn-sm rounded-end-pill" htmlFor="pagoMixto">{t('common.mixed', 'Mixto')}</label>
               </div>
             </div>
 
@@ -351,15 +387,15 @@ export default function POSPage() {
               <div className="card border-0 bg-body-tertiary p-3 rounded-3 mb-3 small">
                 <div className="row g-2">
                   <div className="col-4">
-                    <label className="form-label text-muted mb-1">Efectivo ($):</label>
+                    <label className="form-label text-muted mb-1">{isEnglish ? 'Cash ($):' : 'Efectivo ($):'}</label>
                     <input type="number" step="0.5" className="form-control form-control-sm" value={montoEfectivo} onChange={e => setMontoEfectivo(e.target.value)} />
                   </div>
                   <div className="col-4">
-                    <label className="form-label text-muted mb-1">Tarjeta ($):</label>
+                    <label className="form-label text-muted mb-1">{isEnglish ? 'Card ($):' : 'Tarjeta ($):'}</label>
                     <input type="number" step="0.5" className="form-control form-control-sm" value={montoTarjeta} onChange={e => setMontoTarjeta(e.target.value)} />
                   </div>
                   <div className="col-4">
-                    <label className="form-label text-muted mb-1">Transf. ($):</label>
+                    <label className="form-label text-muted mb-1">{isEnglish ? 'Wire ($):' : 'Transf. ($):'}</label>
                     <input type="number" step="0.5" className="form-control form-control-sm" value={montoTransferencia} onChange={e => setMontoTransferencia(e.target.value)} />
                   </div>
                 </div>
@@ -373,7 +409,7 @@ export default function POSPage() {
               onClick={handleProcessSale}
               disabled={cart.length === 0}
             >
-              <i className="bi bi-check2-circle me-2"></i> Cobrar e Imprimir Ticket (${totalCart.toFixed(2)})
+              <i className="bi bi-check2-circle me-2"></i> {t('staff.payAndPrintTicket', 'Cobrar e Imprimir Ticket')} (${totalCart.toFixed(2)})
             </button>
           </div>
         </div>

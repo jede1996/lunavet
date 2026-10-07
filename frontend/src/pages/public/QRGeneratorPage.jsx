@@ -1,15 +1,19 @@
 import React from 'react';
 import { QRGenerator } from '../../components/qr/QRGenerator';
-import { useBrand } from '../../contexts/BrandContext';
 import { Link } from 'react-router-dom';
 import { usePageSeo } from '../../hooks/usePageSeo';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 export function QRGeneratorPage() {
+  const { t, isEnglish } = useLanguage();
   usePageSeo(
-    'Generador de Placas y Códigos QR para Mascotas',
-    'Crea e imprime códigos QR para collares de identificación de mascotas, placas metálicas, credenciales clínicas y conexión Wi-Fi con exportación a PDF y PNG.'
+    isEnglish
+      ? 'Smart QR Pet Tag Generator | Luna-Vet'
+      : 'Generador de Placas y Códigos QR para Mascotas',
+    isEnglish
+      ? 'Generate and print rescue QR codes for collar identification tags, clinic badges, and Wi-Fi access with PDF and PNG export.'
+      : 'Crea e imprime códigos QR para collares de identificación de mascotas, placas metálicas, credenciales clínicas y conexión Wi-Fi con exportación a PDF y PNG.'
   );
-  const { brand } = useBrand();
 
   return (
     <div className="py-5 min-vh-100" style={{ backgroundColor: 'var(--bs-body-bg)' }}>
@@ -17,23 +21,23 @@ export function QRGeneratorPage() {
         {/* Encabezado Principal */}
         <div className="text-center max-w-700 mx-auto mb-5">
           <span className="badge bg-primary-subtle text-primary px-3 py-2 rounded-pill fw-semibold mb-2 shadow-sm">
-            <i className="bi bi-qr-code-scan me-1"></i> Herramienta Luna-Vet
+            <i className="bi bi-qr-code-scan me-1"></i> {isEnglish ? 'Luna-Vet Smart Tool' : 'Herramienta Luna-Vet'}
           </span>
           <h1 className="display-5 fw-bold mb-3">
-            Generador de Códigos QR & Placas de Mascotas
+            {t('qr.title', 'Generador de Códigos QR & Placas de Mascotas')}
           </h1>
           <p className="lead text-secondary fs-6 mb-4">
-            Crea placas de identificación inteligentes para el collar de tu mascota, accesos directos a WhatsApp, enlaces para agendar citas, ubicación satelital y conexión Wi-Fi para tu clínica o negocio.
+            {t('qr.subtitle', 'Crea placas de identificación inteligentes para el collar de tu mascota, accesos directos a WhatsApp, enlaces para agendar citas, ubicación satelital y conexión Wi-Fi para tu clínica o negocio.')}
           </p>
           <div className="d-flex justify-content-center gap-2 flex-wrap">
             <span className="badge bg-body-secondary text-body border px-3 py-2 rounded-pill">
-              <i className="bi bi-shield-check text-success me-1"></i> 100% Gratuito y Permanente
+              <i className="bi bi-shield-check text-success me-1"></i> {t('qr.badgeFree', '100% Gratuito y Permanente')}
             </span>
             <span className="badge bg-body-secondary text-body border px-3 py-2 rounded-pill">
-              <i className="bi bi-filetype-png text-primary me-1"></i> Descarga en Alta Resolución
+              <i className="bi bi-filetype-png text-primary me-1"></i> {t('qr.badgeHiRes', 'Descarga en Alta Resolución')}
             </span>
             <span className="badge bg-body-secondary text-body border px-3 py-2 rounded-pill">
-              <i className="bi bi-printer text-info me-1"></i> Listo para Imprimir y Enmicar
+              <i className="bi bi-printer text-info me-1"></i> {t('qr.badgePrintReady', 'Listo para Imprimir y Enmicar')}
             </span>
           </div>
         </div>
@@ -46,9 +50,9 @@ export function QRGeneratorPage() {
         {/* Guía: ¿Cómo funciona la Placa QR para Mascotas? */}
         <div className="card shadow-sm border-0 rounded-4 p-4 p-lg-5 mb-5">
           <div className="text-center mb-4">
-            <h3 className="fw-bold mb-2">¿Cómo funciona la Placa QR de Luna-Vet?</h3>
+            <h3 className="fw-bold mb-2">{isEnglish ? 'How does the Luna-Vet Smart QR Tag work?' : '¿Cómo funciona la Placa QR de Luna-Vet?'}</h3>
             <p className="text-secondary small">
-              Protege a tu perro o gato ante extravíos en 4 sencillos pasos:
+              {isEnglish ? 'Protect your companion against loss in 4 simple steps:' : 'Protege a tu perro o gato ante extravíos en 4 sencillos pasos:'}
             </p>
           </div>
 

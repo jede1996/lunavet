@@ -1,0 +1,113 @@
+/* =========================================================================
+   COMPONENTES DE MARCA LUNA-VET & WIDGETS
+   Estilos específicos de la veterinaria integrados con variables semánticas.
+   ========================================================================= */
+
+/* Hero de Bienvenida */
+.landing-hero {
+  background: var(--hero-gradient);
+  transition: background 0.3s ease;
+}
+
+/* Tarjeta de Alerta Climática (Golpe de Calor en Acapulco) */
+.weather-alert-card {
+  background-color: var(--bs-card-bg);
+  border: 1px solid rgba(255, 149, 0, 0.25);
+  box-shadow: var(--apple-shadow-card, 0 2px 10px rgba(0, 0, 0, 0.04));
+  border-radius: 16px;
+  transition: all 0.25s ease;
+}
+
+.weather-icon-bubble {
+  width: 52px;
+  height: 52px;
+  background-color: rgba(255, 149, 0, 0.12);
+  border: 1px solid rgba(255, 149, 0, 0.3);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Anillo de Avatar de Paciente */
+.pet-avatar-ring {
+  background-color: var(--bs-secondary-bg);
+  border: 3px solid var(--bs-border-color);
+  box-shadow: var(--apple-shadow-card, 0 2px 10px rgba(0, 0, 0, 0.04));
+  border-radius: 50%;
+}
+
+/* Pestaña de Navegador Simulada (Presentación de Carnet Digital) */
+.browser-tab-preview {
+  background: var(--bs-secondary-bg);
+  border: 1px solid var(--bs-border-color);
+  border-bottom: none;
+  border-radius: 12px 12px 0 0;
+  padding: 8px 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.04);
+}
+
+/* FullCalendar Integrado */
+.fc .fc-button-primary {
+  background: var(--bs-secondary-bg) !important;
+  border: 1px solid var(--bs-border-color) !important;
+  color: var(--bs-body-color) !important;
+  box-shadow: var(--apple-shadow-sm, 0 1px 3px rgba(0, 0, 0, 0.04)) !important;
+  border-radius: 9999px !important;
+  font-weight: 500 !important;
+  text-transform: capitalize !important;
+  transition: all 0.2s ease !important;
+}
+
+.fc .fc-button-primary:hover {
+  color: var(--bs-primary) !important;
+  background: var(--bs-tertiary-bg) !important;
+}
+
+.fc-theme-standard td,
+.fc-theme-standard th {
+  border-color: var(--bs-border-color) !important;
+}
+
+/* Generador de Códigos QR & Placas */
+.qr-preview-card {
+  background-color: var(--bs-card-bg);
+  border: 1px solid var(--bs-border-color) !important;
+  border-radius: 20px;
+  box-shadow: var(--apple-shadow-card, 0 2px 10px rgba(0, 0, 0, 0.04));
+  transition: all 0.25s ease;
+}
+
+.qr-well-surface {
+  background-color: var(--bs-tertiary-bg);
+  border-radius: 14px;
+}
+
+.qr-info-box {
+  background-color: var(--bs-secondary-bg);
+  border: 1px solid var(--bs-border-color);
+  border-radius: 12px;
+  color: var(--bs-secondary-color);
+}
+
+.qr-option-btn {
+  background-color: var(--bs-card-bg);
+  color: var(--bs-emphasis-color);
+  border: 1px solid var(--bs-border-color);
+  border-radius: 12px;
+  transition: all 0.2s ease;
+}
+
+.qr-option-btn:hover {
+  background-color: var(--bs-tertiary-bg);
+  border-color: var(--bs-primary);
+}
+
+.qr-option-btn.is-active {
+  border-color: var(--bs-primary);
+  background-color: rgba(var(--bs-primary-rgb), 0.08);
+  box-shadow: 0 0 0 1px var(--bs-primary);
+}

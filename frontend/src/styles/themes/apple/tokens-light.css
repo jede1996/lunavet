@@ -1,0 +1,101 @@
+/* =========================================================================
+   APPLE DESIGN SYSTEM — TOKENS MODO CLARO (HIG)
+   Superficies limpias, tipografía San Francisco y paleta dinámica Apple.
+   ========================================================================= */
+
+:root,
+[data-theme="apple"],
+.theme-apple,
+.apple-design,
+:root:not(.theme-classic) {
+  /* Paleta Dinámica Oficial Apple (iOS / macOS HIG) */
+  --bs-primary: #0071e3;
+  --bs-primary-rgb: 0, 113, 227;
+  --bs-secondary: #0a84ff;
+  --bs-secondary-rgb: 10, 132, 255;
+  --bs-success: #34c759;
+  --bs-success-rgb: 52, 199, 89;
+  --bs-info: #007aff;
+  --bs-info-rgb: 0, 122, 255;
+  --bs-warning: #ff9500;
+  --bs-warning-rgb: 255, 149, 0;
+  --bs-danger: #ff3b30;
+  --bs-danger-rgb: 255, 59, 48;
+  --bs-light: #f2f2f7;
+  --bs-light-rgb: 242, 242, 247;
+  --bs-dark: #1c1c1e;
+  --bs-dark-rgb: 28, 28, 30;
+
+  /* Superficies Apple Grouped (Light Mode) */
+  --bs-body-bg: #f2f2f7;
+  --bs-body-bg-rgb: 242, 242, 247;
+  --bs-body-color: #1c1c1e;
+  --bs-body-color-rgb: 28, 28, 30;
+  --bs-emphasis-color: #000000;
+  --bs-emphasis-color-rgb: 0, 0, 0;
+  --bs-secondary-color: #636366;
+  --bs-secondary-color-rgb: 99, 99, 102;
+  --bs-tertiary-color: #8e8e93;
+  --bs-secondary-bg: #ffffff;
+  --bs-tertiary-bg: #e5e5ea;
+  --bs-border-color: rgba(60, 60, 67, 0.14);
+  --bs-border-color-translucent: rgba(60, 60, 67, 0.08);
+
+  /* Componentes Apple Cards & Modals */
+  --bs-card-bg: #ffffff;
+  --bs-card-border-color: rgba(60, 60, 67, 0.1);
+  --bs-card-cap-bg: #f2f2f7;
+  --bs-card-color: var(--bs-body-color);
+  --bs-dropdown-bg: rgba(255, 255, 255, 0.84);
+  --bs-dropdown-border-color: rgba(0, 0, 0, 0.08);
+  --bs-dropdown-link-color: #1c1c1e;
+  --bs-dropdown-link-hover-bg: rgba(0, 113, 227, 0.08);
+  --bs-dropdown-link-hover-color: #0071e3;
+  --bs-modal-bg: rgba(255, 255, 255, 0.94);
+  --bs-modal-border-color: rgba(0, 0, 0, 0.08);
+  --bs-offcanvas-bg: rgba(255, 255, 255, 0.94);
+  --bs-offcanvas-border-color: rgba(0, 0, 0, 0.08);
+  --bs-table-bg: transparent;
+  --bs-table-color: var(--bs-body-color);
+  --bs-table-border-color: rgba(60, 60, 67, 0.08);
+  --bs-table-striped-bg: rgba(0, 0, 0, 0.015);
+  --bs-table-hover-bg: rgba(0, 113, 227, 0.035);
+
+  /* Acordeón Apple HIG */
+  --bs-accordion-bg: #ffffff;
+  --bs-accordion-color: var(--bs-body-color);
+  --bs-accordion-border-color: rgba(60, 60, 67, 0.12);
+  --bs-accordion-btn-color: var(--bs-emphasis-color);
+  --bs-accordion-btn-bg: #ffffff;
+  --bs-accordion-active-color: var(--bs-primary);
+  --bs-accordion-active-bg: rgba(0, 113, 227, 0.06);
+  --bs-accordion-btn-focus-box-shadow: 0 0 0 0.2rem rgba(0, 113, 227, 0.15);
+
+  /* Tipografía San Francisco & Curvaturas Squircle */
+  --bs-font-sans-serif: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Plus Jakarta Sans", system-ui, sans-serif;
+  --bs-body-font-family: var(--bs-font-sans-serif);
+  --bs-border-radius: 12px;
+  --bs-border-radius-lg: 18px;
+  --bs-border-radius-xl: 24px;
+
+  /* Barra de Navegación Liquid Glass (Capa Funcional HIG) */
+  --navbar-bg: rgba(255, 255, 255, 0.78);
+  --navbar-border: rgba(0, 0, 0, 0.08);
+  --navbar-shadow: 0 1px 0 rgba(0, 0, 0, 0.04), 0 8px 24px -4px rgba(0, 0, 0, 0.03);
+  --navbar-text: #1c1c1e;
+  --navbar-link: #48484a;
+  --navbar-link-hover: #000000;
+  --navbar-link-hover-bg: rgba(0, 0, 0, 0.04);
+  --navbar-link-active: #0071e3;
+  --navbar-link-active-bg: rgba(0, 113, 227, 0.09);
+  --navbar-link-active-border: rgba(0, 113, 227, 0.18);
+
+  /* Sombras de Elevación Difusa Apple (Ambient Light) */
+  --apple-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.03), 0 1px 2px rgba(0, 0, 0, 0.02);
+  --apple-shadow-card: 0 2px 10px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+  --apple-shadow-card-hover: 0 10px 28px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.03);
+  --apple-shadow-dropdown: 0 16px 40px -4px rgba(0, 0, 0, 0.12), 0 0 1px 1px rgba(0, 0, 0, 0.04);
+  --apple-shadow-modal: 0 24px 60px -8px rgba(0, 0, 0, 0.18), 0 0 1px 1px rgba(0, 0, 0, 0.04);
+
+  --hero-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, #f2f2f7 100%);
+}

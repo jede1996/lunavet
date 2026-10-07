@@ -4,8 +4,10 @@ import { api } from '../../services/api.client';
 import { LoadingSpinner } from '../../components/common/LoadingSpinner';
 import { QRGeneratorModal } from '../../components/qr/QRGeneratorModal';
 import { compressImage } from '../../utils/imageOptimizer';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 export function PetsPage() {
+  const { t, isEnglish } = useLanguage();
   const [pets, setPets] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
@@ -37,7 +39,22 @@ export function PetsPage() {
   };
 
   useEffect(() => {
-    loadPets();
+    let active = true;
+    api.get('/pets')
+      .then(res => {
+        if (!active) return;
+        if (res.success) setPets(res.data || []);
+      })
+      .catch(err => {
+        if (!active) return;
+        setErrorMsg(err.message);
+      })
+      .finally(() => {
+        if (active) setLoading(false);
+      });
+    return () => {
+      active = false;
+    };
   }, []);
 
   const handleCreatePet = async (e) => {
@@ -139,11 +156,11 @@ export function PetsPage() {
         {/* Encabezado */}
         <div className="d-flex justify-content-between align-items-center mb-4">
           <div>
-            <h2 className="fw-bold text-emphasis mb-1">Mis Mascotas</h2>
-            <p className="text-secondary small mb-0">Administra a tus pacientes y actualiza sus datos médicos.</p>
+            <h2 className="fw-bold text-emphasis mb-1">{t('portal.petsTitle', 'Mis Mascotas')}</h2>
+            <p className="text-secondary small mb-0">{t('portal.petsSubtitle', 'Administra a tus pacientes y actualiza sus datos médicos.')}</p>
           </div>
           <button className="btn btn-primary rounded-pill px-3 btn-sm" onClick={() => setShowModal(true)}>
-            <i className="bi bi-plus-lg me-1"></i> Registrar Mascota
+            <i className="bi bi-plus-lg me-1"></i> {t('portal.addNewPetBtn', 'Registrar Mascota')}
           </button>
         </div>
 
@@ -157,13 +174,17 @@ export function PetsPage() {
             <div className="modal-dialog modal-dialog-centered">
               <div className="modal-content rounded-4 border-0 shadow bg-body-tertiary">
                 <div className="modal-header border-bottom border-translucent">
-                  <h5 className="modal-title fw-bold text-emphasis">Registrar Nueva Mascota</h5>
+                  <h5 className="modal-title fw-bold text-emphasis">
+                    {isEnglish ? 'Register New Pet' : 'Registrar Nueva Mascota'}
+                  </h5>
                   <button type="button" className="btn-close" onClick={() => setShowModal(false)}></button>
                 </div>
                 <form onSubmit={handleCreatePet}>
                   <div className="modal-body p-4">
                     <div className="mb-3">
-                      <label className="form-label small fw-semibold text-emphasis">Nombre de la Mascota</label>
+                      <label className="form-label small fw-semibold text-emphasis">
+                        {isEnglish ? 'Pet Name' : 'Nombre de la Mascota'}
+                      </label>
                       <input
                         type="text"
                         className="form-control bg-body"
@@ -176,19 +197,23 @@ export function PetsPage() {
 
                     <div className="row g-2 mb-3">
                       <div className="col-6">
-                        <label className="form-label small fw-semibold text-emphasis">Especie</label>
+                        <label className="form-label small fw-semibold text-emphasis">
+                          {isEnglish ? 'Species' : 'Especie'}
+                        </label>
                         <select className="form-select bg-body" value={especie} onChange={(e) => setEspecie(e.target.value)}>
-                          <option value="perro">Canino (Perro)</option>
-                          <option value="gato">Felino (Gato)</option>
-                          <option value="ave">Ave</option>
-                          <option value="otro">Otro</option>
+                          <option value="perro">{isEnglish ? 'Canine (Dog)' : 'Canino (Perro)'}</option>
+                          <option value="gato">{isEnglish ? 'Feline (Cat)' : 'Felino (Gato)'}</option>
+                          <option value="ave">{isEnglish ? 'Bird' : 'Ave'}</option>
+                          <option value="otro">{isEnglish ? 'Other' : 'Otro'}</option>
                         </select>
                       </div>
                       <div className="col-6">
-                        <label className="form-label small fw-semibold text-emphasis">Sexo</label>
+                        <label className="form-label small fw-semibold text-emphasis">
+                          {isEnglish ? 'Gender' : 'Sexo'}
+                        </label>
                         <select className="form-select bg-body" value={sexo} onChange={(e) => setSexo(e.target.value)}>
-                          <option value="macho">Macho</option>
-                          <option value="hembra">Hembra</option>
+                          <option value="macho">{isEnglish ? 'Male' : 'Macho'}</option>
+                          <option value="hembra">{isEnglish ? 'Female' : 'Hembra'}</option>
                         </select>
                       </div>
                     </div>
@@ -326,16 +351,16 @@ export function PetsPage() {
                   {/* Detalles médicos rápidos en pozo hundido */}
                   <div className="rounded-4 p-3 small mb-3 nm-inset-well">
                     <div className="d-flex justify-content-between mb-1">
-                      <span className="text-secondary">Microchip:</span>
-                      <span className="fw-semibold text-emphasis">{p.microchip || 'No asignado'}</span>
+                      <span className="text-secondary">{isEnglish ? 'Microchip:' : 'Microchip:'}</span>
+                      <span className="fw-semibold text-emphasis">{p.microchip || (isEnglish ? 'Unassigned' : 'No asignado')}</span>
                     </div>
                     <div className="d-flex justify-content-between mb-1">
-                      <span className="text-secondary">Fecha Nac.:</span>
-                      <span className="text-emphasis">{p.fecha_nacimiento ? new Date(p.fecha_nacimiento).toLocaleDateString() : 'Desconocida'}</span>
+                      <span className="text-secondary">{isEnglish ? 'Birth Date:' : 'Fecha Nac.:'}</span>
+                      <span className="text-emphasis">{p.fecha_nacimiento ? new Date(p.fecha_nacimiento).toLocaleDateString() : (isEnglish ? 'Unknown' : 'Desconocida')}</span>
                     </div>
                     <div className="d-flex justify-content-between">
-                      <span className="text-secondary">Último Peso:</span>
-                      <strong className="text-primary">{p.peso_actual ? `${p.peso_actual} kg` : 'Sin registrar'}</strong>
+                      <span className="text-secondary">{isEnglish ? 'Last Weight:' : 'Último Peso:'}</span>
+                      <strong className="text-primary">{p.peso_actual ? `${p.peso_actual} kg` : (isEnglish ? 'Not recorded' : 'Sin registrar')}</strong>
                     </div>
                   </div>
 
@@ -346,10 +371,10 @@ export function PetsPage() {
                       className="btn btn-primary btn-sm rounded-pill fw-semibold py-2"
                       onClick={() => setQrModalPet(p)}
                     >
-                      <i className="bi bi-qr-code-scan me-1"></i> Generar Placa QR
+                      <i className="bi bi-qr-code-scan me-1"></i> {isEnglish ? 'Generate QR Tag' : 'Generar Placa QR'}
                     </button>
                     <Link to={`/portal/expediente/${p.id}`} className="btn btn-light btn-sm rounded-pill border text-secondary py-2">
-                      <i className="bi bi-folder2-open me-1 text-primary"></i> Ver Expediente Clínico
+                      <i className="bi bi-folder2-open me-1 text-primary"></i> {isEnglish ? 'View Medical Record' : 'Ver Expediente Clínico'}
                     </Link>
                     <div className="d-flex gap-2">
                       <button
@@ -357,12 +382,12 @@ export function PetsPage() {
                         className="btn btn-outline-dark btn-sm rounded-pill flex-fill py-1 small"
                         onClick={() => handleDownloadQrPdf(p.id, p.nombre)}
                         disabled={downloadingDocId === `qr-${p.id}`}
-                        title="Descargar plantilla de placa en PDF"
+                        title={isEnglish ? 'Download PDF collar tag template' : 'Descargar plantilla de placa en PDF'}
                       >
                         {downloadingDocId === `qr-${p.id}` ? (
                           <span className="spinner-border spinner-border-sm"></span>
                         ) : (
-                          <span><i className="bi bi-file-earmark-pdf text-danger me-1"></i> Placa PDF</span>
+                          <span><i className="bi bi-file-earmark-pdf text-danger me-1"></i> {isEnglish ? 'Tag PDF' : 'Placa PDF'}</span>
                         )}
                       </button>
                       <button
@@ -370,12 +395,12 @@ export function PetsPage() {
                         className="btn btn-outline-secondary btn-sm rounded-pill flex-fill py-1 small"
                         onClick={() => handleDownloadMedicalPdf(p.id, p.nombre)}
                         disabled={downloadingDocId === `med-${p.id}`}
-                        title="Descargar carnet oficial en PDF"
+                        title={isEnglish ? 'Download official health record in PDF' : 'Descargar carnet oficial en PDF'}
                       >
                         {downloadingDocId === `med-${p.id}` ? (
                           <span className="spinner-border spinner-border-sm"></span>
                         ) : (
-                          <span><i className="bi bi-file-earmark-medical text-primary me-1"></i> Carnet PDF</span>
+                          <span><i className="bi bi-file-earmark-medical text-primary me-1"></i> {isEnglish ? 'Record PDF' : 'Carnet PDF'}</span>
                         )}
                       </button>
                     </div>

@@ -34,24 +34,28 @@ export function CMSManagerPage() {
   const [uploadingImage, setUploadingImage] = useState(false);
   const [brandFeedback, setBrandFeedback] = useState(null);
 
-  // Sincronizar formulario si cambia el contexto externamente
+  // Sincronizar formulario si cambia el contexto externamente tras el montaje inicial
+  const initialBrandRef = useRef(brand);
   useEffect(() => {
-    setBrandForm({
-      nombre: brand.nombre || 'Luna-Vet',
-      nombreCompleto: brand.nombreCompleto || 'Clínica Veterinaria Luna-Vet',
-      slogan: brand.slogan || '',
-      telefono: brand.telefono || '744 213 0868',
-      whatsapp: brand.whatsapp || '7442130868',
-      facebookUrl: brand.facebookUrl || '',
-      direccion: brand.direccion || '',
-      referencia: brand.referencia || '',
-      logoTipo: brand.logoTipo || 'preset',
-      logoPreset: brand.logoPreset || 'luna-huella',
-      logoUrl: brand.logoUrl || '',
-      faviconTipo: brand.faviconTipo || 'sync',
-      faviconPreset: brand.faviconPreset || 'luna-huella',
-      faviconUrl: brand.faviconUrl || ''
-    });
+    if (initialBrandRef.current !== brand) {
+      initialBrandRef.current = brand;
+      setBrandForm({
+        nombre: brand.nombre || 'Luna-Vet',
+        nombreCompleto: brand.nombreCompleto || 'Clínica Veterinaria Luna-Vet',
+        slogan: brand.slogan || '',
+        telefono: brand.telefono || '744 213 0868',
+        whatsapp: brand.whatsapp || '7442130868',
+        facebookUrl: brand.facebookUrl || '',
+        direccion: brand.direccion || '',
+        referencia: brand.referencia || '',
+        logoTipo: brand.logoTipo || 'preset',
+        logoPreset: brand.logoPreset || 'luna-huella',
+        logoUrl: brand.logoUrl || '',
+        faviconTipo: brand.faviconTipo || 'sync',
+        faviconPreset: brand.faviconPreset || 'luna-huella',
+        faviconUrl: brand.faviconUrl || ''
+      });
+    }
   }, [brand]);
 
   // Estado del Blog
@@ -77,7 +81,18 @@ export function CMSManagerPage() {
   };
 
   useEffect(() => {
-    loadBlog();
+    let active = true;
+    api.get('/cms/blog')
+      .then(res => {
+        if (active && res.success) setBlogPosts(res.data || []);
+      })
+      .catch(console.error)
+      .finally(() => {
+        if (active) setLoadingBlog(false);
+      });
+    return () => {
+      active = false;
+    };
   }, []);
 
   const handleSaveBrand = async (e) => {
@@ -932,7 +947,7 @@ export function CMSManagerPage() {
                             <tr key={p.id}>
                               <td><strong>{p.titulo}</strong></td>
                               <td><span className="badge bg-info-subtle text-info-emphasis">{p.categoria || 'General'}</span></td>
-                              <td>{new Date(p.creado_en || Date.now()).toLocaleDateString()}</td>
+                              <td>{p.creado_en ? new Date(p.creado_en).toLocaleDateString() : 'Reciente'}</td>
                               <td><span className="badge bg-success-subtle text-success">Publicado</span></td>
                             </tr>
                           ))}

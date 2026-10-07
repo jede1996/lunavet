@@ -1,0 +1,42 @@
+/* =========================================================================
+   TEMA CLÁSICO NEUMÓRFICO — TOKENS MODO CLARO
+   Relieves suaves, dobles sombras y paleta original serena.
+   ========================================================================= */
+
+.theme-classic:not(.dark-mode),
+[data-theme="light"].theme-classic {
+  --bs-primary: #4361ee;
+  --bs-primary-rgb: 67, 97, 238;
+  --bs-secondary: #0ea5e9;
+  --bs-secondary-rgb: 14, 165, 233;
+  --bs-success: #10b981;
+  --bs-info: #0284c7;
+  --bs-warning: #f59e0b;
+  --bs-danger: #f43f5e;
+  --bs-light: #f8fafc;
+  --bs-dark: #0f172a;
+
+  --bs-body-bg: #eef2f6;
+  --bs-body-bg-rgb: 238, 242, 246;
+  --bs-body-color: #334155;
+  --bs-emphasis-color: #1e293b;
+  --bs-secondary-color: #64748b;
+  --bs-secondary-bg: #f8fafc;
+  --bs-tertiary-bg: #f1f5f9;
+  --bs-border-color: rgba(203, 213, 225, 0.7);
+  --bs-card-bg: #f8fafc;
+  --bs-card-border-color: rgba(255, 255, 255, 0.75);
+
+  --navbar-bg: rgba(255, 255, 255, 0.94);
+  --navbar-border: rgba(203, 213, 225, 0.8);
+  --navbar-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+
+  /* Sombras Neumórficas Claras */
+  --nm-shadow-light: rgba(255, 255, 255, 0.95);
+  --nm-shadow-dark: rgba(166, 180, 200, 0.32);
+  --nm-flat: 8px 8px 18px var(--nm-shadow-dark), -8px -8px 18px var(--nm-shadow-light);
+  --nm-flat-hover: 12px 12px 24px rgba(166, 180, 200, 0.42), -12px -12px 24px rgba(255, 255, 255, 1);
+  --nm-inset: inset 3px 3px 6px rgba(166, 180, 200, 0.28), inset -3px -3px 6px var(--nm-shadow-light);
+  --nm-button: 4px 4px 10px rgba(166, 180, 200, 0.28), -4px -4px 10px var(--nm-shadow-light);
+  --hero-gradient: linear-gradient(180deg, #f8fafc 0%, #eef2f6 100%);
+}

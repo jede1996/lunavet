@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useCart } from '../../contexts/CartContext';
 import { useAuth } from '../../contexts/AuthContext';
 import { api } from '../../services/api.client';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 export function CheckoutPage() {
-  const { items, subtotal, clearCart, hasControlledItems, hasPrescriptionRequired } = useCart();
-  const { isAuthenticated, user } = useAuth();
-  const navigate = useNavigate();
+  const { items, subtotal, clearCart, hasControlledItems } = useCart();
+  const { isAuthenticated } = useAuth();
+  const { t, isEnglish } = useLanguage();
 
   const [metodoPago, setMetodoPago] = useState('spei');
   const [submitting, setSubmitting] = useState(false);
@@ -19,13 +20,13 @@ export function CheckoutPage() {
       <div className="container py-5 text-center">
         <div className="card shadow-sm border-0 rounded-4 p-5 max-w-md mx-auto bg-white" style={{ maxWidth: '500px' }}>
           <i className="bi bi-person-lock text-primary display-4 mb-3 d-block"></i>
-          <h4 className="fw-bold text-dark">Inicia sesión para pagar</h4>
+          <h4 className="fw-bold text-dark">{t('checkout.loginTitle', 'Inicia sesión para pagar')}</h4>
           <p className="text-muted small mb-4">
-            Para garantizar la trazabilidad de tus pedidos y recetas, inicia sesión con tu cuenta de cliente.
+            {t('checkout.loginDesc', 'Para garantizar la trazabilidad de tus pedidos y recetas, inicia sesión con tu cuenta de cliente.')}
           </p>
           <div className="d-grid gap-2">
-            <Link to="/login" className="btn btn-primary rounded-pill">Iniciar Sesión</Link>
-            <Link to="/registro" className="btn btn-outline-secondary rounded-pill">Registrarme</Link>
+            <Link to="/login" className="btn btn-primary rounded-pill">{t('nav.login', 'Iniciar Sesión')}</Link>
+            <Link to="/registro" className="btn btn-outline-secondary rounded-pill">{t('nav.createAccount', 'Registrarme')}</Link>
           </div>
         </div>
       </div>
@@ -37,9 +38,9 @@ export function CheckoutPage() {
       <div className="container py-5 text-center">
         <div className="card shadow-sm border-0 rounded-4 p-5 mx-auto bg-white" style={{ maxWidth: '500px' }}>
           <i className="bi bi-cart-x text-muted display-4 mb-3 d-block"></i>
-          <h4 className="text-secondary">Tu carrito está vacío</h4>
-          <p className="text-muted small mb-4">Agrega productos o medicamentos antes de proceder al checkout.</p>
-          <Link to="/tienda" className="btn btn-primary rounded-pill px-4">Ir a la Tienda</Link>
+          <h4 className="text-secondary">{t('checkout.emptyTitle', 'Tu carrito está vacío')}</h4>
+          <p className="text-muted small mb-4">{t('checkout.emptyDesc', 'Agrega productos o medicamentos antes de proceder al checkout.')}</p>
+          <Link to="/tienda" className="btn btn-primary rounded-pill px-4">{t('checkout.goToStore', 'Ir a la Tienda')}</Link>
         </div>
       </div>
     );
@@ -83,46 +84,58 @@ export function CheckoutPage() {
                 <div className="rounded-circle bg-success-subtle text-success p-3 mx-auto mb-3" style={{ width: '80px', height: '80px' }}>
                   <i className="bi bi-bag-check-fill display-5"></i>
                 </div>
-                <h3 className="fw-bold text-dark mb-1">¡Pedido Registrado con Éxito!</h3>
+                <h3 className="fw-bold text-dark mb-1">{t('checkout.orderSuccessTitle', '¡Pedido Registrado con Éxito!')}</h3>
                 <p className="text-muted small mb-4">
-                  Folio de Pedido: <strong>#{orderResult.pedido?.id || orderResult.id}</strong> • Modalidad: <strong>Click & Collect</strong>
+                  {isEnglish ? 'Order Folio:' : 'Folio de Pedido:'} <strong>#{orderResult.pedido?.id || orderResult.id}</strong> • {isEnglish ? 'Fulfillment:' : 'Modalidad:'} <strong>Click & Collect</strong>
                 </p>
 
                 {orderResult.requiere_autorizacion_medica && (
                   <div className="alert alert-warning text-start small mb-4">
                     <i className="bi bi-shield-exclamation me-2"></i>
-                    <strong>Validación Médica en Proceso:</strong> Este pedido contiene medicamentos controlados. Un veterinario revisará la prescripción antes de que puedas recolectarlo en mostrador.
+                    <strong>{isEnglish ? 'Medical Review in Progress:' : 'Validación Médica en Proceso:'}</strong> {isEnglish ? 'This order contains controlled medications. A licensed veterinarian will review the prescription before pickup.' : 'Este pedido contiene medicamentos controlados. Un veterinario revisará la prescripción antes de que puedas recolectarlo en mostrador.'}
                   </div>
                 )}
 
                 <div className="card bg-light border-0 rounded-3 p-3 text-start small mb-4">
-                  <h6 className="fw-bold text-dark mb-2">Instrucciones de Pago ({metodoPago.toUpperCase()}):</h6>
+                  <h6 className="fw-bold text-dark mb-2">
+                    {isEnglish ? `Payment Instructions (${metodoPago.toUpperCase()}):` : `Instrucciones de Pago (${metodoPago.toUpperCase()}):`}
+                  </h6>
                   {metodoPago === 'spei' && (
                     <div>
-                      <p className="mb-1 text-muted">Transfiere a la cuenta CLABE oficial de la clínica:</p>
+                      <p className="mb-1 text-muted">
+                        {isEnglish ? 'Transfer to the official clinic CLABE account:' : 'Transfiere a la cuenta CLABE oficial de la clínica:'}
+                      </p>
                       <div className="input-group mb-2">
                         <input type="text" readOnly className="form-control font-monospace" value="646180123456789012" />
                         <button className="btn btn-outline-secondary" onClick={() => navigator.clipboard.writeText('646180123456789012')}>
-                          Copiar CLABE
+                          {isEnglish ? 'Copy CLABE' : 'Copiar CLABE'}
                         </button>
                       </div>
                       <small className="text-muted">Banco: STP • Beneficiario: Clínica Veterinaria LunaVet • Concepto: Pedido #{orderResult.pedido?.id || orderResult.id}</small>
                     </div>
                   )}
                   {metodoPago === 'mercadopago' && (
-                    <p className="mb-0 text-muted">Pago en línea procesado a través de MercadoPago con referencia #{orderResult.pedido?.id || orderResult.id}.</p>
+                    <p className="mb-0 text-muted">
+                      {isEnglish
+                        ? `Online payment processed via MercadoPago under reference #${orderResult.pedido?.id || orderResult.id}.`
+                        : `Pago en línea procesado a través de MercadoPago con referencia #${orderResult.pedido?.id || orderResult.id}.`}
+                    </p>
                   )}
                   {metodoPago === 'efectivo' && (
-                    <p className="mb-0 text-muted">Paga directamente en la caja de la clínica al momento de recoger tu pedido.</p>
+                    <p className="mb-0 text-muted">
+                      {isEnglish
+                        ? 'Pay directly at the clinic reception upon pickup (cash or debit/credit card).'
+                        : 'Paga directamente en la caja de la clínica al momento de recoger tu pedido.'}
+                    </p>
                   )}
                 </div>
 
                 <div className="d-flex justify-content-center gap-3">
                   <Link to="/portal" className="btn btn-primary rounded-pill px-4">
-                    Ir a Mi Portal
+                    {t('nav.myPortal', 'Ir a Mi Portal')}
                   </Link>
                   <Link to="/tienda" className="btn btn-outline-secondary rounded-pill px-4">
-                    Seguir Comprando
+                    {isEnglish ? 'Continue Shopping' : 'Seguir Comprando'}
                   </Link>
                 </div>
               </div>
@@ -133,14 +146,14 @@ export function CheckoutPage() {
           <div className="row g-4">
             <div className="col-lg-7">
               <div className="card shadow-sm border-0 rounded-4 p-4 bg-white mb-4">
-                <h4 className="fw-bold text-dark mb-3">Revisión de Productos</h4>
+                <h4 className="fw-bold text-dark mb-3">{isEnglish ? 'Review Selected Items' : 'Revisión de Productos'}</h4>
                 <div className="table-responsive mb-3">
                   <table className="table align-middle small">
                     <thead className="table-light">
                       <tr>
-                        <th>Producto</th>
-                        <th>Cant.</th>
-                        <th className="text-end">Total</th>
+                        <th>{isEnglish ? 'Product' : 'Producto'}</th>
+                        <th>{isEnglish ? 'Qty' : 'Cant.'}</th>
+                        <th className="text-end">{t('common.total', 'Total')}</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -148,8 +161,8 @@ export function CheckoutPage() {
                         <tr key={product.id}>
                           <td>
                             <strong>{product.nombre}</strong>
-                            {product.es_controlado && <span className="badge bg-danger ms-2">Controlado</span>}
-                            {product.requiere_receta && !product.es_controlado && <span className="badge bg-warning text-dark ms-2">Receta</span>}
+                            {product.es_controlado && <span className="badge bg-danger ms-2">{isEnglish ? 'Controlled' : 'Controlado'}</span>}
+                            {product.requiere_receta && !product.es_controlado && <span className="badge bg-warning text-dark ms-2">{isEnglish ? 'Rx Required' : 'Receta'}</span>}
                           </td>
                           <td>{quantity}</td>
                           <td className="text-end fw-bold text-primary">
@@ -165,7 +178,7 @@ export function CheckoutPage() {
                   <div className="alert alert-danger small py-2 d-flex align-items-center gap-2">
                     <i className="bi bi-exclamation-triangle-fill fs-5"></i>
                     <div>
-                      <strong>Nota Legal:</strong> Este pedido incluye sustancias controladas. Se requerirá receta médica emitida por un veterinario autorizado antes de la entrega.
+                      <strong>{isEnglish ? 'Legal Notice:' : 'Nota Legal:'}</strong> {isEnglish ? 'This order includes controlled substances. A medical prescription issued by a licensed veterinarian is required upon pickup.' : 'Este pedido incluye sustancias controladas. Se requerirá receta médica emitida por un veterinario autorizado antes de la entrega.'}
                     </div>
                   </div>
                 )}
@@ -173,7 +186,7 @@ export function CheckoutPage() {
 
               {/* Selección de Método de Pago */}
               <div className="card shadow-sm border-0 rounded-4 p-4 bg-white">
-                <h5 className="fw-bold text-dark mb-3">Método de Pago</h5>
+                <h5 className="fw-bold text-dark mb-3">{t('checkout.paymentMethodTitle', 'Método de Pago')}</h5>
 
                 {errorMsg && (
                   <div className="alert alert-danger small py-2">{errorMsg}</div>
@@ -191,9 +204,11 @@ export function CheckoutPage() {
                       onChange={(e) => setMetodoPago(e.target.value)}
                     />
                     <label className="form-check-label fw-bold" htmlFor="speiRadio">
-                      <i className="bi bi-bank me-2 text-primary"></i>Transferencia SPEI (Sin comisiones)
+                      <i className="bi bi-bank me-2 text-primary"></i>{t('checkout.paymentSpei', 'Transferencia SPEI (Sin comisiones)')}
                     </label>
-                    <small className="d-block text-muted ms-4">Recibe datos CLABE inmediatos para transferir desde tu banca móvil.</small>
+                    <small className="d-block text-muted ms-4">
+                      {isEnglish ? 'Instant CLABE information to transfer from your mobile banking app.' : 'Recibe datos CLABE inmediatos para transferir desde tu banca móvil.'}
+                    </small>
                   </div>
 
                   <div className="form-check p-3 border rounded-3 bg-light">
@@ -207,9 +222,11 @@ export function CheckoutPage() {
                       onChange={(e) => setMetodoPago(e.target.value)}
                     />
                     <label className="form-check-label fw-bold" htmlFor="mpRadio">
-                      <i className="bi bi-credit-card me-2 text-info"></i>MercadoPago (Tarjeta de Débito/Crédito)
+                      <i className="bi bi-credit-card me-2 text-info"></i>{t('checkout.paymentCard', 'Tarjeta de Débito / Crédito (MercadoPago)')}
                     </label>
-                    <small className="d-block text-muted ms-4">Procesamiento seguro tokenizado.</small>
+                    <small className="d-block text-muted ms-4">
+                      {isEnglish ? 'Secure tokenized checkout.' : 'Procesamiento seguro tokenizado.'}
+                    </small>
                   </div>
 
                   <div className="form-check p-3 border rounded-3 bg-light">
@@ -223,9 +240,11 @@ export function CheckoutPage() {
                       onChange={(e) => setMetodoPago(e.target.value)}
                     />
                     <label className="form-check-label fw-bold" htmlFor="efectivoRadio">
-                      <i className="bi bi-cash-coin me-2 text-success"></i>Pago en Mostrador al Recoger
+                      <i className="bi bi-cash-coin me-2 text-success"></i>{t('checkout.paymentCash', 'Pago en Mostrador al Recoger')}
                     </label>
-                    <small className="d-block text-muted ms-4">Paga en recepción en efectivo o tarjeta física.</small>
+                    <small className="d-block text-muted ms-4">
+                      {isEnglish ? 'Pay in clinic reception with cash or terminal card.' : 'Paga en recepción en efectivo o tarjeta física.'}
+                    </small>
                   </div>
                 </div>
 
@@ -235,7 +254,9 @@ export function CheckoutPage() {
                     disabled={submitting}
                     onClick={handleCheckoutSubmit}
                   >
-                    {submitting ? 'Confirmando Pedido...' : `Confirmar Pedido Click & Collect ($${subtotal.toFixed(2)})`}
+                    {submitting
+                      ? t('checkout.processingOrder', 'Confirmando Pedido...')
+                      : `${t('checkout.confirmOrderBtn', 'Confirmar Pedido Click & Collect')} ($${subtotal.toFixed(2)})`}
                   </button>
                 </div>
               </div>
@@ -244,22 +265,22 @@ export function CheckoutPage() {
             {/* Resumen Lateral */}
             <div className="col-lg-5">
               <div className="card shadow-sm border-0 rounded-4 p-4 bg-white sticky-top" style={{ top: '80px' }}>
-                <h5 className="fw-bold text-dark mb-3">Resumen del Pedido</h5>
+                <h5 className="fw-bold text-dark mb-3">{t('checkout.orderSummaryTitle', 'Resumen del Pedido')}</h5>
                 <div className="d-flex justify-content-between mb-2">
-                  <span className="text-muted">Subtotal:</span>
+                  <span className="text-muted">{t('common.subtotal', 'Subtotal')}:</span>
                   <span className="fw-bold text-dark">${subtotal.toFixed(2)}</span>
                 </div>
                 <div className="d-flex justify-content-between mb-2">
-                  <span className="text-muted">Entrega:</span>
+                  <span className="text-muted">{isEnglish ? 'Fulfillment:' : 'Entrega:'}</span>
                   <span className="text-success fw-bold">Click & Collect ($0.00)</span>
                 </div>
                 <hr />
                 <div className="d-flex justify-content-between mb-4">
-                  <span className="fs-5 fw-bold text-dark">Total a Pagar:</span>
+                  <span className="fs-5 fw-bold text-dark">{isEnglish ? 'Total Due:' : 'Total a Pagar:'}</span>
                   <span className="fs-4 fw-bold text-primary">${subtotal.toFixed(2)} MXN</span>
                 </div>
                 <div className="small text-muted">
-                  <i className="bi bi-geo-alt me-1"></i> Punto de Retiro: Clínica Veterinaria LunaVet, Mostrador Principal.
+                  <i className="bi bi-geo-alt me-1"></i> {isEnglish ? 'Pickup Location: Luna-Vet Clinic, Main Front Desk.' : 'Punto de Retiro: Clínica Veterinaria LunaVet, Mostrador Principal.'}
                 </div>
               </div>
             </div>

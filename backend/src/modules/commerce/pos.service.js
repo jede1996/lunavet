@@ -1,6 +1,6 @@
 const { db } = require('../../config/database');
 const cryptoService = require('../../core/crypto.service');
-const { ValidationError, NotFoundError } = require('../../core/errors');
+const { ValidationError } = require('../../core/errors');
 
 class PosService {
   /**

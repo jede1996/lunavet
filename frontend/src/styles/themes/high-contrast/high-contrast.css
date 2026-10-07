@@ -1,0 +1,71 @@
+/* =========================================================================
+   MODO ALTO CONTRASTE CLÍNICO (ACCESIBLE & QUIRÓFANO)
+   Cumplimiento de estándares WCAG AAA para visualización bajo luz solar o quirófano.
+   ========================================================================= */
+
+html.or-mode,
+html.high-contrast {
+  --bs-border-width: 1px;
+}
+
+/* Modo Alto Contraste Oscuro */
+html.dark-mode.or-mode,
+html.dark-mode.high-contrast,
+html.or-mode:not(.light-mode) {
+  --bs-body-bg: #000000 !important;
+  --bs-body-color: #ffffff !important;
+  --bs-emphasis-color: #ffffff !important;
+  --bs-secondary-color: #cbd5e1 !important;
+  --bs-card-bg: #0a0a0c !important;
+  --bs-card-border-color: rgba(10, 132, 255, 0.45) !important;
+  --bs-secondary-bg: #141416 !important;
+  --bs-tertiary-bg: #1e1e24 !important;
+  --bs-border-color: rgba(255, 255, 255, 0.28) !important;
+  --bs-primary: #0a84ff !important;
+  --bs-secondary: #5ac8fa !important;
+  --bs-info: #5ac8fa !important;
+  --bs-success: #30d158 !important;
+  --bs-warning: #ff9f0a !important;
+  --bs-danger: #ff453a !important;
+  --navbar-bg: rgba(0, 0, 0, 0.98) !important;
+  --navbar-border: rgba(10, 132, 255, 0.45) !important;
+  --navbar-text: #ffffff !important;
+  --navbar-link: #cbd5e1 !important;
+  --navbar-link-hover: #ffffff !important;
+}
+
+/* Modo Alto Contraste Claro */
+html.light-mode.or-mode,
+html.light-mode.high-contrast {
+  --bs-body-bg: #ffffff !important;
+  --bs-body-color: #000000 !important;
+  --bs-emphasis-color: #000000 !important;
+  --bs-secondary-color: #333333 !important;
+  --bs-card-bg: #ffffff !important;
+  --bs-card-border-color: #000000 !important;
+  --bs-secondary-bg: #f5f5f7 !important;
+  --bs-tertiary-bg: #e5e5ea !important;
+  --bs-border-color: #000000 !important;
+  --bs-primary: #0051a8 !important;
+  --bs-secondary: #007aff !important;
+  --bs-success: #1b8738 !important;
+  --bs-warning: #b36200 !important;
+  --bs-danger: #cc2218 !important;
+  --navbar-bg: rgba(255, 255, 255, 0.98) !important;
+  --navbar-border: #000000 !important;
+  --navbar-text: #000000 !important;
+  --navbar-link: #000000 !important;
+  --navbar-link-hover: #0051a8 !important;
+}
+
+html.or-mode body,
+html.high-contrast body {
+  background-color: var(--bs-body-bg) !important;
+  color: var(--bs-body-color) !important;
+}
+
+html.or-mode .or-highlight,
+html.high-contrast .or-highlight {
+  color: var(--bs-primary) !important;
+  font-weight: 700;
+}

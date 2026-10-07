@@ -1,17 +1,21 @@
 import React, { useState } from 'react';
-import { useNavigate, useLocation, Link } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { BrandLogo } from '../../components/common/BrandLogo';
 import { useBrand } from '../../contexts/BrandContext';
 import { usePageSeo } from '../../hooks/usePageSeo';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 export function AuthPage({ initialMode = 'login' }) {
   const { brand } = useBrand();
+  const { t, isEnglish } = useLanguage();
   const [portalType, setPortalType] = useState('cliente'); // 'cliente' | 'staff'
   const [isRegister, setIsRegister] = useState(initialMode === 'register');
   usePageSeo(
-    isRegister ? 'Registro de Cuenta' : 'Iniciar Sesión',
-    'Accede al portal médico veterinario de Luna-Vet para consultar expedientes clínicos, vacunas, recetas y citas en Acapulco.'
+    isRegister ? (isEnglish ? 'Create Account' : 'Registro de Cuenta') : (isEnglish ? 'Sign In' : 'Iniciar Sesión'),
+    isEnglish
+      ? 'Sign in to Luna-Vet medical portal to review clinical records, vaccines, prescriptions, and veterinary appointments in Acapulco.'
+      : 'Accede al portal médico veterinario de Luna-Vet para consultar expedientes clínicos, vacunas, recetas y citas en Acapulco.'
   );
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState(null);
@@ -129,7 +133,7 @@ export function AuthPage({ initialMode = 'login' }) {
                         setErrorMsg(null);
                       }}
                     >
-                      <i className="bi bi-person me-1"></i> Soy Cliente
+                      <i className="bi bi-person me-1"></i> {t('auth.tabTutor', 'Soy Cliente')}
                     </button>
                     <button
                       type="button"
@@ -140,7 +144,7 @@ export function AuthPage({ initialMode = 'login' }) {
                         setErrorMsg(null);
                       }}
                     >
-                      <i className="bi bi-hospital me-1"></i> Personal Clínico
+                      <i className="bi bi-hospital me-1"></i> {t('auth.tabStaff', 'Personal Clínico')}
                     </button>
                   </div>
                 )}
@@ -157,7 +161,7 @@ export function AuthPage({ initialMode = 'login' }) {
               {twoFactorState ? (
                 <form onSubmit={handle2FASubmit}>
                   <div className="mb-4">
-                    <label className="form-label fw-semibold text-dark">Código de Seguridad (TOTP)</label>
+                    <label className="form-label fw-semibold text-dark">{t('auth.twoFactorTitle', 'Código de Seguridad (TOTP)')}</label>
                     <input
                       type="text"
                       maxLength="6"
@@ -169,13 +173,13 @@ export function AuthPage({ initialMode = 'login' }) {
                       required
                     />
                     <div className="form-text text-center small mt-2">
-                      Código generado por Google Authenticator, Authy o 1Password.
+                      {t('auth.twoFactorDesc', 'Código generado por Google Authenticator, Authy o 1Password.')}
                     </div>
                   </div>
 
                   <div className="d-grid gap-2">
                     <button type="submit" className="btn btn-primary btn-lg rounded-pill" disabled={loading || totpCode.length !== 6}>
-                      {loading ? 'Verificando...' : 'Confirmar e Ingresar'}
+                      {loading ? t('common.loading', 'Verificando...') : t('auth.verifyCodeBtn', 'Confirmar e Ingresar')}
                     </button>
                     <button
                       type="button"
@@ -185,7 +189,7 @@ export function AuthPage({ initialMode = 'login' }) {
                         setTotpCode('');
                       }}
                     >
-                      Regresar al inicio de sesión
+                      {isEnglish ? 'Return to login' : 'Regresar al inicio de sesión'}
                     </button>
                   </div>
                 </form>
@@ -196,7 +200,7 @@ export function AuthPage({ initialMode = 'login' }) {
                     <>
                       <div className="row g-2 mb-3">
                         <div className="col-6">
-                          <label className="form-label small fw-semibold text-dark">Nombre</label>
+                          <label className="form-label small fw-semibold text-dark">{t('common.name', 'Nombre')}</label>
                           <input
                             type="text"
                             className="form-control"
@@ -207,7 +211,7 @@ export function AuthPage({ initialMode = 'login' }) {
                           />
                         </div>
                         <div className="col-6">
-                          <label className="form-label small fw-semibold text-dark">Apellido</label>
+                          <label className="form-label small fw-semibold text-dark">{isEnglish ? 'Last Name' : 'Apellido'}</label>
                           <input
                             type="text"
                             className="form-control"
@@ -220,7 +224,7 @@ export function AuthPage({ initialMode = 'login' }) {
                       </div>
 
                       <div className="mb-3">
-                        <label className="form-label small fw-semibold text-dark">Teléfono Celular</label>
+                        <label className="form-label small fw-semibold text-dark">{t('common.phone', 'Teléfono Celular')}</label>
                         <input
                           type="tel"
                           className="form-control"
@@ -235,7 +239,7 @@ export function AuthPage({ initialMode = 'login' }) {
 
                   <div className="mb-3">
                     <label className="form-label small fw-semibold text-dark">
-                      {portalType === 'staff' ? 'Correo Institucional' : 'Correo Electrónico'}
+                      {portalType === 'staff' ? (isEnglish ? 'Work / Staff Email' : 'Correo Institucional') : t('auth.emailLabel', 'Correo Electrónico')}
                     </label>
                     <input
                       type="email"
@@ -248,7 +252,7 @@ export function AuthPage({ initialMode = 'login' }) {
                   </div>
 
                   <div className="mb-4">
-                    <label className="form-label small fw-semibold text-dark">Contraseña</label>
+                    <label className="form-label small fw-semibold text-dark">{t('auth.passwordLabel', 'Contraseña')}</label>
                     <input
                       type="password"
                       className="form-control"
@@ -268,10 +272,12 @@ export function AuthPage({ initialMode = 'login' }) {
                       {loading ? (
                         <>
                           <span className="spinner-border spinner-border-sm me-2"></span>
-                          Procesando...
+                          {t('common.loading', 'Procesando...')}
                         </>
                       ) : (
-                        isRegister ? 'Crear Mi Cuenta' : (portalType === 'staff' ? 'Entrar a Panel Staff' : 'Entrar a Mi Cuenta')
+                        isRegister
+                          ? t('auth.registerBtn', 'Crear Mi Cuenta')
+                          : (portalType === 'staff' ? (isEnglish ? 'Access Staff Portal' : 'Entrar a Panel Staff') : t('auth.loginBtn', 'Entrar a Mi Cuenta'))
                       )}
                     </button>
                   </div>
@@ -287,8 +293,8 @@ export function AuthPage({ initialMode = 'login' }) {
                         }}
                       >
                         {isRegister
-                          ? '¿Ya tienes una cuenta registrada? Inicia sesión aquí.'
-                          : '¿Aún no tienes cuenta? Regístrate gratis aquí.'}
+                          ? (isEnglish ? 'Already have an account? Sign in here.' : '¿Ya tienes una cuenta registrada? Inicia sesión aquí.')
+                          : (isEnglish ? 'Do not have an account yet? Sign up for free.' : '¿Aún no tienes cuenta? Regístrate gratis aquí.')}
                       </button>
                     </div>
                   )}

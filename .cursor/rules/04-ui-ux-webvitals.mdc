@@ -1,0 +1,34 @@
+---
+description: Fase 4 del SDLC - Artesanía de diseño frontend, Apple HIG, micro-animaciones y Core Web Vitals
+globs: frontend/**/*
+alwaysApply: false
+---
+
+# Fase 4: UI/UX Craft & Frontend Performance Rule
+
+Esta regla rige el diseño de interfaz de usuario, experiencia visual y rendimiento de renderizado en el frontend.
+
+## Skills Involucradas
+- \`.skills/phase-4-ui-ux/ui-ux-pro-max\`
+- \`.skills/phase-4-ui-ux/apple-design-skill\`
+- \`.skills/phase-4-ui-ux/taste-skill\`
+- \`.skills/phase-4-ui-ux/impeccable\`
+- \`.skills/phase-4-ui-ux/emilkowalski-skills\`
+- \`.skills/phase-4-ui-ux/web-vitals\`
+- \`.skills/phase-4-ui-ux/humanizer\`
+
+## Directivas Obligatorias
+1. **Apple HIG & Liquid Glass por Defecto**:
+   - Tarjetas y contenedores con \`backdrop-filter: blur(20px)\`, bordes semitransparentes sutiles y bordes redondeados generosos (\`border-radius: 16px\` o \`20px\`).
+   - El sistema modular multi-tema debe mantenerse intacto en \`frontend/src/styles/themes/\`.
+2. **Copy & Microcopy con Humanizer**:
+   - Todo texto de botones, alertas, placeholders, modales y mensajes de error debe ser empático, natural, sin clichés de IA ni formulismos acartonados.
+3. **Eliminación de Patrones Genéricos de IA (Taste Skill)**:
+   - Evita colores primarios saturados por defecto; emplea la paleta curada de Luna-Vet (tonos índigo, violeta clínico y esmeralda).
+   - Tipografía refinada: Plus Jakarta Sans / Inter / SF Pro en lugar de fuentes genéricas del navegador.
+4. **Micro-interacciones y Físicas (Emil Kowalski)**:
+   - Proporciona retroalimentación táctil y hover suave en botones, badges y controles interactivos (\`transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1)\`).
+5. **Optimización Core Web Vitals**:
+   - Componentes pesados (gráficos, calendarios, modales administrativos) deben cargarse con \`React.lazy()\`.
+   - LCP < 2.5s, CLS < 0.1, INP < 200ms.
+   - Cero advertencias de linter (\`npx oxlint src\` debe retornar 0 warnings).

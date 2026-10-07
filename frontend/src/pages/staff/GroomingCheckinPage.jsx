@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useAuth } from '../../contexts/AuthContext';
 
 const ANATOMICAL_ZONES = [
   { id: 'orejas', nombre: 'Orejas (Otitis / Irritación)', icon: '👂' },
@@ -13,7 +12,6 @@ const ANATOMICAL_ZONES = [
 ];
 
 export default function GroomingCheckinPage() {
-  const { user } = useAuth();
   const [checkins, setCheckins] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -29,7 +27,6 @@ export default function GroomingCheckinPage() {
 
   const fetchCheckins = async () => {
     try {
-      setLoading(true);
       const token = localStorage.getItem('lunavet_token') || sessionStorage.getItem('lunavet_token');
       const res = await fetch('/api/clinical/grooming/checkins', {
         headers: { Authorization: `Bearer ${token}` }
@@ -40,7 +37,7 @@ export default function GroomingCheckinPage() {
       } else {
         setError(json.message || 'Error al cargar fichas de estética');
       }
-    } catch (err) {
+    } catch {
       setError('Fallo de conexión al cargar admisiones de estética');
     } finally {
       setLoading(false);
@@ -48,7 +45,30 @@ export default function GroomingCheckinPage() {
   };
 
   useEffect(() => {
-    fetchCheckins();
+    let active = true;
+    const loadCheckins = async () => {
+      try {
+        const token = localStorage.getItem('lunavet_token') || sessionStorage.getItem('lunavet_token');
+        const res = await fetch('/api/clinical/grooming/checkins', {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        const json = await res.json();
+        if (!active) return;
+        if (res.ok) {
+          setCheckins(json.data || []);
+        } else {
+          setError(json.message || 'Error al cargar fichas de estética');
+        }
+      } catch {
+        if (active) setError('Fallo de conexión al cargar admisiones de estética');
+      } finally {
+        if (active) setLoading(false);
+      }
+    };
+    loadCheckins();
+    return () => {
+      active = false;
+    };
   }, []);
 
   const toggleZone = (zoneId) => {
@@ -92,7 +112,7 @@ export default function GroomingCheckinPage() {
       } else {
         alert(json.message || 'Error al guardar check-in');
       }
-    } catch (err) {
+    } catch {
       alert('Error de conexión al registrar estética');
     }
   };
@@ -111,7 +131,7 @@ export default function GroomingCheckinPage() {
       if (res.ok) {
         fetchCheckins();
       }
-    } catch (err) {
+    } catch {
       alert('Error al actualizar estado de estética');
     }
   };
@@ -128,7 +148,7 @@ export default function GroomingCheckinPage() {
       } else {
         alert('El cliente no tiene registrado un número telefónico válido para WhatsApp.');
       }
-    } catch (err) {
+    } catch {
       alert('Error al generar enlace de WhatsApp');
     }
   };
@@ -156,6 +176,13 @@ export default function GroomingCheckinPage() {
           </button>
         </div>
       </div>
+
+      {error && (
+        <div className="alert alert-danger alert-dismissible fade show rounded-4 mb-4 shadow-sm" role="alert">
+          <i className="bi bi-exclamation-triangle-fill me-2"></i> {error}
+          <button type="button" className="btn-close" onClick={() => setError(null)}></button>
+        </div>
+      )}
 
       {successMsg && (
         <div className="alert alert-success alert-dismissible fade show rounded-4 mb-4 shadow-sm" role="alert">

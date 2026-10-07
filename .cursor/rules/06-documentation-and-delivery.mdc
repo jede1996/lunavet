@@ -1,0 +1,38 @@
+---
+description: Fase 6 del SDLC - Documentación técnica y de usuario, Conventional Commits y modo Caveman para salidas de terminal
+globs: **/*
+alwaysApply: false
+---
+
+# Fase 6: Documentation, Delivery & Terminal Output Rule
+
+Esta regla rige la documentación de sistemas, manuales de usuario, entrega de código en Git y estilo de salida en CLI.
+
+## Skills Involucradas
+- \`.skills/phase-6-delivery/technical-writer\`
+- \`.skills/phase-6-delivery/diataxis-framework\`
+- \`.skills/phase-6-delivery/user-guide-creator\`
+- \`.skills/phase-6-delivery/git-workflow\`
+- \`.skills/phase-6-delivery/token-optimizer\`
+- \`.skills/phase-6-delivery/caveman\`
+
+## Directivas Obligatorias
+
+### 1. Documentación Técnica (Diátaxis + Technical Writer)
+- Separación estricta en 4 cuadrantes:
+  - **Tutoriales**: Aprendizaje guiado paso a paso para desarrolladores nuevos.
+  - **How-To**: Pasos directos y accionables para resolver problemas específicos (despliegue, migraciones, backup).
+  - **Referencia**: Tablas de esquemas de BD, especificación de endpoints REST, variables de entorno.
+  - **Explicación**: Arquitectura global, diagramas Mermaid y justificación de compensaciones técnicas.
+
+### 2. Manuales de Usuario (User Guide Creator + Humanizer)
+- Orientados a roles clínicos (médicos, recepción, clientes).
+- Cero jerga de desarrollador; lenguaje empático y centrado en la tarea.
+- Callouts visuales claros para alertas de medicamentos controlados y cobros.
+
+### 3. Salida de Terminal en Modo Caveman
+- Toda interacción en consola, CLI o logs de subagentes debe aplicar el modo \`caveman\`: respuestas telegráficas, directas, sin cortesías, código directo, máximo ahorro de tokens y velocidad.
+
+### 4. Git Workflow
+- Commits atómicos bajo Conventional Commits (\`feat:\`, \`fix:\`, \`refactor:\`, \`test:\`, \`perf:\`, \`docs:\`).
+- Resúmenes de entrega concisos y libres de texto redundante.

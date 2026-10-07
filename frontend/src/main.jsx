@@ -12,6 +12,7 @@ import './styles/theme.css';
 
 import App from './App';
 import { ThemeProvider } from './contexts/ThemeContext';
+import { LanguageProvider } from './contexts/LanguageContext';
 import { AuthProvider } from './contexts/AuthContext';
 import { CartProvider } from './contexts/CartContext';
 import { BrandProvider } from './contexts/BrandContext';
@@ -20,13 +21,15 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>
       <ThemeProvider>
-        <AuthProvider>
-          <BrandProvider>
-            <CartProvider>
-              <App />
-            </CartProvider>
-          </BrandProvider>
-        </AuthProvider>
+        <LanguageProvider>
+          <AuthProvider>
+            <BrandProvider>
+              <CartProvider>
+                <App />
+              </CartProvider>
+            </BrandProvider>
+          </AuthProvider>
+        </LanguageProvider>
       </ThemeProvider>
     </BrowserRouter>
   </React.StrictMode>

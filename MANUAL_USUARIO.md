@@ -1,807 +1,629 @@
-# Manual de Usuario — Plataforma LunaVet
-### Clínica Veterinaria, Farmacia & Estética | Acapulco de Juárez, Gro.
+# Manual del Usuario — Clínica Veterinaria Luna-Vet
+### Sistema Digital Integral de Salud Animal, Farmacia & Estética | Acapulco de Juárez, Guerrero
 
-**Versión del manual:** 1.0  
-**Versión de la plataforma:** 4.2  
-**Fecha de emisión:** Septiembre 2026  
-**Clasificación:** Uso general — Tutores, Personal Clínico y Administradores
-
----
-
-## Tabla de Contenidos
-
-1. [Introducción y Propósito](#1-introducción-y-propósito)
-2. [Convenciones y Simbología](#2-convenciones-y-simbología)
-3. [Requisitos de Acceso](#3-requisitos-de-acceso)
-4. [Navegación General y Temas Visuales](#4-navegación-general-y-temas-visuales)
-5. [Módulo Público — Sin Iniciar Sesión](#5-módulo-público--sin-iniciar-sesión)
-   - 5.1 [Página de Inicio (Landing)](#51-página-de-inicio-landing)
-   - 5.2 [Catálogo de Servicios](#52-catálogo-de-servicios)
-   - 5.3 [Tienda y Farmacia Veterinaria](#53-tienda-y-farmacia-veterinaria)
-   - 5.4 [Agendar una Cita](#54-agendar-una-cita)
-   - 5.5 [Blog Veterinario](#55-blog-veterinario)
-   - 5.6 [Generador de Placas QR](#56-generador-de-placas-qr)
-   - 5.7 [Verificador de Recetas Médicas](#57-verificador-de-recetas-médicas)
-6. [Registro e Inicio de Sesión](#6-registro-e-inicio-de-sesión)
-   - 6.1 [Crear una Cuenta](#61-crear-una-cuenta)
-   - 6.2 [Iniciar Sesión como Cliente](#62-iniciar-sesión-como-cliente)
-   - 6.3 [Iniciar Sesión como Personal de Clínica](#63-iniciar-sesión-como-personal-de-clínica)
-   - 6.4 [Autenticación de Dos Factores (2FA)](#64-autenticación-de-dos-factores-2fa)
-   - 6.5 [Cerrar Sesión](#65-cerrar-sesión)
-7. [Portal del Cliente (Tutor de Mascota)](#7-portal-del-cliente-tutor-de-mascota)
-   - 7.1 [Panel Principal del Portal](#71-panel-principal-del-portal)
-   - 7.2 [Mis Mascotas](#72-mis-mascotas)
-   - 7.3 [Expediente Clínico](#73-expediente-clínico)
-   - 7.4 [Mis Citas](#74-mis-citas)
-   - 7.5 [Compra y Checkout (Click & Collect)](#75-compra-y-checkout-click--collect)
-8. [Portal del Personal Clínico (Veterinario / Recepcionista)](#8-portal-del-personal-clínico-veterinario--recepcionista)
-   - 8.1 [Agenda del Día](#81-agenda-del-día)
-   - 8.2 [Consulta Médica](#82-consulta-médica)
-   - 8.3 [Medicamentos Controlados](#83-medicamentos-controlados)
-   - 8.4 [Hospitalización](#84-hospitalización)
-   - 8.5 [Estética y Grooming](#85-estética-y-grooming)
-   - 8.6 [Recordatorios y Notificaciones](#86-recordatorios-y-notificaciones)
-   - 8.7 [Punto de Venta (POS)](#87-punto-de-venta-pos)
-9. [Panel de Administración](#9-panel-de-administración)
-   - 9.1 [Dashboard con KPIs](#91-dashboard-con-kpis)
-   - 9.2 [Gestión de Personal (Staff)](#92-gestión-de-personal-staff)
-   - 9.3 [Inventario y Control FEFO](#93-inventario-y-control-fefo)
-   - 9.4 [Reportes Financieros](#94-reportes-financieros)
-   - 9.5 [Explorador de Auditoría](#95-explorador-de-auditoría)
-   - 9.6 [Gestor de Contenidos (CMS)](#96-gestor-de-contenidos-cms)
-10. [Seguridad y Privacidad](#10-seguridad-y-privacidad)
-11. [Preguntas Frecuentes (FAQ)](#11-preguntas-frecuentes-faq)
-12. [Soporte Técnico](#12-soporte-técnico)
+**Versión del manual:** 4.2  
+**Fecha de actualización:** Octubre 2026  
+**Clasificación:** Guía de uso oficial para Tutores, Personal Clínico y Administración  
+**Ubicación de la Clínica:** Av. Peña Blanca, Etapa 38, Unidad Habitacional El Coloso, C.P. 39810, Acapulco de Juárez, Gro.  
+**Atención de Urgencias:** WhatsApp 744 213 0868  
 
 ---
 
-## 1. Introducción y Propósito
+> *"Porque no son solo mascotas, sino un miembro importante de nuestra familia."*  
+> Este manual te acompaña paso a paso para que aproveches al máximo todas las funciones de Luna-Vet: desde agendar la primera vacuna de tu cachorro y consultar su historial médico en tu teléfono, hasta la gestión médica en quirófano y el corte de caja en recepción.
 
-La **Plataforma Digital LunaVet** es un sistema integral diseñado para facilitar la atención médica veterinaria, la gestión operativa de la clínica y la comunicación entre el equipo clínico y los tutores de mascotas.
+---
 
-Este manual está dirigido a tres perfiles de usuario:
+## Índice General de Contenidos
 
-| Perfil | Acceso | Descripción |
+1. [¿Cómo usar este manual?](#1-cómo-usar-este-manual)
+2. [Navegación Visual y Selector de Temas](#2-navegación-visual-y-selector-de-temas)
+3. [Módulo 1: Servicios Públicos (Sin Necesidad de Cuenta)](#3-módulo-1-servicios-públicos-sin-necesidad-de-cuenta)
+   - 3.1 [Página Principal y Catálogo Clínico](#31-página-principal-y-catálogo-clínico)
+   - 3.2 [Farmacia Veterinaria y Tienda de Alimentos](#32-farmacia-veterinaria-y-tienda-de-alimentos)
+   - 3.3 [Agendamiento de Citas en Línea](#33-agendamiento-de-citas-en-línea)
+   - 3.4 [Generador Gratuito de Placas QR para Mascotas](#34-generador-gratuito-de-placas-qr-para-mascotas)
+   - 3.5 [Verificador Público de Recetas Médicas](#35-verificador-público-de-recetas-médicas)
+4. [Módulo 2: Registro, Inicio de Sesión y Seguridad](#4-módulo-2-registro-inicio-de-sesión-y-seguridad)
+   - 4.1 [Cómo crear tu cuenta de tutor](#41-cómo-crear-tu-cuenta-de-tutor)
+   - 4.2 [Cómo iniciar sesión](#42-cómo-iniciar-sesión)
+   - 4.3 [Protección de tu cuenta con verificación en dos pasos (2FA)](#43-protección-de-tu-cuenta-con-verificación-en-dos-pasos-2fa)
+   - 4.4 [Recuperación de contraseña y cierre de sesión seguro](#44-recuperación-de-contraseña-y-cierre-de-sesión-seguro)
+5. [Módulo 3: Portal del Tutor (Expediente Digital de tu Mascota)](#5-módulo-3-portal-del-tutor-expediente-digital-de-tu-mascota)
+   - 5.1 [Tu panel de inicio](#51-tu-panel-de-inicio)
+   - 5.2 [Cómo registrar y actualizar los datos de tu mascota](#52-cómo-registrar-y-actualizar-los-datos-de-tu-mascota)
+   - 5.3 [Consulta de carnet de vacunación y expediente médico](#53-consulta-de-carnet-de-vacunación-y-expediente-médico)
+   - 5.4 [Administración y seguimiento de tus citas](#54-administración-y-seguimiento-de-tus-citas)
+   - 5.5 [Compras con retiro directo en clínica (Click & Collect)](#55-compras-con-retiro-directo-en-clínica-click--collect)
+6. [Módulo 4: Portal Clínico (Veterinarios, Estilistas y Recepción)](#6-módulo-4-portal-clínico-veterinarios-estilistas-y-recepción)
+   - 6.1 [Agenda Diaria y Control de Turnos](#61-agenda-diaria-y-control-de-turnos)
+   - 6.2 [Consulta Médica y Emisión de Recetas Digitales](#62-consulta-médica-y-emisión-de-recetas-digitales)
+   - 6.3 [Libro de Control Oficial de Medicamentos (SENASICA)](#63-libro-de-control-oficial-de-medicamentos-senasica)
+   - 6.4 [Hospitalización, Triage y Cuidados Intensivos (UCI)](#64-hospitalización-triage-y-cuidados-intensivos-uci)
+   - 6.5 [Estética Canina y Felina (Admisión y Hoja de Manto)](#65-estética-canina-y-felina-admisión-y-hoja-de-manto)
+   - 6.6 [Recordatorios Preventivos y Notificaciones](#66-recordatorios-preventivos-y-notificaciones)
+   - 6.7 [Punto de Venta Mostrador (POS) y Arqueo de Caja Chica](#67-punto-de-venta-mostrador-pos-y-arqueo-de-caja-chica)
+7. [Módulo 5: Panel de Dirección y Administración General](#7-módulo-5-panel-de-dirección-y-administración-general)
+   - 7.1 [Tablero de Indicadores Clave (KPIs en Tiempo Real)](#71-tablero-de-indicadores-clave-kpis-en-tiempo-real)
+   - 7.2 [Administración de Personal Clínico y Cédulas Médicas](#72-administración-de-personal-clínico-y-cédulas-médicas)
+   - 7.3 [Control Inteligente de Inventario y Caducidades FEFO](#73-control-inteligente-de-inventario-y-caducidades-fefo)
+   - 7.4 [Reportes Financieros y Cortes Globales](#74-reportes-financieros-y-cortes-globales)
+   - 7.5 [Bitácora de Auditoría y Protección de Datos](#75-bitácora-de-auditoría-y-protección-de-datos)
+   - 7.6 [Gestor de Contenido del Sitio Web y Campañas](#76-gestor-de-contenido-del-sitio-web-y-campañas)
+8. [Preguntas Frecuentes y Guía de Ayuda Rápida](#8-preguntas-frecuentes-y-guía-de-ayuda-rápida)
+9. [Directorio de Contacto y Asistencia](#9-directorio-de-contacto-y-asistencia)
+
+---
+
+## 1. ¿Cómo usar este manual?
+
+Para facilitar tu lectura, este documento está organizado de acuerdo con la tarea que deseas realizar y tu rol dentro del sistema:
+
+| Si eres... | ¿Qué secciones debes consultar? | ¿Qué puedes hacer en Luna-Vet? |
 | :--- | :--- | :--- |
-| **Tutor / Cliente** | `/portal` | Tutor de mascota que consulta expedientes, agenda citas y realiza compras |
-| **Veterinario / Recepcionista** | `/staff/agenda` | Personal clínico que registra consultas, gestiona agenda y opera el POS |
-| **Administrador** | `/admin/dashboard` | Gestiona el personal, inventario, finanzas y configuración del sistema |
+| **Tutor de Mascota (Cliente)** | Módulos 1, 2, 3 y 8 | Ver vacunas, agendar citas, descargar recetas, comprar alimentos y crear placas con código QR. |
+| **Recepcionista de Clínica** | Módulos 1, 4 (6.1, 6.5, 6.7) y 8 | Registrar pacientes que llegan a mostrador, gestionar citas del día, cobrar en el punto de venta y hacer cortes de caja. |
+| **Médico Veterinario (MVZ)** | Módulo 4 completo (6.1 a 6.6) | Diagnosticar, prescribir recetas con firma digital, monitorear pacientes en hospitalización y registrar fármacos controlados. |
+| **Estilista Canino / Groomer** | Módulo 4 (6.1 y 6.5) | Revisar mascotas en admisión de baño, asentar condiciones de piel/pelaje y avisar cuando el servicio concluya. |
+| **Administrador General** | Módulo 5 completo | Consultar ventas, supervisar caducidades de medicamentos, dar de alta empleados y generar reportes financieros. |
 
-**Objetivo del manual:** Proporcionar instrucciones claras, paso a paso, para que cualquier usuario pueda utilizar la plataforma de forma autónoma y segura.
+### Convenciones Visuales y Avisos
 
----
+A lo largo de los procedimientos encontrarás recuadros informativos para orientarte:
 
-## 2. Convenciones y Simbología
+> [!NOTE]
+> **Nota de Contexto:** Información útil o explicaciones sobre el funcionamiento normal de una pantalla.
 
-A lo largo de este manual se utilizan los siguientes indicadores:
+> [!TIP]
+> **Consejo Práctico:** Atajos y recomendaciones para ahorrar tiempo y hacer tu experiencia más cómoda.
 
-| Símbolo | Significado |
-| :---: | :--- |
-| ℹ️ **Nota** | Información complementaria o aclaración |
-| ⚠️ **Advertencia** | Acción que puede tener consecuencias irreversibles |
-| ✅ **Buena práctica** | Recomendación para un mejor uso del sistema |
-| 🔒 **Seguridad** | Información relacionada con protección de datos |
-| ➡️ **Ruta** | Dirección URL dentro de la plataforma (ej. `/portal/mascotas`) |
+> [!IMPORTANT]
+> **Paso Indispensable:** Requisitos obligatorios (por ejemplo, tener a la mano el peso de tu mascota o tu cédula profesional).
 
-Los elementos en **negrita** hacen referencia a botones o etiquetas visibles en pantalla.  
-Los términos en `código` hacen referencia a rutas de acceso o valores técnicos.
+> [!WARNING]
+> **Punto de Precaución:** Acciones que requieren atención para no perder información o evitar errores en la cita.
 
----
-
-## 3. Requisitos de Acceso
-
-### Dispositivos y Navegadores
-
-La plataforma está optimizada para funcionar en cualquier dispositivo moderno:
-
-| Dispositivo | Resolución mínima | Navegadores soportados |
-| :--- | :--- | :--- |
-| Computadora de escritorio | 1024 × 768 px | Chrome 100+, Firefox 100+, Edge 100+, Safari 15+ |
-| Tableta | 768 × 1024 px | Mismos navegadores anteriores |
-| Smartphone | 375 × 667 px | Chrome Mobile, Safari iOS |
-
-### Conexión
-
-- Se requiere conexión a internet activa para todas las operaciones.
-- No se requiere instalar ninguna aplicación; la plataforma funciona directamente desde el navegador.
-
-### Datos de Acceso
-
-Cada usuario debe contar con:
-- **Correo electrónico** registrado en el sistema.
-- **Contraseña** asignada o creada durante el registro.
+> [!CAUTION]
+> **Acción Delicada:** Operaciones con implicaciones legales, financieras o de salud, como el registro de medicamentos controlados ante SENASICA o la anulación de cobros.
 
 ---
 
-## 4. Navegación General y Temas Visuales
+## 2. Navegación Visual y Selector de Temas
 
-### Barra de Navegación (Navbar)
+Luna-Vet cuenta con una interfaz moderna basada en los principios de diseño de Apple (Apple Human Interface Guidelines), diseñada para verse limpia, agradable y fácil de leer tanto en computadoras de consultorio como en teléfonos móviles bajo el sol de Acapulco.
 
-La barra superior está siempre visible y contiene:
+### Selección de tu Tema Preferido
 
-| Elemento | Descripción |
-| :--- | :--- |
-| **Logo Luna-Vet** | Clic regresa al inicio (`/`) |
-| **Inicio** | Página principal de la clínica |
-| **Servicios** | Catálogo de servicios médicos |
-| **Tienda** | Farmacia y tienda veterinaria |
-| **Citas** | Agendamiento de citas (público) |
-| **Blog** | Artículos de salud veterinaria |
-| 🛒 **Carrito** | Abre el panel lateral de compras con el conteo de productos |
-| **Iniciar Sesión / Mi Cuenta** | Acceso al perfil o menú de usuario autenticado |
-| ☀️/🌙 **Tema** | Alterna entre modo claro, oscuro y alto contraste |
+En la esquina superior derecha de la barra de navegación encontrarás un menú desplegable con una paleta de colores. Puedes elegir entre 4 opciones visuales:
 
-### Temas Visuales
+1. **Apple Claro:** Fondo blanco cristalino, sombras sutiles y contrastes suaves, ideal para el día y oficinas bien iluminadas.
+2. **Apple Oscuro (Predeterminado):** Tonos negros profundos y grises grafito que reducen el cansancio visual durante guardias nocturnas o jornadas largas.
+3. **Neumórfico Suave:** Botones con relieve táctil tridimensional y acabados que simulan superficies físicas.
+4. **Alto Contraste Clínico:** Textos en negro puro sobre fondos blancos de alto contraste con bordes marcados, pensado para salas quirúrgicas o personas que requieren máxima legibilidad.
 
-La plataforma ofrece tres modos de visualización accesibles desde el ícono en el navbar:
+![Comparativa del Sistema Visual Apple Claro](docs/screenshots/16_tema_apple_claro.png)
+*Vista de la plataforma con el tema Apple Claro activo: máxima nitidez y luminosidad.*
 
-| Modo | Descripción |
-| :--- | :--- |
-| **Claro** | Fondo blanco con texto oscuro (predeterminado) |
-| **Oscuro** | Fondo oscuro, ideal para uso nocturno o ambientes con poca luz |
-| **Alto Contraste** | Colores de máximo contraste para usuarios con dificultades visuales |
+![Comparativa del Sistema Visual Neumórfico](docs/screenshots/17_tema_neumorfico.png)
+*Vista de la plataforma con el tema Neumórfico activo: relieves suaves y botones tridimensionales.*
 
-✅ La preferencia de tema se guarda automáticamente en el navegador.
+> [!TIP]
+> Tu selección de tema se guarda de manera automática en el dispositivo donde la elijas, por lo que no tendrás que configurarla cada vez que ingreses.
 
 ---
 
-## 5. Módulo Público — Sin Iniciar Sesión
+## 3. Módulo 1: Servicios Públicos (Sin Necesidad de Cuenta)
 
-### 5.1 Página de Inicio (Landing)
+Cualquier persona puede ingresar a Luna-Vet desde su navegador web sin necesidad de registrarse previamente para informarse, solicitar citas o generar herramientas gratuitas para sus animales de compañía.
 
-**Ruta:** ➡️ `/`
+### 3.1 Página Principal y Catálogo Clínico
 
-La página de inicio presenta:
-- **Hero principal** con el eslogan de la clínica y botones de acceso rápido a citas y la tienda.
-- **Sección de Servicios Destacados** con los principales servicios veterinarios.
-- **Nuestro Equipo** — Perfiles del personal médico con especialidades.
-- **Testimonios** de clientes verificados.
-- **Blog** — Últimas publicaciones de salud animal.
-- **Contacto y Ubicación** — Mapa, teléfono y dirección (El Coloso, Acapulco, Gro.).
+Al ingresar a la dirección de la clínica se despliega la portada principal de Luna-Vet:
 
-ℹ️ **Nota:** Desde esta página puedes acceder directamente a agendar una cita o explorar la tienda sin necesidad de registrarte.
+![Página de Inicio de Luna-Vet Acapulco](docs/screenshots/01_landing_inicio.png)
+*Pantalla principal: accesos rápidos para agendar citas, farmacia, llamada directa de auxilio y portal de pacientes.*
 
----
+En esta pantalla encontrarás:
+- **Botón "Agendar Cita en Línea":** Te lleva directamente al calendario de citas.
+- **Botón "WhatsApp 744 213 0868":** Abre una conversación inmediata con el equipo de guardia médica para casos urgentes.
+- **Acceso Directo al Portal:** Para que ingreses a consultar las recetas y vacunas de tus mascotas.
 
-### 5.2 Catálogo de Servicios
+Si haces clic en la opción **"Servicios"** de la barra superior, podrás consultar los detalles y recomendaciones de nuestra oferta médica:
 
-**Ruta:** ➡️ `/servicios`
-
-Presenta todos los servicios disponibles con descripción, duración estimada y precio base:
-
-- Consulta General y de Urgencias
-- Cirugías programadas y de emergencia
-- Vacunación y desparasitación
-- Hospitalización y cuidados intensivos
-- Estética canina y felina (grooming)
-- Farmacia veterinaria
-
-✅ Utiliza esta sección para preparar tu visita o conocer el costo aproximado antes de agendar.
+![Catálogo Integral de Servicios Veterinarios](docs/screenshots/02_servicios_catalogo.png)
+*Catálogo de servicios: cirugías de mínima invasión, esterilizaciones seguras, estética canina y laboratorio.*
 
 ---
 
-### 5.3 Tienda y Farmacia Veterinaria
+### 3.2 Farmacia Veterinaria y Tienda de Alimentos
 
-**Ruta:** ➡️ `/tienda`
+En la sección **"Farmacia & Tienda"** puedes revisar los medicamentos de libre venta, alimentos terapéuticos (Royal Canin, Pro Plan, Hill's), antipulgas y premios disponibles en la clínica.
 
-#### Buscar productos
-1. En la barra de búsqueda superior, escribe el nombre del producto o medicamento.
-2. Usa los filtros de **categoría** en el panel lateral para acotar resultados.
-3. Cada tarjeta de producto muestra: nombre, precio, stock disponible y calificación.
+![Farmacia y Tienda en Línea](docs/screenshots/03_farmacia_tienda.png)
+*Catálogo de farmacia con buscador por síntoma o nombre comercial y precios transparentes con IVA.*
 
-#### Agregar al carrito
-1. Haz clic en **Agregar al carrito** en la tarjeta del producto.
-2. El ícono del carrito 🛒 en el navbar mostrará el número de artículos acumulados.
-3. Puedes hacer clic en el carrito para ver el resumen y ajustar cantidades.
+#### ¿Cómo buscar un producto y agregarlo a tu bolsa?
+1. Escribe el nombre del medicamento, alimento o accesorio en la barra de búsqueda superior (por ejemplo, *Simparica*, *Gastrointestinal* o *Shampoo*).
+2. Filtra por categoría utilizando las pestañas superiores si buscas únicamente fármacos o alimentos.
+3. Revisa la ficha del producto con su precio, presentación e indicaciones generales.
+4. Haz clic en **"Agregar a la Bolsa"**. Podrás ver el resumen de tu compra en el icono de bolsa ubicado en la barra superior.
 
-⚠️ **Medicamentos controlados:** Algunos productos requieren validación de receta médica. El sistema notificará si un producto requiere autorización clínica antes de completar la compra.
-
-ℹ️ **Sistema FEFO:** Los medicamentos se despachan automáticamente del lote con fecha de caducidad más próxima para garantizar la frescura del producto.
+> [!NOTE]
+> Los medicamentos controlados que requieren prescripción médica no se comercializan de forma libre en la tienda pública; únicamente pueden adquirirse presentando una receta médica válida expedida por un veterinario colegiado.
 
 ---
 
-### 5.4 Agendar una Cita
+### 3.3 Agendamiento de Citas en Línea
 
-**Ruta:** ➡️ `/citas`
+Cualquier tutor puede apartar un espacio de atención médica o estética sin necesidad de llamar por teléfono.
 
-Este módulo permite solicitar una cita **sin necesidad de iniciar sesión** (aunque se recomienda hacerlo para guardar el historial).
+![Formulario de Agendamiento de Cita en Línea](docs/screenshots/04_agendar_cita.png)
+*Asistente paso a paso para agendar una cita médica o estética.*
 
-**Pasos:**
-1. **Selecciona el servicio** deseado del catálogo (consulta, vacuna, cirugía, estética, etc.).
-2. **Elige al veterinario** disponible (o deja "Sin preferencia" para asignación automática).
-3. **Selecciona la fecha** en el calendario. Los días y horarios disponibles se muestran en verde.
-4. **Elige el horario** disponible. El sistema valida automáticamente que no haya conflictos.
-5. **Ingresa los datos del paciente:** nombre de la mascota, especie, raza y motivo de consulta.
-6. **Proporciona tus datos de contacto** (nombre, teléfono, correo).
-7. Haz clic en **Confirmar Cita**.
+#### Pasos para agendar tu cita:
+1. Dirígete a la opción **"Agendar Cita"** en el menú superior o haz clic en el botón azul de la portada.
+2. **Selecciona el tipo de servicio:**
+   - Consulta General Preventiva
+   - Vacunación o Desparasitación
+   - Revisión Post-Quirúrgica o Curación
+   - Estética Canina / Baño Medicado Garrapaticida
+   - Triage / Revisión por Malestar
+3. **Indica los datos de tu mascota:** Nombre, especie (perro o gato) y una breve descripción del motivo de tu visita (ejemplo: *"Tiene diarrea desde ayer"* o *"Le toca refuerzo de vacuna séxtuple"*).
+4. **Elige la fecha y el horario disponible:** El sistema te mostrará únicamente los bloques de horario libres para evitarte tiempos de espera innecesarios en la sala de la clínica.
+5. **Ingresa tus datos de contacto:** Tu nombre completo, número de WhatsApp para confirmar y correo electrónico.
+6. Haz clic en **"Confirmar Cita"**. Recibirás un mensaje de confirmación con la fecha y hora agendada.
 
-✅ Recibirás un correo de confirmación con el resumen de tu cita.
-
-⚠️ Las citas tienen un tiempo de reserva provisional. Si no se confirma la asistencia, pueden cancelarse automáticamente.
-
----
-
-### 5.5 Blog Veterinario
-
-**Ruta:** ➡️ `/blog`
-
-El blog contiene artículos de salud y bienestar animal escritos por el equipo veterinario de LunaVet.
-
-- Usa la **barra de búsqueda** para encontrar artículos por tema.
-- Filtra por **etiquetas** (vacunas, nutrición, dermatología, etc.).
-- Haz clic en cualquier artículo para leer el contenido completo.
-
-✅ Los artículos son de acceso libre y no requieren registro.
+> [!TIP]
+> Si tu mascota presenta una emergencia vital evidente (dificultad severa para respirar, convulsiones activas, atropellamiento o hemorragia profusa), no esperes una cita agendada; acude de inmediato a la clínica o presiona el botón de **WhatsApp de Urgencias 24/7**.
 
 ---
 
-### 5.6 Generador de Placas QR
+### 3.4 Generador Gratuito de Placas QR para Mascotas
 
-**Ruta:** ➡️ `/qr`
+En Luna-Vet ponemos a disposición de toda la comunidad de Acapulco una herramienta gratuita para crear placas de identificación inteligentes que facilitan el rescate de mascotas extraviadas.
 
-Herramienta gratuita para crear códigos QR de identificación para tu mascota.
+![Generador Interactivo de Placas QR para Mascotas](docs/screenshots/05_generador_placas_qr.png)
+*Generador de placas QR: diseño personalizado con previsualización en vivo listo para imprimir.*
 
-**Pasos:**
-1. Completa el formulario con:
-   - Nombre de la mascota
-   - Tu nombre y número de teléfono de contacto
-   - Información médica relevante (alergias, enfermedades crónicas)
-2. Selecciona el **estilo visual** de la placa (forma, colores, logo de la clínica).
-3. Haz clic en **Generar QR**.
-4. Descarga la placa en formato **PNG** (para imprimir en casa) o **PDF vectorial** (para impresión profesional en metal o plástico).
+#### ¿Cómo diseñar la placa de tu mascota?
+1. Ingresa a la sección **"Placas QR"** desde el menú principal.
+2. Selecciona la opción **"Placa de Mascota"**.
+3. Completa los campos del formulario:
+   - **Nombre de tu mascota:** El nombre por el cual responde.
+   - **Especie y Raza:** Perro mestizo, Poodle, Gato común, etc.
+   - **Teléfono o WhatsApp de Auxilio:** El número celular al que llamará quien encuentre a tu compañero.
+   - **Mensaje de Recompensa o Aviso Especial:** Por ejemplo, *"Tomo medicina diaria, por favor ayúdame a volver"* o *"Se ofrece gratificación"*.
+4. Observa cómo en el recuadro derecho se genera en tiempo real el diseño con el código QR y los colores seleccionados.
+5. Haz clic en **"Descargar en Alta Resolución (PNG/PDF)"**.
+6. Imprime el diseño en papel fotográfico, recórtalo y enmícalo o llévalo a tu tienda de mascotas favorita para insertarlo en un porta-placas.
 
-ℹ️ El código QR generado muestra la información de contacto al ser escaneado con cualquier smartphone, sin necesidad de instalar aplicaciones.
-
----
-
-### 5.7 Verificador de Recetas Médicas
-
-**Ruta:** ➡️ `/receta/:folio`
-
-Permite validar la autenticidad de una receta emitida por LunaVet.
-
-**Pasos:**
-1. Ingresa el **folio de la receta** (impreso en el documento PDF).
-2. El sistema consulta la base de datos y muestra:
-   - Paciente y veterinario que la emitió
-   - Medicamento, dosis e instrucciones
-   - Fecha de emisión y fecha de vencimiento
-   - Estado de validez (vigente / expirada)
-
-🔒 Las recetas incluyen una firma digital hash SHA-256 que garantiza que no han sido alteradas.
+> [!NOTE]
+> Cuando una persona escanee el código QR con la cámara de cualquier teléfono móvil, se abrirá de inmediato un botón para llamarte o enviarte un WhatsApp directo indicándote la ubicación aproximada donde fue encontrada tu mascota.
 
 ---
 
-## 6. Registro e Inicio de Sesión
+### 3.5 Verificador Público de Recetas Médicas
 
-### 6.1 Crear una Cuenta
+Para garantizar la seguridad de los tratamientos médicos y evitar la falsificación de recetas o prescripciones veterinarias en farmacias de la región, el sistema cuenta con un validador en tiempo real.
 
-**Ruta:** ➡️ `/registro`
+![Verificador Oficial de Recetas Médicas](docs/screenshots/15_verificador_receta.png)
+*Verificación de recetas: confirma la autenticidad, la cédula profesional del médico y la vigencia del tratamiento.*
 
-El registro está disponible únicamente para **tutores / clientes**. El personal de la clínica es dado de alta por el administrador.
-
-**Pasos:**
-1. Haz clic en **Iniciar Sesión** en el navbar y luego en **"¿Aún no tienes cuenta? Regístrate gratis aquí."**
-2. Completa el formulario:
-   - **Nombre y apellido**
-   - **Correo electrónico** (será tu usuario de acceso)
-   - **Teléfono de contacto**
-   - **Contraseña** (mínimo 8 caracteres; debe incluir mayúsculas, minúsculas y números)
-3. Haz clic en **Crear Cuenta**.
-4. Serás redirigido automáticamente a tu portal de cliente (`/portal`).
-
-✅ **Buena práctica:** Usa una contraseña única que no utilices en otros servicios.
+#### ¿Cómo verificar una receta emitida por Luna-Vet?
+1. En la parte inferior de cualquier receta física o digital emitida en la clínica encontrarás un folio único (por ejemplo: `REC-2026-0042`) y un código QR.
+2. Escanea el código QR con tu celular o visita la dirección `lunavet.mx/receta/FOLIO`.
+3. La pantalla te mostrará:
+   - Nombre de la mascota y del tutor registrado.
+   - Nombre del Médico Veterinario tratante y su **Cédula Profesional Oficial**.
+   - Lista de medicamentos prescritos con dosis, horarios y días de tratamiento.
+   - Indicador de autenticidad emitido directamente por el sistema central de la clínica.
 
 ---
 
-### 6.2 Iniciar Sesión como Cliente
+## 4. Módulo 2: Registro, Inicio de Sesión y Seguridad
 
-**Ruta:** ➡️ `/login`
+Para acceder a tu expediente digital, consultar recetas o realizar compras personalizadas, necesitas contar con una cuenta en la plataforma.
 
-1. Asegúrate de que la pestaña **"Soy Cliente"** esté seleccionada (es la predeterminada).
-2. Ingresa tu **correo electrónico** y **contraseña**.
-3. Haz clic en **Iniciar Sesión**.
-4. Serás redirigido a tu portal (`/portal`).
+### 4.1 Cómo crear tu cuenta de tutor
 
----
+Si es tu primera vez en Luna-Vet o acudes por primera vez a consulta:
 
-### 6.3 Iniciar Sesión como Personal de Clínica
+![Pantalla de Registro para Nuevos Tutores](docs/screenshots/07_registro_cuenta.png)
+*Formulario de registro: seguro, rápido y centrado en la protección de tus datos.*
 
-**Ruta:** ➡️ `/login`
-
-1. Haz clic en la pestaña **"Personal de Clínica"**.
-2. Ingresa tu **correo institucional** y **contraseña** asignada por el administrador.
-3. Haz clic en **Iniciar Sesión**.
-4. Serás redirigido según tu rol:
-   - **Veterinario / Recepcionista** → `/staff/agenda`
-   - **Administrador** → `/admin/dashboard`
-
-⚠️ **Importante:** No compartas tus credenciales con nadie. Cada acceso queda registrado en la bitácora de auditoría del sistema.
+1. Haz clic en el botón **"Ingresar"** en la barra superior y selecciona la pestaña **"Crear Cuenta"** (o ingresa directo desde la portada).
+2. Llena los siguientes campos:
+   - **Nombre Completo:** Tu nombre y apellidos para reconocerte en recepción.
+   - **Correo Electrónico:** Será tu usuario de acceso y donde recibirás notificaciones de salud de tus animales.
+   - **Número de Teléfono / WhatsApp:** Indispensable para recordatorios de vacunas y avisos de estética.
+   - **Contraseña:** Crea una contraseña segura de al menos 8 caracteres con números y letras.
+3. Lee y marca la casilla de aceptación del **Aviso de Privacidad**.
+4. Haz clic en el botón azul **"Registrarme"**. Tu sesión se iniciará de forma automática y serás dirigido a tu panel familiar.
 
 ---
 
-### 6.4 Autenticación de Dos Factores (2FA)
+### 4.2 Cómo iniciar sesión
 
-Si tu cuenta tiene habilitada la **verificación en dos pasos (2FA TOTP)**:
+![Pantalla de Inicio de Sesión Unificada](docs/screenshots/06_login_acceso.png)
+*Inicio de sesión con pestañas independientes para Tutores de Pacientes y Personal de la Clínica.*
 
-1. Después de ingresar correctamente tu contraseña, el sistema mostrará una pantalla adicional solicitando el **código de seguridad**.
-2. Abre tu aplicación de autenticación (Google Authenticator, Authy, etc.) y copia el código de 6 dígitos que se muestra.
-3. Ingresa el código en el campo **"Código de seguridad"** y confirma.
+1. Haz clic en **"Ingresar"** en la barra superior.
+2. Asegúrate de estar en la pestaña adecuada:
+   - **"Soy Tutor / Dueño de Mascota":** Si eres cliente de la clínica.
+   - **"Personal de Clínica / Staff":** Si eres recepcionista, veterinario, estilista o administrador.
+3. Introduce tu correo electrónico y tu contraseña.
+4. Presiona el botón **"Iniciar Sesión"**.
 
-ℹ️ Los códigos TOTP cambian cada 30 segundos. Si el código expira, espera al siguiente.
-
-**Para activar 2FA en tu cuenta:**
-1. Inicia sesión y ve a tu perfil de usuario.
-2. Busca la opción **Seguridad > Activar autenticación de dos factores**.
-3. Escanea el código QR con tu app de autenticación.
-4. Verifica el primer código y guarda.
-
-🔒 Se recomienda especialmente para el personal clínico y el administrador.
+> [!IMPORTANT]
+> El personal de la clínica debe utilizar obligatoriamente la pestaña **"Personal de Clínica / Staff"**, ya que esta puerta de acceso activa los protocolos de seguridad necesarios para la emisión de recetas médicas y manejo de caja.
 
 ---
 
-### 6.5 Cerrar Sesión
+### 4.3 Protección de tu cuenta con verificación en dos pasos (2FA)
 
-Para salir de forma segura:
-1. Haz clic en tu **nombre o foto de perfil** en la esquina superior derecha del navbar.
-2. Selecciona **"Cerrar Sesión"** en el menú desplegable.
-3. Serás redirigido a la página de inicio (`/`).
+Para salvaguardar la privacidad de los historiales clínicos de tus mascotas y autorizaciones de pago, Luna-Vet permite activar la verificación de seguridad en dos pasos:
 
-✅ La sesión se invalida en el servidor automáticamente. Si usas una computadora compartida, siempre cierra sesión al terminar.
-
----
-
-## 7. Portal del Cliente (Tutor de Mascota)
-
-**Acceso requerido:** Cuenta de cliente activa  
-**Ruta base:** ➡️ `/portal`
+1. Al iniciar sesión en una cuenta protegida con doble factor, el sistema te solicitará un **Código de Seguridad Temporal de 6 dígitos**.
+2. Abre la aplicación de autenticación de tu teléfono (Google Authenticator, Microsoft Authenticator o Apple Passwords).
+3. Introduce los 6 dígitos antes de que expire el cronómetro en pantalla.
+4. Presiona **"Confirmar Código"** para acceder a tu panel.
 
 ---
 
-### 7.1 Panel Principal del Portal
+### 4.4 Recuperación de contraseña y cierre de sesión seguro
 
-**Ruta:** ➡️ `/portal`
-
-Al iniciar sesión como cliente verás un resumen de:
-- **Tus mascotas registradas** con acceso directo a cada expediente.
-- **Próximas citas** con fecha, hora y veterinario asignado.
-- **Últimos pedidos** de la tienda con su estado.
-- **Accesos rápidos** a las secciones más usadas.
+- **¿Olvidaste tu contraseña?** En la pantalla de inicio de sesión haz clic en el enlace *"¿Olvidaste tu contraseña?"*, introduce tu correo registrado y recibirás un enlace seguro para definir una nueva clave.
+- **Cierre de sesión seguro:** Si utilizas una computadora compartida en un café internet, biblioteca o mostrador público, haz clic sobre tu nombre en la esquina superior derecha y selecciona **"Cerrar Sesión"**. Esto garantiza que nadie más pueda ver las recetas ni los datos de tus mascotas.
 
 ---
 
-### 7.2 Mis Mascotas
+## 5. Módulo 3: Portal del Tutor (Expediente Digital de tu Mascota)
 
-**Ruta:** ➡️ `/portal/mascotas`
+El Portal del Tutor es tu espacio personal donde conservas de por vida toda la información de salud de tus perros, gatos y otras especies atendidas en Luna-Vet.
 
-#### Registrar una nueva mascota
-1. Haz clic en **"+ Agregar Mascota"**.
-2. Completa el formulario:
-   - Nombre, especie (perro, gato, ave, etc.), raza
-   - Fecha de nacimiento o edad aproximada
-   - Sexo y si está esterilizado/a
-   - Color y características físicas
-3. Sube una **foto de tu mascota** (JPEG, PNG o WebP, máx. 5 MB).
-4. Haz clic en **Guardar Mascota**.
+![Panel Principal del Portal del Tutor](docs/screenshots/08_portal_tutor.png)
+*Panel de bienvenida del tutor: contador de mascotas activas, citas agendadas y accesos directos.*
 
-#### Ver el perfil de una mascota
-- Haz clic en la tarjeta de tu mascota para ver su ficha completa.
-- Desde aquí puedes acceder al **expediente clínico**, **historial de citas** y **carnet de vacunación**.
+### 5.1 Tu panel de inicio
 
-#### Agregar un cotitular
-Si varias personas cuidan a la misma mascota (ej. familiares):
-1. Abre el perfil de la mascota.
-2. Haz clic en **"Agregar Cotitular"**.
-3. Ingresa el correo electrónico del cotitular registrado en LunaVet.
-4. El cotitular también podrá ver el expediente de la mascota.
-
-ℹ️ Solo el **dueño principal** puede modificar los datos de la mascota o transferir la titularidad.
+Al entrar al portal observarás tres tarjetas informativas:
+1. **Mis Mascotas Registradas:** Muestra la cantidad de animales dados de alta bajo tu tutela y un botón para dar de alta a un nuevo integrante.
+2. **Próximas Citas Médicas:** Un listado con las citas que tienes programadas para los próximos días con fecha, hora y motivo.
+3. **Fichas de Mascotas:** Tarjetas individuales con la fotografía, nombre, edad y estatus de salud de cada uno de tus compañeros de cuatro patas.
 
 ---
 
-### 7.3 Expediente Clínico
+### 5.2 Cómo registrar y actualizar los datos de tu mascota
 
-**Ruta:** ➡️ `/portal/expediente/:id`
+Para que el equipo médico tenga la información completa antes de tu visita:
 
-El expediente clínico contiene el historial médico completo de tu mascota:
-
-#### Secciones del Expediente
-
-| Pestaña | Contenido |
-| :--- | :--- |
-| **Historial Clínico** | Lista cronológica de consultas con diagnóstico y tratamiento |
-| **Vacunas** | Carnet de vacunación con fechas de aplicación y próximas dosis |
-| **Peso** | Gráfica de curva de peso corporal con el historial de mediciones |
-| **Alergias** | Alertas de sustancias y medicamentos a los que la mascota es alérgica |
-| **Recetas** | Recetas médicas digitales con opción de descarga en PDF |
-
-#### Descargar una Receta Médica
-1. Ve a la pestaña **Recetas**.
-2. Localiza la receta que deseas descargar.
-3. Haz clic en el botón **"Descargar PDF"**.
-4. El PDF se generará en el servidor y se descargará automáticamente.
-
-🔒 Las recetas incluyen firma digital y folio único para validación farmacéutica.
+1. En tu panel del portal, haz clic en el botón **"Registrar Nueva Mascota"**.
+2. Completa los datos en la ventana que se desplegará:
+   - **Nombre de la mascota:** (Ejemplo: *Luna*, *Max*, *Pelusa*).
+   - **Especie:** Perro, Gato, Ave, Roedor u Otro.
+   - **Raza y Color:** (Ejemplo: *Labrador Retriever dorado* o *Mestizo atigrado*).
+   - **Fecha de Nacimiento o Edad Aproximada:** Fundamental para el cálculo de dosis de vacunas y desparasitantes.
+   - **Sexo y Estado Reproductivo:** Macho / Hembra y si se encuentra castrado o esterilizado.
+   - **Número de Microchip:** (Opcional, si tu mascota cuenta con chip de rastreo).
+   - **Foto:** Sube una imagen clara del rostro de tu mascota para que el equipo la identifique en recepción.
+3. Haz clic en **"Guardar Mascota"**. La ficha quedará vinculada de inmediato a tu expediente.
 
 ---
 
-### 7.4 Mis Citas
+### 5.3 Consulta de carnet de vacunación y expediente médico
 
-**Ruta:** ➡️ `/portal/citas`
+Olvídate de las cartillas de vacunación en papel que se maltratan o extravían. En Luna-Vet tu carnet es 100% digital y siempre está en tu bolsillo.
 
-Visualiza y gestiona el historial de citas de todas tus mascotas:
+1. Dentro de tu panel, haz clic sobre la tarjeta de tu mascota o en el enlace **"Ver Expediente"**.
+2. En la pantalla del expediente podrás revisar cuatro pestañas principales:
+   - **Carnet de Vacunación:** Lista de vacunas aplicadas con la marca, lote, fecha de aplicación y la fecha sugerida para su próximo refuerzo.
+   - **Historial de Consultas:** Resumen de cada visita a la clínica, diagnóstico médico emitido y peso registrado en cada fecha.
+   - **Recetas y Tratamientos:** Copia fiel de las recetas prescritas por el veterinario, con la indicación exacta de medicamentos y la posibilidad de descargar el archivo PDF con un solo clic.
+   - **Estudios y Archivos:** Fotografías de radiografías, resultados de análisis de sangre y coprológicos realizados en laboratorio.
 
-| Estado | Descripción |
-| :--- | :--- |
-| **Pendiente** | Cita confirmada en espera de atención |
-| **En curso** | La mascota está siendo atendida |
-| **Completada** | Consulta finalizada |
-| **Cancelada** | Cita cancelada por el cliente o la clínica |
-
-**Para cancelar una cita:**
-1. Haz clic en la cita que deseas cancelar.
-2. Selecciona **"Cancelar Cita"** y confirma en el diálogo.
-
-⚠️ Se recomienda cancelar con al menos 2 horas de anticipación para liberar el horario a otros pacientes.
+> [!TIP]
+> Si sales de viaje o requieres presentar la cartilla de vacunación en una pensión canina o aeropuerto, descarga el PDF oficial de vacunas presionando el botón **"Descargar Carnet Oficial"**.
 
 ---
 
-### 7.5 Compra y Checkout (Click & Collect)
+### 5.4 Administración y seguimiento de tus citas
 
-**Ruta:** ➡️ `/checkout`
-
-El modelo de compra es **Click & Collect**: realizas el pedido en línea y lo recoges en la clínica.
-
-**Pasos para completar tu compra:**
-1. Desde la **Tienda** (`/tienda`), agrega los productos al carrito.
-2. Haz clic en el carrito 🛒 y luego en **"Proceder al Pago"**.
-3. Revisa el resumen de tu pedido (productos, cantidades, subtotal).
-4. Selecciona el método de pago:
-   - **Pago en clínica** al recoger
-   - **Transferencia SPEI**
-   - **MercadoPago** (tarjeta de crédito/débito)
-5. Confirma los datos y haz clic en **"Confirmar Pedido"**.
-6. Recibirás un correo con el número de pedido y las instrucciones para recogerlo.
-
-ℹ️ Los medicamentos controlados requieren presentar la receta al momento de recoger el pedido en la clínica.
+- **Revisar citas:** En la pestaña **"Mis Citas"** verás tus consultas confirmadas, pendientes o concluidas.
+- **Reprogramar una cita:** Si surge un imprevisto, puedes solicitar una nueva fecha u horario con al menos 2 horas de anticipación presionando el botón **"Cambiar Horario"**.
+- **Cancelar:** Si no podrás acudir, presiona **"Cancelar Cita"** para liberar el espacio y permitir que otra mascota que lo necesite pueda ser atendida por el médico.
 
 ---
 
-## 8. Portal del Personal Clínico (Veterinario / Recepcionista)
+### 5.5 Compras con retiro directo en clínica (Click & Collect)
 
-**Acceso requerido:** Cuenta de staff creada por el administrador  
-**Ruta base:** ➡️ `/staff/agenda`
-
-ℹ️ El acceso a este módulo se gestiona exclusivamente desde la pestaña **"Personal de Clínica"** en el formulario de login.
-
----
-
-### 8.1 Agenda del Día
-
-**Ruta:** ➡️ `/staff/agenda`
-
-Vista central del personal clínico con las citas programadas para el día:
-
-- **Vista de agenda** con bloques de tiempo por veterinario.
-- **Estado en tiempo real** de cada cita (pendiente, en curso, completada).
-- Botón **"Iniciar Consulta"** para abrir el módulo de consulta médica directamente desde la cita.
-- Filtro por **veterinario** y **tipo de servicio**.
-
-✅ El sistema bloquea automáticamente los horarios ya ocupados para evitar citas simultáneas.
+Para evitarte filas en mostrador al comprar alimento o reponer medicamentos:
+1. Agrega los artículos deseados a tu bolsa desde la sección **"Farmacia & Tienda"**.
+2. Haz clic en el icono de la bolsa de compras y presiona **"Continuar al Pago"**.
+3. Selecciona la modalidad **"Recoger en Clínica (Acapulco El Coloso)"**.
+4. Elige si prefieres pagar en línea o al momento de recoger en mostrador con tarjeta o efectivo.
+5. Haz clic en **"Confirmar Pedido"**. Recibirás una notificación cuando tu paquete esté empaquetado y listo en mostrador.
 
 ---
 
-### 8.2 Consulta Médica
+## 6. Módulo 4: Portal Clínico (Veterinarios, Estilistas y Recepción)
 
-**Ruta:** ➡️ `/staff/consultas`
+Este módulo está destinado exclusivamente al equipo operativo de Luna-Vet Acapulco. Cuenta con herramientas médicas especializadas para agilizar la atención y garantizar el cumplimiento de las normativas de salud veterinaria mexicanas.
 
-Módulo para registrar el resultado de una consulta médica:
+### 6.1 Agenda Diaria y Control de Turnos
 
-**Campos disponibles:**
-- **Motivo de consulta** (texto libre)
-- **Exploración física** (peso, temperatura, frecuencia cardíaca, frecuencia respiratoria)
-- **Diagnóstico** (texto clínico)
-- **Tratamiento indicado** (texto libre)
-- **Medicamentos recetados** (selección de catálogo + dosis + frecuencia + duración)
-- **Notas adicionales y observaciones**
+La agenda clínica es el corazón de la operación diaria. Permite organizar las consultas, cirugías, baños y revisiones sin que se empalmen los horarios.
 
-**Emitir una Receta Médica:**
-1. En la sección de medicamentos, agrega los fármacos indicados.
-2. Completa la dosis, frecuencia y duración del tratamiento.
-3. Haz clic en **"Emitir Receta"**.
-4. El sistema generará un PDF con folio único, firma digital y datos del veterinario.
-5. El PDF queda disponible para descarga del cliente en su portal.
+![Agenda Médica Interactiva en FullCalendar](docs/screenshots/09_agenda_medica.png)
+*Agenda médica: vista semanal interactiva con código de colores por tipo de servicio y doctor asignado.*
 
-**Registro de Vacunas:**
-- En la misma pantalla de consulta puedes registrar vacunas aplicadas.
-- Indica el nombre de la vacuna, lote y fecha de próxima aplicación.
-
-**Registro de Peso:**
-- Registra el peso del paciente y se añade automáticamente a la gráfica de evolución.
+#### Funcionalidades clave de la agenda:
+- **Vista por Horario (Día / Semana / Mes):** Selecciona en la parte superior el formato que mejor se acomode a tu flujo de trabajo.
+- **Colores por Servicio:** Las citas se identifican al instante:
+  - 🔵 **Azul:** Consulta Médica General
+  - 🔴 **Rojo:** Cirugía o Quirófano
+  - 🟢 **Verde:** Vacunación y Medicina Preventiva
+  - 🟡 **Amarillo:** Estética y Baño
+- **Cambio de Horario Ágil:** Puedes arrastrar un bloque de cita a otra hora para reagendar rápidamente ante la llegada imprevista de un paciente en triage.
+- **Recepción en Mostrador:** Al llegar el tutor a la clínica, el recepcionista hace clic en la cita y marca el botón **"Paciente en Sala de Espera"**. El médico verá el cambio de estado en su pantalla de inmediato.
 
 ---
 
-### 8.3 Medicamentos Controlados
+### 6.2 Consulta Médica y Emisión de Recetas Digitales
 
-**Ruta:** ➡️ `/staff/controlados`
+Cuando el médico veterinario recibe al paciente en el consultorio, abre la pantalla de consulta:
 
-Cola de validación clínica para pedidos de medicamentos que requieren autorización médica:
+![Módulo de Consulta Médica y Expediente Clínico](docs/screenshots/10_consulta_clinica.png)
+*Pantalla de consulta médica: anamnesis, constantes fisiológicas, diagnóstico y prescripción.*
 
-1. El sistema lista los pedidos pendientes de validación.
-2. El veterinario revisa la solicitud del cliente y la receta adjunta (si aplica).
-3. Puede **Aprobar** o **Rechazar** el despacho.
-4. Al aprobar, el pedido avanza a preparación y el inventario se descuenta del lote FEFO correspondiente.
+#### Procedimiento durante la consulta:
+1. **Registro de Constantes Fisiológicas:**
+   - Peso actual en kilogramos (crucial para el cálculo automático de dosis).
+   - Temperatura corporal en grados Celsius (rango normal canino: 37.5°C a 39.2°C).
+   - Frecuencia cardíaca (lpm) y frecuencia respiratoria (rpm).
+   - Tiempo de llenado capilar (TLLC) y condición corporal (escala del 1 al 5).
+2. **Anamnesis y Exploración Física:** Registro de los síntomas referidos por el tutor y hallazgos en la auscultación o palpación.
+3. **Diagnóstico Presuntivo y Definitivo:** Selección del cuadro clínico principal.
+4. **Prescripción de Medicamentos:**
+   - Selecciona el fármaco del catálogo clínico de la clínica.
+   - El sistema sugiere la posología estándar según el peso registrado de la mascota.
+   - Especifica la vía de administración (oral, subcutánea, tópica), la frecuencia (cada 8, 12 o 24 horas) y la duración total en días.
+5. **Firma y Emisión:** El médico presiona **"Guardar y Emitir Receta"**. El sistema genera de forma automática el folio único con código QR y la cédula profesional del médico firmante. La receta queda guardada en el portal del tutor y lista para imprimirse en recepción.
 
----
-
-### 8.4 Hospitalización
-
-**Ruta:** ➡️ `/staff/hospitalizacion`
-
-Gestión de pacientes internados en la clínica:
-
-- **Lista de pacientes hospitalizados** con el motivo de internamiento y el veterinario responsable.
-- **Registro de evolución diaria:** signos vitales, alimentación, medicación administrada.
-- **Alta médica:** marca al paciente como dado de alta y libera la jaula/espacio asignado.
-
----
-
-### 8.5 Estética y Grooming
-
-**Ruta:** ➡️ `/staff/estetica`
-
-Módulo de check-in para el servicio de estética y grooming canino/felino:
-
-1. Busca al cliente o la mascota por nombre o ID.
-2. Registra el servicio solicitado (baño, corte, tratamiento, etc.).
-3. Indica observaciones especiales (sensibilidad a productos, comportamiento, etc.).
-4. Al finalizar el servicio, marca el check-out y registra el tiempo empleado.
+> [!IMPORTANT]
+> Toda receta emitida queda blindada contra modificaciones posteriores para garantizar su validez legal y proteger tanto al paciente como al médico veterinario tratante.
 
 ---
 
-### 8.6 Recordatorios y Notificaciones
+### 6.3 Libro de Control Oficial de Medicamentos (SENASICA)
 
-**Ruta:** ➡️ `/staff/recordatorios`
+En estricto cumplimiento con la legislación veterinaria mexicana y las directrices de SENASICA y SAGARPA para el manejo de psicotrópicos, anestésicos y antibióticos restringidos:
 
-Panel para gestionar y revisar los recordatorios enviados a clientes:
+#### ¿Cómo registrar un movimiento de medicamento controlado?
+1. Ingresa a la sección **"Staff" > "Medicamentos Controlados"**.
+2. **Para registrar una Entrada (Reabastecimiento):**
+   - Presiona **"Registrar Entrada de Lote"**.
+   - Captura el nombre del fármaco (ej. *Ketamina*, *Tramadol*, *Diazepam*).
+   - Introduce el laboratorio fabricante, número de lote, fecha de caducidad y número de factura del distribuidor autorizado.
+3. **Para registrar una Salida (Uso Clínico o Quirúrgico):**
+   - Selecciona **"Registrar Uso en Paciente"**.
+   - Vincula el paciente mediante su número de expediente o cita.
+   - Indica la dosis exacta administrada en mililitros o miligramos.
+   - Selecciona el nombre del Médico Veterinario responsable e introduce su cédula profesional.
+4. Haz clic en **"Asentar en Libro Oficial"**.
 
-- **Recordatorios de citas** (enviados automáticamente 24 horas antes).
-- **Recordatorios de vacunas** próximas a vencer.
-- **Historial de notificaciones** enviadas con estado de entrega.
-
-ℹ️ Los recordatorios se envían automáticamente mediante tareas programadas (cron) en el servidor. El personal puede forzar un envío manual desde esta pantalla.
-
----
-
-### 8.7 Punto de Venta (POS)
-
-**Ruta:** ➡️ `/staff/pos`
-
-Sistema de cobro en mostrador para ventas directas en la clínica:
-
-**Para realizar una venta:**
-1. Busca el producto por nombre o escanea el código de barras (si se tiene lector).
-2. Ajusta la **cantidad** deseada.
-3. El producto se agrega al ticket activo con precio unitario y subtotal.
-4. Selecciona el **método de pago**: efectivo, transferencia o tarjeta.
-5. Si es pago en efectivo, ingresa el monto recibido y el sistema calculará el cambio.
-6. Haz clic en **"Procesar Venta"** para finalizar.
-7. El ticket se puede **imprimir** o **enviar por correo** al cliente.
-
-✅ El inventario se actualiza en tiempo real al procesar cada venta.
+> [!CAUTION]
+> Los asientos en el libro de medicamentos controlados son definitivos y auditables por inspectores sanitarios. Nunca registres salidas sin antes corroborar la dosis exacta cargada en jeringa.
 
 ---
 
-## 9. Panel de Administración
+### 6.4 Hospitalización, Triage y Cuidados Intensivos (UCI)
 
-**Acceso requerido:** Cuenta de administrador  
-**Ruta base:** ➡️ `/admin/dashboard`
+Para los pacientes que requieren estancia en observación, sueroterapia continua o recuperación post-anestésica:
 
-⚠️ **Este módulo es de acceso exclusivo para el administrador del sistema.** Las acciones realizadas aquí afectan la configuración y los datos de toda la clínica.
+![Módulo de Hospitalización y Triage de Cuidados Intensivos](docs/screenshots/11_hospitalizacion_uci.png)
+*Monitor de hospitalización: control de jaulas activas, calculadora de fluidos y signos vitales horarios.*
 
----
-
-### 9.1 Dashboard con KPIs
-
-**Ruta:** ➡️ `/admin/dashboard`
-
-Vista ejecutiva con métricas en tiempo real:
-
-| Métrica | Descripción |
-| :--- | :--- |
-| **Pacientes activos** | Total de mascotas con expediente activo |
-| **Citas del mes** | Número de citas agendadas en el mes actual |
-| **Ingresos del mes** | Total facturado en el período |
-| **Pedidos pendientes** | Pedidos de tienda en espera de preparación |
-| **Stock en riesgo** | Productos próximos a agotarse o a caducar |
-| **Personal activo** | Número de empleados con acceso activo |
-
----
-
-### 9.2 Gestión de Personal (Staff)
-
-**Ruta:** ➡️ `/admin/staff`
-
-Administra los usuarios del personal clínico y administrativo:
-
-#### Dar de alta a un nuevo empleado
-1. Haz clic en **"+ Agregar Personal"**.
-2. Completa los datos: nombre completo, correo institucional, rol (veterinario, recepcionista, administrador) y especialidad.
-3. Asigna una **contraseña temporal segura** (el empleado deberá cambiarla en su primer acceso).
-4. Haz clic en **Guardar**.
-
-#### Editar datos de un empleado
-1. Localiza al empleado en la lista.
-2. Haz clic en el ícono de **edición** (lápiz).
-3. Modifica los campos necesarios y guarda.
-
-#### Restablecer contraseña
-1. Localiza al empleado.
-2. Haz clic en **"Restablecer Contraseña"**.
-3. Ingresa la nueva contraseña temporal y confirma.
-
-⚠️ Notifica al empleado inmediatamente después del restablecimiento para que no pierda acceso.
+#### Operación del módulo de hospitalización:
+1. **Admisión a Jaula:**
+   - Presiona el botón azul **"Nuevo Ingreso a Jaula"**.
+   - Selecciona al paciente y asígnale un cubículo (ej. *Jaula Canina 02 - Aislamiento* o *Cubículo Felino 01*).
+   - Registra el diagnóstico de ingreso y el plan de tratamiento prescrito.
+2. **Calculadora de Fluidoterapia:**
+   - Presiona el botón **"Calculadora & Fluidos"**.
+   - Introduce el peso del paciente, el porcentaje de deshidratación estimado (ej. 5%, 8%) y las pérdidas continuas.
+   - El sistema calculará automáticamente la tasa de infusión en mililitros por hora (mL/h) y gotas por minuto con macrogotero o microgotero.
+3. **Registro Horario de Signos y Escala de Dolor:**
+   - El personal de enfermería captura cada 2, 4 o 6 horas la temperatura, glucosa, micción y actitud.
+   - Aplica la **Escala de Dolor de Glasgow** integrada para determinar si el paciente requiere analgesia de rescate.
+4. **Alta Médica:**
+   - Cuando el paciente se encuentre estable y listo para regresar a casa, presiona **"Dar de Alta"**.
+   - Redacta las indicaciones de cuidados en el hogar y recetas de continuación. El estatus de la jaula pasará automáticamente a *"Disponible para desinfección"*.
 
 ---
 
-### 9.3 Inventario y Control FEFO
+### 6.5 Estética Canina y Felina (Admisión y Hoja de Manto)
 
-**Ruta:** ➡️ `/admin/inventario`
+Para evitar inconformidades con los tutores respecto al estado físico previo de sus mascotas:
 
-Gestión completa del inventario de la farmacia con control de lotes por fecha de caducidad:
-
-- **Lista de productos** con stock total, stock disponible y precio de venta.
-- **Gestión de lotes:** cada producto puede tener múltiples lotes con distinta fecha de caducidad.
-- **Alertas automáticas** de productos próximos a caducar.
-- El sistema aplica la regla **FEFO** (First Expired, First Out) para asegurar que siempre se despacha primero el lote de caducidad más próxima.
-
-#### Registrar un nuevo lote
-1. Selecciona el producto en la lista.
-2. Haz clic en **"+ Agregar Lote"**.
-3. Ingresa: número de lote, fecha de caducidad, cantidad recibida y costo unitario.
-4. Guarda el lote.
+1. Al recibir al perro o gato para baño o corte, ingresa a **"Staff" > "Estética & Grooming"**.
+2. **Hoja de Admisión Digital:**
+   - Marca en el esquema interactivo de la mascota si presenta nudos severos, presencia de pulgas/garrapatas, cicatrices previas, verrugas o dolor al tacto en oídos.
+   - Anota el tipo de corte solicitado por el cliente (ej. *Corte de raza Schnauzer*, *Corte higiénico*, *Deslanado*).
+   - Solicita la confirmación verbal del tutor.
+3. **Finalización del Servicio:**
+   - Al terminar el secado y cepillado, presiona **"Servicio Concluido"**.
+   - El sistema envía automáticamente una notificación de WhatsApp al tutor indicándole: *"¡Tu mascota está lista, perfumada y esperándote en Luna-Vet!"*.
 
 ---
 
-### 9.4 Reportes Financieros
+### 6.6 Recordatorios Preventivos y Notificaciones
 
-**Ruta:** ➡️ `/admin/reportes`
-
-Reportes de ingresos y desempeño comercial:
-
-| Reporte | Descripción |
-| :--- | :--- |
-| **Ingresos por período** | Total facturado con desglose por día/semana/mes |
-| **Métodos de pago** | Distribución de ventas por forma de pago |
-| **Ticket promedio** | Valor promedio por transacción |
-| **Productos más vendidos** | Ranking de productos por volumen de venta |
-| **Lotes en riesgo** | Inventario próximo a caducar con valor estimado en riesgo |
-
-✅ Los reportes pueden filtrarse por rango de fechas.
+Para garantizar que los cachorros y adultos no pierdan su esquema de salud:
+- El módulo de **Recordatorios** analiza las fechas de vencimiento de vacunas séxtuples, rabia, giardia, bordetella y desparasitación interna.
+- Con un solo clic en **"Generar Avisos del Mes"**, el sistema genera los mensajes personalizados de recordatorio para que recepción los envíe por WhatsApp o correo a los tutores.
 
 ---
 
-### 9.5 Explorador de Auditoría
+### 6.7 Punto de Venta Mostrador (POS) y Arqueo de Caja Chica
 
-**Ruta:** ➡️ `/admin/auditoria`
+El Punto de Venta unificado permite cobrar con rapidez medicamentos, alimentos, consultas médicas y servicios de estética en una sola cuenta.
 
-Registro forense inmutable de todas las acciones realizadas en el sistema:
+![Punto de Venta Mostrador y Caja](docs/screenshots/12_pos_caja_chica.png)
+*Punto de venta mostrador: cobro integrado con selector de métodos de pago y ticket en vivo.*
 
-- Cada entrada muestra: fecha y hora, usuario, acción realizada, dirección IP de origen.
-- Los datos sensibles (contraseñas, tokens, datos financieros) aparecen como `***REDACTED***` por seguridad.
-- Permite **filtrar por usuario**, **tipo de acción** y **rango de fechas**.
+#### A. Apertura de Turno de Caja (Al Iniciar el Día)
+1. Al llegar a mostrador, presiona el botón amarillo **"Abrir Turno de Caja"**.
+2. En la ventana emergente, ingresa el **Fondo Inicial en Efectivo** (el cambio que tienes en el cajón de dinero, por ejemplo: `$500.00 MXN`).
+3. Haz clic en **"Confirmar Apertura"**. El punto de venta quedará habilitado para cobrar.
 
-🔒 Este registro no puede ser modificado ni eliminado desde la interfaz. Su propósito es garantizar la trazabilidad ante cualquier incidente de seguridad.
+#### B. Cobro de Productos y Servicios
+1. Escribe en la barra de búsqueda el nombre del fármaco, alimento o servicio (o búscalo en el listado por categoría).
+2. Haz clic sobre el artículo para sumarlo al ticket de la derecha. Puedes aumentar la cantidad con los botones `+` o `-`.
+3. Selecciona el **Método de Pago**:
+   - 💵 **Efectivo:** Ingresa con cuánto dinero paga el cliente; la pantalla calculará el cambio exacto a entregar.
+   - 💳 **Tarjeta Bancaria:** Para cobro en terminal bancaria de débito o crédito.
+   - 📲 **Transferencia / SPEI:** Registra el cobro por banca móvil.
+   - 🔄 **Mixto:** Si el cliente paga una parte en efectivo y el resto con tarjeta.
+4. Presiona el botón verde **"Cobrar e Imprimir Ticket"**.
+5. Se generará el ticket de compra con desglose de IVA y folio de control.
 
----
+#### C. Arqueo y Corte Z (Al Terminar el Turno)
+1. Al concluir tu jornada de trabajo en recepción, presiona **"Arqueo y Corte Z"**.
+2. Cuenta el dinero en efectivo que tienes físicamente en el cajón y escribe el monto en la pantalla.
+3. El sistema comparará tu conteo físico contra las ventas registradas por el sistema y te mostrará:
+   - Total de ventas en efectivo.
+   - Total de ventas en tarjeta y transferencias.
+   - Diferencia (si hay sobrante o faltante).
+4. Presiona **"Cerrar Turno de Caja"** para imprimir el comprobante oficial de corte.
 
-### 9.6 Gestor de Contenidos (CMS)
-
-**Ruta:** ➡️ `/admin/cms`
-
-Permite editar el contenido visible en la plataforma sin necesidad de modificar el código:
-
-| Sección | Descripción |
-| :--- | :--- |
-| **Secciones de Landing** | Textos e imágenes del hero, servicios y contacto |
-| **Blog** | Crear, editar y publicar artículos veterinarios |
-| **Testimonios** | Aprobar o rechazar opiniones de clientes |
-| **Reseñas de Productos** | Moderar calificaciones y comentarios de la tienda |
-
-#### Publicar un artículo de blog
-1. Ve a **CMS > Blog** y haz clic en **"+ Nuevo Artículo"**.
-2. Escribe el título, contenido (con formato enriquecido) y agrega una imagen destacada.
-3. Asigna **etiquetas** y una categoría.
-4. El sistema genera automáticamente el **slug** (URL amigable) a partir del título.
-5. Haz clic en **Publicar** para que quede visible en el blog público.
-
-#### Moderar testimonios
-1. Ve a **CMS > Testimonios**.
-2. Revisa los testimonios pendientes de aprobación.
-3. Usa el botón de **visibilidad** para publicar o ocultar cada testimonio.
+> [!CAUTION]
+> Una vez cerrado el turno de caja, no se podrán agregar más ventas a ese folio de arqueo. Cualquier venta posterior requerirá la apertura de un nuevo turno.
 
 ---
 
-## 10. Seguridad y Privacidad
+## 7. Módulo 5: Panel de Dirección y Administración General
 
-La plataforma LunaVet implementa los más altos estándares de seguridad para proteger los datos de los pacientes y sus tutores:
+Diseñado para los socios, directores médicos y administradores de Luna-Vet Acapulco. Permite tener el control integral del negocio, supervisar la rentabilidad y asegurar la excelencia médica.
 
-| Medida | Descripción |
-| :--- | :--- |
-| **Cifrado en reposo** | Los datos personales se almacenan cifrados con AES-256-GCM |
-| **Transmisión segura** | Toda comunicación usa HTTPS con certificado SSL/TLS |
-| **Tokens de sesión** | Los Access Tokens duran 15 minutos y se renuevan automáticamente |
-| **Bloqueo por intentos fallidos** | El sistema bloquea el acceso tras múltiples intentos incorrectos |
-| **2FA opcional** | Autenticación de dos factores disponible para todos los usuarios |
-| **Auditoría inmutable** | Registro forense de todas las acciones con ofuscación de datos sensibles |
-| **Cumplimiento LFPDPPP** | Protección de datos bajo la Ley Federal de Protección de Datos Personales |
+### 7.1 Tablero de Indicadores Clave (KPIs en Tiempo Real)
 
-🔒 **Recomendaciones de seguridad para el usuario:**
-- Nunca compartas tu contraseña con nadie, incluido el personal de la clínica.
-- Utiliza contraseñas únicas y robustas (mínimo 8 caracteres con mayúsculas, minúsculas y números).
-- Activa la autenticación de dos factores (2FA) especialmente si eres personal clínico.
-- Siempre cierra sesión al usar dispositivos compartidos o públicos.
-- Si sospechas que tu cuenta fue comprometida, contacta a soporte inmediatamente.
+Al ingresar a la sección de administración se despliega el centro de mando:
+
+![Tablero de Mando y Analítica Ejecutiva](docs/screenshots/13_admin_dashboard.png)
+*Panel de administración: ingresos del mes, citas completadas, pacientes activos y gráfica de métodos de pago.*
+
+#### Métricas principales:
+- **Ingresos del Mes:** Total acumulado en pesos mexicanos facturados en el periodo actual.
+- **Citas para Hoy:** Cantidad de consultas programadas en el día y porcentaje de asistencia.
+- **Pacientes Registrados:** Base de datos activa de animales bajo seguimiento clínico.
+- **Lotes FEFO en Riesgo:** Alerta preventiva sobre medicamentos o vacunas que caducan en menos de 30 o 60 días.
+- **Gráfica de Métodos de Pago:** Distribución porcentual entre efectivo, tarjetas bancarias y transferencias para conciliación contable.
 
 ---
 
-## 11. Preguntas Frecuentes (FAQ)
+### 7.2 Administración de Personal Clínico y Cédulas Médicas
 
-**¿Olvidé mi contraseña. ¿Qué hago?**
-> Contacta al equipo de soporte en `soporte@lunavet.lat`. Para el personal clínico, el administrador puede restablecer la contraseña desde el panel de gestión de staff.
-
-**¿Puedo tener más de una mascota registrada?**
-> Sí. Puedes registrar todas las mascotas que desees desde la sección `/portal/mascotas`.
-
-**¿El expediente clínico es visible para mí como tutor?**
-> Sí. Puedes consultar el historial de consultas, vacunas, peso, alergias y descargar recetas en PDF desde `/portal/expediente/:id`.
-
-**¿Puedo cancelar una cita en línea?**
-> Sí, desde `/portal/citas`. Se recomienda cancelar con al menos 2 horas de anticipación.
-
-**¿Cómo sé si mi pago fue procesado correctamente?**
-> Recibirás un correo de confirmación con el número de pedido. También puedes revisar el estado en `/portal` en la sección "Últimos Pedidos".
-
-**¿El generador de QR tiene algún costo?**
-> No. El generador de placas QR en `/qr` es completamente gratuito para todos los usuarios.
-
-**¿Los medicamentos se envían a domicilio?**
-> No. El modelo de compra es Click & Collect: realizas el pedido en línea y lo recoges en la clínica.
-
-**¿Los medicamentos controlados se pueden comprar en línea?**
-> Puedes agregarlos al carrito, pero requieren validación médica antes de ser despachados. Un veterinario revisará tu solicitud.
-
-**¿Mis datos están seguros?**
-> Sí. La plataforma cumple con la LFPDPPP. Consulta el Aviso de Privacidad en `/aviso-privacidad` para más detalles.
-
-**¿Puedo acceder desde mi celular?**
-> Sí. La plataforma es 100% responsiva y funciona en smartphones, tabletas y computadoras.
+1. Ingresa a **"Administración" > "Personal (Staff)"**.
+2. **Dar de alta a un colaborador:**
+   - Presiona **"Nuevo Colaborador"**.
+   - Captura su nombre completo, correo institucional y teléfono.
+   - Asigna su rol en el sistema: *Veterinario*, *Recepcionista*, *Estilista* o *Administrador*.
+   - Si es médico veterinario, captura su **Cédula Profesional Oficial** y especialidad (ej. *Cirugía de Tejidos Blandos*, *Dermatología*).
+3. **Activar o desactivar accesos:** Si un miembro del personal concluye su ciclo laboral, puedes suspender su acceso de inmediato con un solo clic sin perder el registro histórico de las consultas que atendió.
 
 ---
 
-## 12. Soporte Técnico
+### 7.3 Control Inteligente de Inventario y Caducidades FEFO
 
-Para consultas, reportes de fallas o asistencia técnica:
+Para garantizar que en la clínica nunca se aplique un producto vencido y evitar pérdidas económicas por caducidad:
 
-| Canal | Detalle |
-| :--- | :--- |
-| **Correo electrónico** | `soporte@lunavet.lat` |
-| **Teléfono / WhatsApp** | `744 213 0868` (Urgencias 24/7) |
-| **Dirección** | El Coloso, Acapulco de Juárez, Guerrero |
-| **Portal web** | `https://lunavet.lat` |
+![Control de Inventario con Algoritmo FEFO](docs/screenshots/14_inventario_fefo.png)
+*Gestión de inventario FEFO: semáforo de caducidades, alertas de stock mínimo y control de lotes.*
 
-**Horarios de atención técnica:**
-- Lunes a Viernes: 09:00 – 20:00
-- Sábados: 09:00 – 16:00
-- Domingos: 10:00 – 15:00
+#### ¿Qué es el método FEFO?
+FEFO son las siglas en inglés de *First Expired, First Out* (Primero en Vencer, Primero en Salir). El sistema prioriza en el punto de venta y en quirófano aquellos lotes de vacunas y medicamentos cuya fecha de caducidad esté más próxima.
 
-Al contactar soporte, proporciona:
-1. Tu nombre completo y correo de la cuenta.
-2. Descripción detallada del problema.
-3. Capturas de pantalla si es posible.
-4. Hora aproximada en que ocurrió el problema.
+#### Operación del módulo de inventario:
+- **Semáforo de Vencimiento:**
+  - 🟢 **Verde:** Lote con caducidad lejana (más de 90 días).
+  - 🟡 **Amarillo:** Lote con caducidad próxima (entre 30 y 90 días). Se recomienda ofrecerlo en promociones o utilizarlo prioritariamente.
+  - 🔴 **Rojo:** Lote crítico (menos de 30 días o vencido). El sistema bloquea automáticamente su venta en el mostrador para proteger al paciente.
+- **Ajuste de Existencias:** Puedes registrar entradas por compra a proveedores, mermas por frasco roto o consumo interno en hospitalización.
 
 ---
 
-*Documento generado por el equipo técnico de LunaVet — Clínica Veterinaria, Farmacia & Estética.*  
-*Versión de la plataforma: 4.2 | Última actualización: Septiembre 2026*
+### 7.4 Reportes Financieros y Cortes Globales
+
+1. Dirígete a **"Administración" > "Reportes Financieros"**.
+2. Selecciona el rango de fechas que deseas consultar (hoy, esta semana, este mes o personalizado).
+3. Consulta los desgloses:
+   - Ventas por línea de negocio (Servicios Médicos vs. Farmacia vs. Estética).
+   - Rendimiento por médico veterinario (consultas atendidas y procedimientos realizados).
+   - Descarga el reporte consolidado en formato Excel o PDF para tu contador.
+
+---
+
+### 7.5 Bitácora de Auditoría y Protección de Datos
+
+En cumplimiento de la Ley Federal de Protección de Datos Personales en Posesión de los Particulares (LFPDPPP) y normativas de auditoría interna:
+- El módulo de **Auditoría** registra de forma inmutable quién realizó cada acción sensible:
+  - Cambios en el expediente de un paciente.
+  - Anulación de tickets o ventas en el punto de venta.
+  - Creación o edición de usuarios del sistema.
+  - Descargas de información confidencial.
+
+---
+
+### 7.6 Gestor de Contenido del Sitio Web y Campañas
+
+1. Ingresa a **"Administración" > "Contenidos (CMS)"**.
+2. Modifica directamente los teléfonos de guardia, horarios de atención para días festivos o banners con campañas de vacunación antirrábica y esterilización masiva en Acapulco sin necesidad de conocimientos de programación.
+
+---
+
+## 8. Preguntas Frecuentes y Guía de Ayuda Rápida
+
+### Para Tutores de Mascotas
+
+**¿Tiene algún costo descargar las recetas médicas o la placa QR?**  
+No. Todas las herramientas del portal, la descarga de tus recetas en PDF y el generador de placas de identificación son 100% gratuitos para los clientes de Luna-Vet.
+
+**¿Qué hago si no recuerdo la contraseña de mi cuenta?**  
+En la pantalla de ingreso haz clic en *"¿Olvidaste tu contraseña?"*, introduce tu correo y recibirás un enlace seguro para crear una nueva clave.
+
+**¿Puedo registrar más de una mascota con mi misma cuenta?**  
+Sí, puedes registrar a todos los animales que tengas en casa bajo el mismo perfil. En tu portal verás la ficha individual de cada uno con su historial por separado.
+
+**¿Cómo demuestro en una aerolínea o pensión que las vacunas de mi perro son válidas?**  
+Ingresa a tu portal, abre el expediente de tu mascota y presiona **"Descargar Carnet Oficial"**. El documento emitido cuenta con la firma del médico, su cédula profesional y el código QR de verificación de autenticidad que cualquier autoridad puede escanear.
+
+---
+
+### Para Recepción y Personal Clínico
+
+**¿Qué ocurre si el sistema no encuentra un producto al momento de cobrar en el POS?**  
+Verifica que estés escribiendo el nombre sin faltas de ortografía o utiliza el código interno. Si es un producto nuevo que acaba de llegar del proveedor, solicítale al administrador que lo dé de alta en el inventario antes de agregarlo al ticket.
+
+**¿Puedo cobrar un ticket combinando efectivo y tarjeta bancaria?**  
+Sí. En la pantalla del punto de venta selecciona el método **"Mixto"**. Escribe primero el importe en efectivo que entrega el cliente y el sistema asignará el saldo restante a la terminal bancaria.
+
+**¿Qué debo hacer si accidentalmente ingresé mal el fondo de caja al abrir el turno?**  
+No intentes compensarlo cobrando tickets ficticios. Notifica de inmediato al administrador para que registre una nota de ajuste en la bitácora de caja antes de realizar el corte final del turno.
+
+**¿Por qué el sistema no me deja prescribir un antibiótico o sedante?**  
+Para prescribir medicamentos controlados es obligatorio que el médico que haya iniciado sesión tenga registrada su **Cédula Profesional Oficial** en su perfil de colaborador.
+
+---
+
+## 9. Directorio de Contacto y Asistencia
+
+Si experimentas alguna dificultad con la plataforma o requieres atención médica de emergencia para tu mascota, comunícate con nosotros:
+
+- 🏥 **Dirección de la Clínica:** Av. Peña Blanca, Etapa 38, Unidad Habitacional El Coloso, C.P. 39810, Acapulco de Juárez, Guerrero.
+- 📞 **Teléfono de Consultorio:** (744) 213 0868
+- 🟢 **WhatsApp de Urgencias y Citas:** +52 744 213 0868
+- 🌐 **Portal en Línea:** `https://lunavet.mx`
+- 🕒 **Horario de Consulta Regular:**
+  - Lunes a Sábado: 09:00 a 20:00 hrs.
+  - Domingos: 10:00 a 15:00 hrs.
+  - Guardias y Urgencias: Atención 24 horas mediante previa llamada telefónica o WhatsApp.

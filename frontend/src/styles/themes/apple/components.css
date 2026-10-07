@@ -1,0 +1,267 @@
+/* =========================================================================
+   APPLE DESIGN SYSTEM — COMPONENTES & LIQUID GLASS (HIG)
+   Capa funcional translúcida, capa de contenido sólida y elevación Apple.
+   ========================================================================= */
+
+/* 1. Capa Funcional: Barra de Navegación con Material Liquid Glass */
+.navbar-refined {
+  background: var(--navbar-bg) !important;
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  border-bottom: 1px solid var(--navbar-border);
+  box-shadow: var(--navbar-shadow);
+  z-index: 1050 !important;
+  transition: background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.navbar-refined .navbar-brand {
+  color: var(--navbar-text) !important;
+}
+
+.navbar-refined .nav-link {
+  color: var(--navbar-link) !important;
+  font-weight: 500;
+  font-size: 0.93rem;
+  padding: 0.45rem 0.85rem !important;
+  border-radius: 9999px;
+  transition: all 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.navbar-refined .nav-link:hover {
+  color: var(--navbar-link-hover) !important;
+  background: var(--navbar-link-hover-bg) !important;
+}
+
+.navbar-refined .nav-link.active {
+  color: var(--navbar-link-active) !important;
+  background: var(--navbar-link-active-bg) !important;
+  border: 1px solid var(--navbar-link-active-border) !important;
+}
+
+/* Botones de Acción en Navbar */
+.navbar-action-btn {
+  background-color: var(--bs-secondary-bg);
+  color: var(--bs-body-color);
+  border: 1px solid var(--bs-border-color) !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  transition: all 0.2s ease;
+}
+
+.navbar-action-btn:hover,
+.navbar-action-btn:focus {
+  background-color: var(--bs-tertiary-bg);
+  color: var(--bs-emphasis-color);
+  border-color: var(--bs-primary) !important;
+  transform: translateY(-1px);
+}
+
+.navbar-user-btn {
+  background-color: var(--bs-secondary-bg);
+  color: var(--bs-body-color);
+  border: 1px solid var(--bs-border-color);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  transition: all 0.2s ease;
+}
+
+.navbar-user-btn:hover,
+.navbar-user-btn:focus,
+.navbar-user-btn[aria-expanded="true"] {
+  background-color: var(--bs-tertiary-bg);
+  border-color: var(--bs-primary);
+  color: var(--bs-emphasis-color);
+  transform: translateY(-1px);
+}
+
+.navbar-user-badge {
+  background-color: rgba(var(--bs-primary-rgb), 0.12);
+  color: var(--bs-primary);
+  border: 1px solid rgba(var(--bs-primary-rgb), 0.25);
+  font-weight: 600;
+}
+
+/* 2. Capa de Contenido: Tarjetas Apple Squircle */
+:root:not(.theme-classic) .card,
+.theme-apple .card,
+.apple-design .card {
+  background-color: var(--bs-card-bg);
+  border: 1px solid var(--bs-card-border-color) !important;
+  border-radius: var(--bs-border-radius-lg) !important;
+  box-shadow: var(--apple-shadow-card) !important;
+  transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.25s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+:root:not(.theme-classic) .card:hover,
+.theme-apple .card:hover,
+.apple-design .card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--apple-shadow-card-hover) !important;
+}
+
+/* 3. Botones Apple HIG con Feedback de Presión */
+:root:not(.theme-classic) .btn,
+.theme-apple .btn,
+.apple-design .btn {
+  border-radius: 12px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  padding: 0.45rem 1rem;
+  transition: all 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+  min-height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+:root:not(.theme-classic) .btn:active,
+.theme-apple .btn:active,
+.apple-design .btn:active {
+  transform: scale(0.975);
+}
+
+:root:not(.theme-classic) .btn-primary,
+.theme-apple .btn-primary,
+.apple-design .btn-primary {
+  background-color: var(--bs-primary) !important;
+  background-image: none !important;
+  border: 1px solid transparent !important;
+  color: #ffffff !important;
+  box-shadow: 0 2px 8px rgba(var(--bs-primary-rgb), 0.28) !important;
+}
+
+:root:not(.theme-classic) .btn-primary:hover,
+:root:not(.theme-classic) .btn-primary:focus,
+.theme-apple .btn-primary:hover,
+.theme-apple .btn-primary:focus {
+  filter: brightness(1.06);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(var(--bs-primary-rgb), 0.38) !important;
+}
+
+:root:not(.theme-classic) .btn-light,
+.theme-apple .btn-light,
+.apple-design .btn-light {
+  background-color: var(--bs-tertiary-bg) !important;
+  border: 1px solid var(--bs-border-color) !important;
+  color: var(--bs-body-color) !important;
+  box-shadow: var(--apple-shadow-sm) !important;
+}
+
+:root:not(.theme-classic) .btn-light:hover,
+:root:not(.theme-classic) .btn-light:focus,
+.theme-apple .btn-light:hover,
+.theme-apple .btn-light:focus {
+  background-color: var(--bs-secondary-bg) !important;
+  color: var(--bs-emphasis-color) !important;
+  border-color: rgba(60, 60, 67, 0.2) !important;
+}
+
+/* 4. Formularios e Inputs Estilo Inset Agrupado */
+:root:not(.theme-classic) .form-control,
+:root:not(.theme-classic) .form-select,
+.theme-apple .form-control,
+.theme-apple .form-select {
+  background-color: var(--bs-tertiary-bg);
+  color: var(--bs-body-color);
+  border: 1px solid var(--bs-border-color);
+  border-radius: 12px;
+  box-shadow: none !important;
+  padding: 0.55rem 0.85rem;
+  font-size: 0.93rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+:root:not(.theme-classic) .form-control:focus,
+:root:not(.theme-classic) .form-select:focus,
+.theme-apple .form-control:focus,
+.theme-apple .form-select:focus {
+  background-color: var(--bs-secondary-bg);
+  border-color: var(--bs-primary);
+  color: var(--bs-emphasis-color);
+  box-shadow: 0 0 0 3.5px rgba(var(--bs-primary-rgb), 0.22) !important;
+}
+
+/* 5. Menús Desplegables & Modales Frosted Glass */
+:root:not(.theme-classic) .dropdown-menu,
+.theme-apple .dropdown-menu,
+.apple-dropdown {
+  background: var(--bs-dropdown-bg) !important;
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  border: 1px solid var(--bs-dropdown-border-color);
+  border-radius: 16px;
+  box-shadow: var(--apple-shadow-dropdown) !important;
+  padding: 0.5rem;
+}
+
+:root:not(.theme-classic) .dropdown-item,
+.theme-apple .dropdown-item {
+  border-radius: 10px;
+  padding: 0.45rem 0.85rem;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--bs-dropdown-link-color);
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+:root:not(.theme-classic) .dropdown-item:hover,
+:root:not(.theme-classic) .dropdown-item:focus,
+.theme-apple .dropdown-item:hover,
+.theme-apple .dropdown-item:focus {
+  background-color: var(--bs-dropdown-link-hover-bg) !important;
+  color: var(--bs-dropdown-link-hover-color) !important;
+}
+
+:root:not(.theme-classic) .dropdown-header,
+.theme-apple .dropdown-header {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  padding: 0.4rem 0.85rem 0.2rem;
+  color: var(--bs-secondary-color);
+}
+
+:root:not(.theme-classic) .modal-content,
+.theme-apple .modal-content {
+  background: var(--bs-modal-bg) !important;
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  border: 1px solid var(--bs-modal-border-color);
+  border-radius: 20px;
+  box-shadow: var(--apple-shadow-modal) !important;
+}
+
+/* 6. Insignias & Controles Segmentados Apple */
+:root:not(.theme-classic) .badge,
+.theme-apple .badge,
+.apple-design .badge {
+  border-radius: 9999px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  padding: 0.35rem 0.7rem;
+}
+
+.apple-segmented-control,
+.nav-pills {
+  background-color: var(--bs-tertiary-bg);
+  padding: 3px;
+  border-radius: 12px;
+  display: inline-flex;
+  gap: 2px;
+}
+
+.apple-segmented-control .nav-link,
+.nav-pills .nav-link {
+  border-radius: 9px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--bs-body-color);
+  padding: 0.35rem 0.85rem;
+  transition: all 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.apple-segmented-control .nav-link.active,
+.nav-pills .nav-link.active {
+  background-color: var(--bs-secondary-bg) !important;
+  color: var(--bs-emphasis-color) !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08) !important;
+}

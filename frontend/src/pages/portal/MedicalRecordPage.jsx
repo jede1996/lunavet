@@ -3,9 +3,11 @@ import { useParams, Link } from 'react-router-dom';
 import { api } from '../../services/api.client';
 import { WeightChart } from '../../components/charts/WeightChart';
 import { LoadingSpinner } from '../../components/common/LoadingSpinner';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 export function MedicalRecordPage() {
   const { id } = useParams();
+  const { t, isEnglish } = useLanguage();
   const [pet, setPet] = useState(null);
   const [records, setRecords] = useState([]);
   const [allergies, setAllergies] = useState([]);
@@ -79,14 +81,16 @@ export function MedicalRecordPage() {
   };
 
   if (loading) {
-    return <LoadingSpinner message="Consultando expediente clínico y antecedentes..." />;
+    return <LoadingSpinner message={t('common.loading', 'Consultando expediente clínico y antecedentes...')} />;
   }
 
   if (!pet) {
     return (
       <div className="container py-5 text-center">
-        <div className="alert alert-warning">No se encontró el paciente solicitado.</div>
-        <Link to="/portal/mascotas" className="btn btn-primary rounded-pill btn-sm">Regresar a Mis Mascotas</Link>
+        <div className="alert alert-warning">{isEnglish ? 'Requested patient not found.' : 'No se encontró el paciente solicitado.'}</div>
+        <Link to="/portal/mascotas" className="btn btn-primary rounded-pill btn-sm">
+          {isEnglish ? 'Back to My Pets' : 'Regresar a Mis Mascotas'}
+        </Link>
       </div>
     );
   }
@@ -118,7 +122,7 @@ export function MedicalRecordPage() {
                   <span className="badge bg-primary-subtle text-primary">{pet.especie}</span>
                 </div>
                 <p className="text-secondary small mb-0">
-                  {pet.raza || 'Mestizo'} • {pet.sexo} • Microchip: {pet.microchip || 'No asignado'}
+                  {pet.raza || (isEnglish ? 'Mixed' : 'Mestizo')} • {pet.sexo} • Microchip: {pet.microchip || (isEnglish ? 'Unassigned' : 'No asignado')}
                 </p>
               </div>
             </div>
@@ -133,16 +137,16 @@ export function MedicalRecordPage() {
                 {downloadingHistory ? (
                   <>
                     <span className="spinner-border spinner-border-sm me-1" role="status"></span>
-                    Generando PDF...
+                    {isEnglish ? 'Generating PDF...' : 'Generando PDF...'}
                   </>
                 ) : (
                   <>
-                    <i className="bi bi-file-earmark-medical me-1"></i> Descargar Carnet Oficial PDF
+                    <i className="bi bi-file-earmark-medical me-1"></i> {t('portal.downloadCarnetPdf', 'Descargar Carnet Oficial PDF')}
                   </>
                 )}
               </button>
               <Link to="/portal/mascotas" className="btn btn-outline-secondary rounded-pill btn-sm px-3">
-                <i className="bi bi-arrow-left me-1"></i> Volver a Mascotas
+                <i className="bi bi-arrow-left me-1"></i> {isEnglish ? 'Back to Pets' : 'Volver a Mascotas'}
               </Link>
             </div>
           </div>
@@ -152,8 +156,8 @@ export function MedicalRecordPage() {
             <div className="alert alert-danger d-flex align-items-center gap-2 mt-3 mb-0 py-2">
               <i className="bi bi-shield-exclamation fs-5 flex-shrink-0"></i>
               <div>
-                <strong>Alerta Médica de Alergias Registradas:</strong>{' '}
-                {allergies.map(a => `${a.alergeno} (${a.reaccion || 'moderada'})`).join(', ')}
+                <strong>{isEnglish ? 'Critical Allergy Alert:' : 'Alerta Médica de Alergias Registradas:'}</strong>{' '}
+                {allergies.map(a => `${a.alergeno} (${a.reaccion || (isEnglish ? 'moderate' : 'moderada')})`).join(', ')}
               </div>
             </div>
           )}
@@ -163,17 +167,17 @@ export function MedicalRecordPage() {
         <ul className="nav nav-pills mb-4 gap-2" id="recordTabs" role="tablist">
           <li className="nav-item" role="presentation">
             <button className="nav-link active rounded-pill px-4" id="consultas-tab" data-bs-toggle="pill" data-bs-target="#consultas" type="button">
-              <i className="bi bi-clipboard2-pulse me-2"></i>Consultas ({records.length})
+              <i className="bi bi-clipboard2-pulse me-2"></i>{isEnglish ? 'Consultations' : 'Consultas'} ({records.length})
             </button>
           </li>
           <li className="nav-item" role="presentation">
             <button className="nav-link rounded-pill px-4" id="vacunas-tab" data-bs-toggle="pill" data-bs-target="#vacunas" type="button">
-              <i className="bi bi-shield-plus me-2"></i>Carnet Vacunación ({vaccines.length})
+              <i className="bi bi-shield-plus me-2"></i>{isEnglish ? 'Vaccines' : 'Carnet Vacunación'} ({vaccines.length})
             </button>
           </li>
           <li className="nav-item" role="presentation">
             <button className="nav-link rounded-pill px-4" id="peso-tab" data-bs-toggle="pill" data-bs-target="#peso" type="button">
-              <i className="bi bi-graph-up me-2"></i>Evolución de Peso
+              <i className="bi bi-graph-up me-2"></i>{isEnglish ? 'Weight Curve' : 'Evolución de Peso'}
             </button>
           </li>
         </ul>
@@ -185,8 +189,10 @@ export function MedicalRecordPage() {
             {records.length === 0 ? (
               <div className="card shadow-sm border-0 rounded-4 p-5 text-center bg-white">
                 <i className="bi bi-clipboard-x text-muted display-4 mb-2 d-block"></i>
-                <h6 className="text-secondary">Sin consultas clínicas registradas</h6>
-                <p className="small text-muted mb-0">Cuando acudas a la clínica, el veterinario registrará aquí las notas y recetas.</p>
+                <h6 className="text-secondary">{isEnglish ? 'No clinical visits recorded yet' : 'Sin consultas clínicas registradas'}</h6>
+                <p className="small text-muted mb-0">
+                  {isEnglish ? 'When you visit the clinic, your veterinarian will log consultation notes and prescriptions here.' : 'Cuando acudas a la clínica, el veterinario registrará aquí las notas y recetas.'}
+                </p>
               </div>
             ) : (
               <div className="d-flex flex-column gap-3">
@@ -195,7 +201,7 @@ export function MedicalRecordPage() {
                     <div className="d-flex justify-content-between align-items-start mb-2">
                       <div>
                         <span className="badge bg-primary-subtle text-primary me-2">
-                          Consulta #{rec.id}
+                          {isEnglish ? 'Visit #' : 'Consulta #'}{rec.id}
                         </span>
                         <strong className="text-dark">{rec.motivo}</strong>
                       </div>
@@ -208,14 +214,14 @@ export function MedicalRecordPage() {
                     <div className="row g-3 my-2 small">
                       <div className="col-md-6">
                         <div className="p-3 bg-light rounded-3 h-100">
-                          <strong className="text-secondary d-block mb-1">Diagnóstico Médico:</strong>
-                          <p className="mb-0 text-dark">{rec.diagnostico || 'Evaluación de rutina sin hallazgos patológicos.'}</p>
+                          <strong className="text-secondary d-block mb-1">{isEnglish ? 'Medical Diagnosis:' : 'Diagnóstico Médico:'}</strong>
+                          <p className="mb-0 text-dark">{rec.diagnostico || (isEnglish ? 'Routine checkup with no pathological findings.' : 'Evaluación de rutina sin hallazgos patológicos.')}</p>
                         </div>
                       </div>
                       <div className="col-md-6">
                         <div className="p-3 bg-light rounded-3 h-100">
-                          <strong className="text-secondary d-block mb-1">Tratamiento e Indicaciones:</strong>
-                          <p className="mb-0 text-dark">{rec.tratamiento || 'Cuidados generales y monitoreo.'}</p>
+                          <strong className="text-secondary d-block mb-1">{isEnglish ? 'Treatment & Instructions:' : 'Tratamiento e Indicaciones:'}</strong>
+                          <p className="mb-0 text-dark">{rec.tratamiento || (isEnglish ? 'General home care and monitoring.' : 'Cuidados generales y monitoreo.')}</p>
                         </div>
                       </div>
                     </div>
@@ -225,7 +231,7 @@ export function MedicalRecordPage() {
                       <div className="mt-2 pt-2 border-top d-flex justify-content-between align-items-center">
                         <span className="small text-muted">
                           <i className="bi bi-file-earmark-check text-success me-1"></i>
-                          Receta Médica Digital #{rec.receta_id} (Firma SHA-256)
+                          {isEnglish ? 'Digital Veterinary Rx #' : 'Receta Médica Digital #'}{rec.receta_id} (SHA-256)
                         </span>
                         <button
                           className="btn btn-outline-danger btn-sm rounded-pill px-3"
@@ -233,9 +239,9 @@ export function MedicalRecordPage() {
                           onClick={() => handleDownloadPrescriptionPdf(rec.receta_id)}
                         >
                           {downloadingPdfId === rec.receta_id ? (
-                            <span><span className="spinner-border spinner-border-sm me-1"></span>Generando PDF...</span>
+                            <span><span className="spinner-border spinner-border-sm me-1"></span>{isEnglish ? 'Generating PDF...' : 'Generando PDF...'}</span>
                           ) : (
-                            <span><i className="bi bi-file-pdf me-1"></i> Descargar Receta Oficial</span>
+                            <span><i className="bi bi-file-pdf me-1"></i> {t('portal.downloadPrescriptionPdf', 'Descargar Receta Oficial')}</span>
                           )}
                         </button>
                       </div>
@@ -249,19 +255,19 @@ export function MedicalRecordPage() {
           {/* 2. Carnet de Vacunación */}
           <div className="tab-pane fade" id="vacunas" role="tabpanel">
             <div className="card shadow-sm border-0 rounded-4 p-4 bg-white">
-              <h5 className="fw-bold text-dark mb-3">Carnet Oficial de Vacunación</h5>
+              <h5 className="fw-bold text-dark mb-3">{isEnglish ? 'Official Vaccination Record' : 'Carnet Oficial de Vacunación'}</h5>
               {vaccines.length === 0 ? (
-                <p className="text-muted small mb-0">No hay vacunas aplicadas en el historial.</p>
+                <p className="text-muted small mb-0">{isEnglish ? 'No vaccines logged in history.' : 'No hay vacunas aplicadas en el historial.'}</p>
               ) : (
                 <div className="table-responsive">
                   <table className="table table-hover align-middle small mb-0">
                     <thead className="table-light">
                       <tr>
-                        <th>Vacuna / Biológico</th>
-                        <th>Fecha de Aplicación</th>
-                        <th>Lote</th>
-                        <th>Próximo Refuerzo</th>
-                        <th>Estado</th>
+                        <th>{isEnglish ? 'Vaccine / Biological' : 'Vacuna / Biológico'}</th>
+                        <th>{isEnglish ? 'Application Date' : 'Fecha de Aplicación'}</th>
+                        <th>{isEnglish ? 'Batch / Lot' : 'Lote'}</th>
+                        <th>{isEnglish ? 'Next Booster' : 'Próximo Refuerzo'}</th>
+                        <th>{t('common.status', 'Estado')}</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -270,10 +276,10 @@ export function MedicalRecordPage() {
                           <td className="fw-bold">{v.nombre_vacuna}</td>
                           <td>{new Date(v.fecha_aplicacion).toLocaleDateString()}</td>
                           <td><code>{v.lote || 'N/D'}</code></td>
-                          <td>{v.fecha_proxima ? new Date(v.fecha_proxima).toLocaleDateString() : 'Sin refuerzo'}</td>
+                          <td>{v.fecha_proxima ? new Date(v.fecha_proxima).toLocaleDateString() : (isEnglish ? 'No booster' : 'Sin refuerzo')}</td>
                           <td>
                             <span className="badge bg-success-subtle text-success">
-                              <i className="bi bi-check-circle me-1"></i>Aplicada
+                              <i className="bi bi-check-circle me-1"></i>{isEnglish ? 'Applied' : 'Aplicada'}
                             </span>
                           </td>
                         </tr>
@@ -289,10 +295,14 @@ export function MedicalRecordPage() {
           <div className="tab-pane fade" id="peso" role="tabpanel">
             <div className="card shadow-sm border-0 rounded-4 p-4 bg-white">
               <div className="d-flex justify-content-between align-items-center mb-3">
-                <h5 className="fw-bold text-dark mb-0">Serie Temporal de Peso Corporal</h5>
+                <h5 className="fw-bold text-dark mb-0">{isEnglish ? 'Body Weight Time Series' : 'Serie Temporal de Peso Corporal'}</h5>
                 <span className="badge bg-primary-subtle text-primary">Chart.js Analytics</span>
               </div>
-              <p className="text-muted small mb-4">Monitorea la curva de crecimiento y peso saludable de {pet.nombre}.</p>
+              <p className="text-muted small mb-4">
+                {isEnglish
+                  ? `Monitor the healthy growth curve and weight trend of ${pet.nombre}.`
+                  : `Monitorea la curva de crecimiento y peso saludable de ${pet.nombre}.`}
+              </p>
               <WeightChart records={weights} />
             </div>
           </div>

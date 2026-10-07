@@ -21,7 +21,6 @@ export default function CashRegisterModal({ isOpen, onClose, onShiftUpdated }) {
 
   const fetchActiveShift = async () => {
     try {
-      setLoading(true);
       const token = localStorage.getItem('lunavet_token') || sessionStorage.getItem('lunavet_token');
       const res = await fetch('/api/commerce/cash-register/active', {
         headers: { Authorization: `Bearer ${token}` }
@@ -35,7 +34,7 @@ export default function CashRegisterModal({ isOpen, onClose, onShiftUpdated }) {
           setActiveTab('arqueo');
         }
       }
-    } catch (err) {
+    } catch {
       setError('Error al consultar caja');
     } finally {
       setLoading(false);
@@ -43,9 +42,34 @@ export default function CashRegisterModal({ isOpen, onClose, onShiftUpdated }) {
   };
 
   useEffect(() => {
-    if (isOpen) {
-      fetchActiveShift();
-    }
+    if (!isOpen) return;
+    let active = true;
+    const loadShift = async () => {
+      try {
+        const token = localStorage.getItem('lunavet_token') || sessionStorage.getItem('lunavet_token');
+        const res = await fetch('/api/commerce/cash-register/active', {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        const json = await res.json();
+        if (!active) return;
+        if (res.ok) {
+          setShift(json.data || null);
+          if (!json.data) {
+            setActiveTab('apertura');
+          } else {
+            setActiveTab('arqueo');
+          }
+        }
+      } catch {
+        if (active) setError('Error al consultar caja');
+      } finally {
+        if (active) setLoading(false);
+      }
+    };
+    loadShift();
+    return () => {
+      active = false;
+    };
   }, [isOpen]);
 
   if (!isOpen) return null;
@@ -72,7 +96,7 @@ export default function CashRegisterModal({ isOpen, onClose, onShiftUpdated }) {
       } else {
         alert(json.message || 'Error al aperturar caja');
       }
-    } catch (err) {
+    } catch {
       alert('Error de conexión al abrir caja');
     }
   };
@@ -105,7 +129,7 @@ export default function CashRegisterModal({ isOpen, onClose, onShiftUpdated }) {
       } else {
         alert(json.message || 'Error al registrar movimiento');
       }
-    } catch (err) {
+    } catch {
       alert('Error de conexión');
     }
   };
@@ -134,7 +158,7 @@ export default function CashRegisterModal({ isOpen, onClose, onShiftUpdated }) {
       } else {
         alert(json.message || 'Error al cerrar caja');
       }
-    } catch (err) {
+    } catch {
       alert('Error de conexión al cerrar turno');
     }
   };
@@ -152,6 +176,18 @@ export default function CashRegisterModal({ isOpen, onClose, onShiftUpdated }) {
           </div>
 
           <div className="modal-body p-4">
+            {error && (
+              <div className="alert alert-danger rounded-4 mb-3 small d-flex align-items-center gap-2">
+                <i className="bi bi-exclamation-octagon-fill"></i>
+                <div>{error}</div>
+              </div>
+            )}
+            {loading && !shift && (
+              <div className="text-center py-3">
+                <div className="spinner-border spinner-border-sm text-primary" role="status"></div>
+                <span className="ms-2 text-muted small">Cargando estado de caja...</span>
+              </div>
+            )}
             {/* Tabs de Caja */}
             {shift ? (
               <ul className="nav nav-pills nav-fill mb-4 p-1 bg-body-tertiary rounded-pill">

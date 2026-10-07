@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { useAuth } from '../../contexts/AuthContext';
 import SignaturePadModal from '../../components/clinical/SignaturePadModal';
 import VeterinaryDoseCalculatorModal from '../../components/clinical/VeterinaryDoseCalculatorModal';
 
 export default function HospitalizationPage() {
-  const { user } = useAuth();
   const [hospitalizaciones, setHospitalizaciones] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -37,7 +35,6 @@ export default function HospitalizationPage() {
 
   const fetchHospitalizaciones = async () => {
     try {
-      setLoading(true);
       const token = localStorage.getItem('lunavet_token') || sessionStorage.getItem('lunavet_token');
       const res = await fetch('/api/clinical/hospitalizations', {
         headers: { Authorization: `Bearer ${token}` }
@@ -48,7 +45,7 @@ export default function HospitalizationPage() {
       } else {
         setError(json.message || 'Error al cargar hospitalizaciones');
       }
-    } catch (err) {
+    } catch {
       setError('Fallo de conexión al cargar pacientes hospitalizados');
     } finally {
       setLoading(false);
@@ -56,7 +53,30 @@ export default function HospitalizationPage() {
   };
 
   useEffect(() => {
-    fetchHospitalizaciones();
+    let active = true;
+    const loadHospitalizaciones = async () => {
+      try {
+        const token = localStorage.getItem('lunavet_token') || sessionStorage.getItem('lunavet_token');
+        const res = await fetch('/api/clinical/hospitalizations', {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        const json = await res.json();
+        if (!active) return;
+        if (res.ok) {
+          setHospitalizaciones(json.data || []);
+        } else {
+          setError(json.message || 'Error al cargar hospitalizaciones');
+        }
+      } catch {
+        if (active) setError('Fallo de conexión al cargar pacientes hospitalizados');
+      } finally {
+        if (active) setLoading(false);
+      }
+    };
+    loadHospitalizaciones();
+    return () => {
+      active = false;
+    };
   }, []);
 
   const handleIngresar = async (e) => {
@@ -89,7 +109,7 @@ export default function HospitalizationPage() {
       } else {
         alert(json.message || 'Error al ingresar paciente');
       }
-    } catch (err) {
+    } catch {
       alert('Error de conexión al registrar ingreso');
     }
   };
@@ -125,7 +145,7 @@ export default function HospitalizationPage() {
       } else {
         alert(json.message || 'Error al guardar signos');
       }
-    } catch (err) {
+    } catch {
       alert('Error de red al guardar monitoreo');
     }
   };
@@ -148,7 +168,7 @@ export default function HospitalizationPage() {
         setSuccessMsg(`Alta confirmada para ${hosp.mascota_nombre}`);
         fetchHospitalizaciones();
       }
-    } catch (err) {
+    } catch {
       alert('Error al registrar alta');
     }
   };
@@ -531,7 +551,7 @@ export default function HospitalizationPage() {
       <SignaturePadModal
         isOpen={showSignatureModal}
         onClose={() => setShowSignatureModal(false)}
-        onSaveSignature={(signatureBase64) => {
+        onSaveSignature={(_signatureBase64) => {
           setSuccessMsg('Firma de consentimiento informada guardada correctamente.');
         }}
       />

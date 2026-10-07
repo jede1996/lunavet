@@ -23,7 +23,7 @@ globalThis.ResizeObserver = class ResizeObserver {
 };
 
 // Mock de URL.createObjectURL y revokeObjectURL
-globalThis.URL.createObjectURL = (blob) => 'blob:mock-url';
+globalThis.URL.createObjectURL = (_blob) => 'blob:mock-url';
 globalThis.URL.revokeObjectURL = () => {};
 
 // Mock de Canvas para jsdom
@@ -32,9 +32,9 @@ if (typeof HTMLCanvasElement !== 'undefined') {
     return {
       fillRect: () => {},
       clearRect: () => {},
-      getImageData: (x, y, w, h) => ({ data: new Array(w * h * 4) }),
+      getImageData: (_x, _y, w, h) => ({ data: new Uint8ClampedArray((w || 1) * (h || 1) * 4) }),
       putImageData: () => {},
-      createImageData: () => [],
+      createImageData: (w, h) => ({ data: new Uint8ClampedArray((w || 1) * (h || 1) * 4) }),
       setTransform: () => {},
       drawImage: () => {},
       save: () => {},
@@ -46,6 +46,10 @@ if (typeof HTMLCanvasElement !== 'undefined') {
       closePath: () => {},
       stroke: () => {},
       arc: () => {},
+      roundRect: () => {},
+      rect: () => {},
+      quadraticCurveTo: () => {},
+      clip: () => {},
       fill: () => {}
     };
   };

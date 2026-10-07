@@ -4,6 +4,7 @@ import { render, screen, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import App from '../App';
 import { ThemeProvider } from '../contexts/ThemeContext';
+import { LanguageProvider } from '../contexts/LanguageContext';
 import { AuthProvider } from '../contexts/AuthContext';
 import { BrandProvider } from '../contexts/BrandContext';
 import { CartProvider } from '../contexts/CartContext';
@@ -12,13 +13,15 @@ function renderWithProviders(initialRoute = '/') {
   return render(
     <MemoryRouter initialEntries={[initialRoute]}>
       <ThemeProvider>
-        <AuthProvider>
-          <BrandProvider>
-            <CartProvider>
-              <App />
-            </CartProvider>
-          </BrandProvider>
-        </AuthProvider>
+        <LanguageProvider>
+          <AuthProvider>
+            <BrandProvider>
+              <CartProvider>
+                <App />
+              </CartProvider>
+            </BrandProvider>
+          </AuthProvider>
+        </LanguageProvider>
       </ThemeProvider>
     </MemoryRouter>
   );
@@ -62,9 +65,11 @@ describe('Frontend Routing & Navigation Suite', () => {
 
   it('debe renderizar la página de inicio (LandingPage) en la ruta /', async () => {
     renderWithProviders('/');
-    expect(screen.getByRole('navigation')).toBeInTheDocument();
-    expect(screen.getAllByRole('link', { name: /servicios/i }).length).toBeGreaterThan(0);
-    expect(screen.getAllByRole('link', { name: /tienda/i }).length).toBeGreaterThan(0);
+    await waitFor(() => {
+      expect(screen.getByRole('navigation')).toBeInTheDocument();
+      expect(screen.getAllByRole('link', { name: /servicios/i }).length).toBeGreaterThan(0);
+      expect(screen.getAllByRole('link', { name: /tienda/i }).length).toBeGreaterThan(0);
+    });
   });
 
   it('debe renderizar la página de Aviso de Privacidad en /aviso-privacidad', async () => {

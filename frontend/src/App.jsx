@@ -4,6 +4,7 @@ import { Navbar } from './components/common/Navbar';
 import { Footer } from './components/common/Footer';
 import { ProtectedRoute } from './components/common/ProtectedRoute';
 import { LoadingSpinner } from './components/common/LoadingSpinner';
+import { ErrorBoundary } from './components/common/ErrorBoundary';
 
 // Helper para lazy loading de exportaciones con nombre
 const lazyNamed = (loader, exportName) =>
@@ -51,7 +52,8 @@ export default function App() {
       <Navbar />
 
       <main className="flex-grow-1">
-        <Suspense fallback={
+        <ErrorBoundary>
+          <Suspense fallback={
           <div className="py-5 text-center min-vh-50 d-flex align-items-center justify-content-center">
             <LoadingSpinner message="Cargando módulo de Luna-Vet Acapulco..." />
           </div>
@@ -184,6 +186,7 @@ export default function App() {
           } />
         </Routes>
         </Suspense>
+        </ErrorBoundary>
       </main>
 
       <Footer />

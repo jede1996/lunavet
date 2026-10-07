@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useAuth } from '../../contexts/AuthContext';
 
 export default function RemindersPage() {
-  const { user } = useAuth();
   const [activeTab, setActiveTab] = useState('preventivos'); // 'preventivos' | 'seguimientos'
   const [recordatorios, setRecordatorios] = useState([]);
   const [seguimientos, setSeguimientos] = useState([]);
@@ -27,7 +25,6 @@ export default function RemindersPage() {
 
   const fetchData = async () => {
     try {
-      setLoading(true);
       const token = localStorage.getItem('lunavet_token') || sessionStorage.getItem('lunavet_token');
 
       const [resRec, resSeg] = await Promise.all([
@@ -39,7 +36,7 @@ export default function RemindersPage() {
 
       if (resRec.ok) setRecordatorios(dataRec.data || []);
       if (resSeg.ok) setSeguimientos(dataSeg.data || []);
-    } catch (err) {
+    } catch {
       setError('Fallo de conexión al cargar datos clínicos');
     } finally {
       setLoading(false);
@@ -47,7 +44,30 @@ export default function RemindersPage() {
   };
 
   useEffect(() => {
-    fetchData();
+    let active = true;
+    const token = localStorage.getItem('lunavet_token') || sessionStorage.getItem('lunavet_token');
+
+    Promise.all([
+      fetch('/api/clinical/reminders', { headers: { Authorization: `Bearer ${token}` } }),
+      fetch('/api/clinical/followups', { headers: { Authorization: `Bearer ${token}` } })
+    ])
+      .then(async ([resRec, resSeg]) => {
+        if (!active) return;
+        const [dataRec, dataSeg] = await Promise.all([resRec.json(), resSeg.json()]);
+        if (resRec.ok) setRecordatorios(dataRec.data || []);
+        if (resSeg.ok) setSeguimientos(dataSeg.data || []);
+      })
+      .catch(() => {
+        if (!active) return;
+        setError('Fallo de conexión al cargar datos clínicos');
+      })
+      .finally(() => {
+        if (active) setLoading(false);
+      });
+
+    return () => {
+      active = false;
+    };
   }, []);
 
   const handleSyncVaccines = async () => {
@@ -62,7 +82,7 @@ export default function RemindersPage() {
         setSuccessMsg(`Sincronización completada: ${json.data?.totalSincronizados || 0} recordatorios automáticos generados.`);
         fetchData();
       }
-    } catch (err) {
+    } catch {
       alert('Error al sincronizar vacunas');
     }
   };
@@ -77,7 +97,7 @@ export default function RemindersPage() {
       if (res.ok) {
         fetchData();
       }
-    } catch (err) {
+    } catch {
       alert('Error al actualizar recordatorio');
     }
   };
@@ -105,7 +125,7 @@ export default function RemindersPage() {
         setSuccessMsg('Recordatorio preventivo programado con éxito.');
         fetchData();
       }
-    } catch (err) {
+    } catch {
       alert('Error al crear recordatorio');
     }
   };
@@ -132,7 +152,7 @@ export default function RemindersPage() {
         setSuccessMsg('Seguimiento clínico agendado.');
         fetchData();
       }
-    } catch (err) {
+    } catch {
       alert('Error al agendar seguimiento');
     }
   };
@@ -156,7 +176,7 @@ export default function RemindersPage() {
         setSuccessMsg('Estado del paciente actualizado.');
         fetchData();
       }
-    } catch (err) {
+    } catch {
       alert('Error al registrar contacto');
     }
   };
@@ -202,6 +222,13 @@ export default function RemindersPage() {
           )}
         </div>
       </div>
+
+      {error && (
+        <div className="alert alert-danger alert-dismissible fade show rounded-4 mb-4 shadow-sm" role="alert">
+          <i className="bi bi-exclamation-triangle-fill me-2"></i> {error}
+          <button type="button" className="btn-close" onClick={() => setError(null)}></button>
+        </div>
+      )}
 
       {successMsg && (
         <div className="alert alert-success alert-dismissible fade show rounded-4 mb-4 shadow-sm" role="alert">

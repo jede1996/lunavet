@@ -3,8 +3,10 @@ import { Link } from 'react-router-dom';
 import { api } from '../../services/api.client';
 import { RevenueChart, AppointmentsStatusChart } from '../../components/charts/MetricsChart';
 import { LoadingSpinner } from '../../components/common/LoadingSpinner';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 export function AdminDashboardPage() {
+  const { t, isEnglish } = useLanguage();
   const [dashboard, setDashboard] = useState(null);
   const [financial, setFinancial] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -28,7 +30,7 @@ export function AdminDashboardPage() {
   }, []);
 
   if (loading) {
-    return <LoadingSpinner message="Generando dashboard ejecutivo y métricas en tiempo real..." />;
+    return <LoadingSpinner message={t('common.loading', 'Generando dashboard ejecutivo y métricas en tiempo real...')} />;
   }
 
   const kpis = dashboard?.resumen || {};
@@ -41,19 +43,21 @@ export function AdminDashboardPage() {
         <div className="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
           <div>
             <div className="d-flex align-items-center gap-2 mb-1">
-              <span className="badge bg-primary-subtle text-primary fw-semibold px-2 py-1" style={{ fontSize: '11px' }}>Administración Ejecutiva</span>
-              <span className="text-secondary small">• Centro de Mando</span>
+              <span className="badge bg-primary-subtle text-primary fw-semibold px-2 py-1" style={{ fontSize: '11px' }}>
+                {isEnglish ? 'Executive Administration' : 'Administración Ejecutiva'}
+              </span>
+              <span className="text-secondary small">• {isEnglish ? 'Command Center' : 'Centro de Mando'}</span>
             </div>
-            <h2 className="fw-bold mb-0 text-emphasis">Dashboard & Analítica (LunaVet v4.0)</h2>
+            <h2 className="fw-bold mb-0 text-emphasis">{t('admin.dashboardTitle', 'Dashboard & Analítica (LunaVet v4.2)')}</h2>
           </div>
           <div className="d-flex gap-2">
             <Link to="/staff/pos" className="btn btn-success btn-sm rounded-pill px-3 fw-semibold shadow-sm d-flex align-items-center gap-1">
               <i className="bi bi-shop"></i>
-              <span>Abrir POS</span>
+              <span>{t('admin.openPosQuickBtn', 'Abrir POS')}</span>
             </Link>
             <Link to="/admin/reportes" className="btn btn-primary rounded-pill btn-sm px-3 fw-semibold shadow-sm d-flex align-items-center gap-1">
               <i className="bi bi-file-earmark-bar-graph"></i>
-              <span>Reportes</span>
+              <span>{t('admin.reportsQuickBtn', 'Reportes')}</span>
             </Link>
           </div>
         </div>
@@ -67,7 +71,7 @@ export function AdminDashboardPage() {
                   <i className="bi bi-currency-dollar fs-3"></i>
                 </div>
                 <div>
-                  <small className="text-secondary d-block">Ingresos del Mes</small>
+                  <small className="text-secondary d-block">{t('admin.monthIncome', 'Ingresos del Mes')}</small>
                   <h4 className="fw-bold mb-0 text-emphasis">${parseFloat(kpis.ingresos_mes || 0).toFixed(2)}</h4>
                 </div>
               </div>
@@ -81,7 +85,7 @@ export function AdminDashboardPage() {
                   <i className="bi bi-calendar2-week fs-3"></i>
                 </div>
                 <div>
-                  <small className="text-secondary d-block">Citas para Hoy</small>
+                  <small className="text-secondary d-block">{t('admin.todayAppointments', 'Citas para Hoy')}</small>
                   <h4 className="fw-bold mb-0 text-emphasis">{kpis.citas_hoy_total || 0}</h4>
                 </div>
               </div>
@@ -95,7 +99,7 @@ export function AdminDashboardPage() {
                   <i className="bi bi-heart-pulse fs-3"></i>
                 </div>
                 <div>
-                  <small className="text-secondary d-block">Pacientes Registrados</small>
+                  <small className="text-secondary d-block">{t('admin.registeredPatients', 'Pacientes Registrados')}</small>
                   <h4 className="fw-bold mb-0 text-emphasis">{kpis.pacientes_activos || 0}</h4>
                 </div>
               </div>
@@ -109,7 +113,7 @@ export function AdminDashboardPage() {
                   <i className="bi bi-exclamation-triangle fs-3"></i>
                 </div>
                 <div>
-                  <small className="text-secondary d-block">Lotes FEFO en Riesgo</small>
+                  <small className="text-secondary d-block">{t('admin.fefoRisks', 'Lotes FEFO en Riesgo')}</small>
                   <h4 className="fw-bold mb-0 text-emphasis">{kpis.inventario_en_riesgo || 0}</h4>
                 </div>
               </div>
@@ -122,10 +126,12 @@ export function AdminDashboardPage() {
           <div className="col-lg-6">
             <div className="card border-0 rounded-4 p-4 h-100">
               <div className="d-flex justify-content-between align-items-center mb-3">
-                <h5 className="fw-bold text-emphasis mb-0">Distribución de Ingresos por Método de Pago</h5>
-                <span className="badge bg-primary-subtle text-primary">Finanzas</span>
+                <h5 className="fw-bold text-emphasis mb-0">{t('admin.paymentDistribution', 'Distribución de Ingresos por Método de Pago')}</h5>
+                <span className="badge bg-primary-subtle text-primary">{isEnglish ? 'Finance' : 'Finanzas'}</span>
               </div>
-              <p className="text-secondary small mb-3">Ticket promedio actual: ${parseFloat(financial?.ticket_promedio || 0).toFixed(2)} MXN</p>
+              <p className="text-secondary small mb-3">
+                {t('admin.averageTicket', 'Ticket promedio actual')}: ${parseFloat(financial?.ticket_promedio || 0).toFixed(2)} MXN
+              </p>
               <RevenueChart paymentsByMethod={financial?.desglose_metodos || { efectivo: 3500, tarjeta: 8200, spei: 4100, mercadopago: 6400 }} />
             </div>
           </div>
@@ -133,10 +139,12 @@ export function AdminDashboardPage() {
           <div className="col-lg-6">
             <div className="card border-0 rounded-4 p-4 h-100">
               <div className="d-flex justify-content-between align-items-center mb-3">
-                <h5 className="fw-bold text-emphasis mb-0">Estatus de Citas Clínicas</h5>
-                <span className="badge bg-info-subtle text-info">Clínica</span>
+                <h5 className="fw-bold text-emphasis mb-0">{isEnglish ? 'Clinical Appointments Status' : 'Estatus de Citas Clínicas'}</h5>
+                <span className="badge bg-info-subtle text-info">{isEnglish ? 'Clinic' : 'Clínica'}</span>
               </div>
-              <p className="text-secondary small mb-3">Monitoreo de flujo y tasa de completación del día de hoy.</p>
+              <p className="text-secondary small mb-3">
+                {isEnglish ? 'Workflow and completion rate monitoring for today.' : 'Monitoreo de flujo y tasa de completación del día de hoy.'}
+              </p>
               <AppointmentsStatusChart countsByStatus={appointmentsToday} />
             </div>
           </div>

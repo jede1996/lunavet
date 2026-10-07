@@ -3,8 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import { api } from '../../services/api.client';
 import { AgendaCalendar } from '../../components/calendar/AgendaCalendar';
 import { LoadingSpinner } from '../../components/common/LoadingSpinner';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 export function StaffAgendaPage() {
+  const { t, isEnglish } = useLanguage();
   const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedApt, setSelectedApt] = useState(null);
@@ -23,7 +25,18 @@ export function StaffAgendaPage() {
   };
 
   useEffect(() => {
-    loadAppointments();
+    let active = true;
+    api.get('/appointments')
+      .then(res => {
+        if (active && res.success) setAppointments(res.data || []);
+      })
+      .catch(console.error)
+      .finally(() => {
+        if (active) setLoading(false);
+      });
+    return () => {
+      active = false;
+    };
   }, []);
 
   const handleStatusChange = async (newStatus) => {
@@ -47,18 +60,20 @@ export function StaffAgendaPage() {
       <div className="container-fluid px-lg-5">
         <div className="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-2">
           <div>
-            <span className="badge bg-primary-subtle text-primary mb-1">Staff Médico & Recepción</span>
-            <h2 className="fw-bold text-dark mb-0">Agenda Médica General (FullCalendar)</h2>
+            <span className="badge bg-primary-subtle text-primary mb-1">
+              {isEnglish ? 'Medical Staff & Reception' : 'Staff Médico & Recepción'}
+            </span>
+            <h2 className="fw-bold text-dark mb-0">{t('staff.agendaTitle', 'Agenda Médica General (FullCalendar)')}</h2>
           </div>
           <div className="d-flex gap-2">
             <button className="btn btn-outline-secondary btn-sm rounded-pill" onClick={loadAppointments}>
-              <i className="bi bi-arrow-clockwise me-1"></i> Actualizar Agenda
+              <i className="bi bi-arrow-clockwise me-1"></i> {t('staff.refreshAgenda', 'Actualizar Agenda')}
             </button>
           </div>
         </div>
 
         {loading ? (
-          <LoadingSpinner message="Cargando calendario interactivo de citas..." />
+          <LoadingSpinner message={t('common.loading', 'Cargando calendario interactivo de citas...')} />
         ) : (
           <AgendaCalendar
             appointments={appointments}

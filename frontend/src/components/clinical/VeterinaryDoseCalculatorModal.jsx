@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 const PRESET_DRUGS = [
   { id: 'amoxicilina', nombre: 'Amoxicilina + Clavulánico', dosisMgKg: 15, concentracionMgMl: 50, via: 'Oral / SC' },
@@ -24,36 +24,31 @@ export default function VeterinaryDoseCalculatorModal({ isOpen, onClose, initial
   const [deshidratacionPct, setDeshidratacionPct] = useState(5);
   const [tipoGotero, setTipoGotero] = useState('normogotero'); // 20 gotas/ml | microgotero 60 gotas/ml
 
-  // Alerta contraindicaciones
-  const [contraindicacion, setContraindicacion] = useState(null);
+  // Alerta contraindicaciones calculada de forma pura durante el render
+  const esp = (especie || '').toLowerCase();
+  const farm = (farmacoNombre || '').toLowerCase();
+  const raz = (raza || '').toLowerCase();
 
-  useEffect(() => {
-    const esp = (especie || '').toLowerCase();
-    const farm = (farmacoNombre || '').toLowerCase();
-    const raz = (raza || '').toLowerCase();
-
-    if (esp === 'felino' && (farm.includes('paracetamol') || farm.includes('acetaminofén'))) {
-      setContraindicacion({
-        nivel: 'mortal',
-        titulo: '¡CONTRAINDICACIÓN ABSOLUTA EN FELINOS!',
-        mensaje: 'El paracetamol produce metahemoglobinemia letal y necrosis hepática fulminante en gatos por déficit de glucuronil transferasa.'
-      });
-    } else if (esp === 'felino' && (farm.includes('permetrina') || farm.includes('piretroide'))) {
-      setContraindicacion({
-        nivel: 'mortal',
-        titulo: '¡TOXICIDAD NEUROLÓGICA MORTAL EN GATOS!',
-        mensaje: 'La permetrina provoca hiperexcitabilidad, temblores generalizados y convulsiones letales en felinos.'
-      });
-    } else if (esp === 'canino' && raz.includes('collie') && farm.includes('ivermectina')) {
-      setContraindicacion({
-        nivel: 'critico',
-        titulo: '¡ALERTA MUTACIÓN MDR1 (Collie / Pastoreo)!',
-        mensaje: 'Riesgo extremo de neurotoxicidad, ataxia, coma y paro respiratorio por deficiencia de glicoproteína P.'
-      });
-    } else {
-      setContraindicacion(null);
-    }
-  }, [especie, farmacoNombre, raza]);
+  let contraindicacion = null;
+  if (esp === 'felino' && (farm.includes('paracetamol') || farm.includes('acetaminofén'))) {
+    contraindicacion = {
+      nivel: 'mortal',
+      titulo: '¡CONTRAINDICACIÓN ABSOLUTA EN FELINOS!',
+      mensaje: 'El paracetamol produce metahemoglobinemia letal y necrosis hepática fulminante en gatos por déficit de glucuronil transferasa.'
+    };
+  } else if (esp === 'felino' && (farm.includes('permetrina') || farm.includes('piretroide'))) {
+    contraindicacion = {
+      nivel: 'mortal',
+      titulo: '¡TOXICIDAD NEUROLÓGICA MORTAL EN GATOS!',
+      mensaje: 'La permetrina provoca hiperexcitabilidad, temblores generalizados y convulsiones letales en felinos.'
+    };
+  } else if (esp === 'canino' && raz.includes('collie') && farm.includes('ivermectina')) {
+    contraindicacion = {
+      nivel: 'critico',
+      titulo: '¡ALERTA MUTACIÓN MDR1 (Collie / Pastoreo)!',
+      mensaje: 'Riesgo extremo de neurotoxicidad, ataxia, coma y paro respiratorio por deficiencia de glicoproteína P.'
+    };
+  }
 
   if (!isOpen) return null;
 

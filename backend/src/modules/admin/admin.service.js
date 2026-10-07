@@ -654,7 +654,7 @@ class AdminService {
    * Formato foliado legal para auditorías sanitarias e inspecciones oficiales
    */
   async getSenasicaOfficialBook({ anio = new Date().getFullYear(), mes = null } = {}) {
-    let query = db('recetas_items')
+    const query = db('recetas_items')
       .join('recetas', 'recetas_items.receta_id', 'recetas.id')
       .leftJoin('usuarios as vet', 'recetas.veterinario_id', 'vet.id')
       .leftJoin('mascotas', 'recetas.mascota_id', 'mascotas.id')

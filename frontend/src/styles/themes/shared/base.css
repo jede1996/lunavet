@@ -1,0 +1,62 @@
+/* =========================================================================
+   BASE & RESET GLOBAL — LUNA-VET ACAPULCO
+   Fundamentos tipográficos, reset y configuración estructural.
+   ========================================================================= */
+
+html, body {
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  background-color: var(--bs-body-bg);
+  color: var(--bs-body-color);
+  font-family: var(--bs-font-sans-serif);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.55;
+  letter-spacing: -0.011em;
+  transition: background-color 0.25s cubic-bezier(0.25, 1, 0.5, 1), color 0.25s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Jerarquía Tipográfica con tracking óptico */
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6,
+.display-1, .display-2, .display-3, .display-4, .display-5, .display-6,
+.navbar-brand {
+  font-family: var(--bs-font-sans-serif);
+  font-weight: 700;
+  letter-spacing: -0.024em;
+  color: var(--bs-emphasis-color);
+}
+
+h1, .h1, .display-4 {
+  letter-spacing: -0.028em;
+}
+
+/* Utilidades de fondo y contraste en modo oscuro */
+.dark-mode .bg-white {
+  background-color: var(--bs-secondary-bg) !important;
+  color: var(--bs-body-color) !important;
+}
+
+.dark-mode .bg-light {
+  background-color: var(--bs-body-bg) !important;
+  color: var(--bs-body-color) !important;
+}
+
+.dark-mode .text-dark {
+  color: var(--bs-emphasis-color) !important;
+}
+
+.dark-mode .text-muted {
+  color: var(--bs-secondary-color) !important;
+}
+
+.dark-mode .btn-close {
+  filter: invert(1) grayscale(100%) brightness(200%);
+}

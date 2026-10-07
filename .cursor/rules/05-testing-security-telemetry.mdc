@@ -1,0 +1,31 @@
+---
+description: Fase 5 del SDLC - Pruebas E2E, diagnóstico de fallos, auditoría de seguridad y observabilidad
+globs: **/*
+alwaysApply: false
+---
+
+# Fase 5: Testing E2E, Observability & Security Rule
+
+Esta regla rige la verificación integral de seguridad, pruebas de extremo a extremo y observabilidad.
+
+## Skills Involucradas
+- \`.skills/phase-5-testing-security/playwright-e2e\`
+- \`.skills/phase-5-testing-security/diagnose\`
+- \`.skills/phase-5-testing-security/dependency-hygiene\`
+- \`.skills/phase-5-testing-security/security-audit\`
+- \`.skills/phase-5-testing-security/sentry-telemetry\`
+
+## Directivas Obligatorias
+1. **Flujos Reales en Navegador (Playwright E2E)**:
+   - Validar flujos críticos de extremo a extremo: agendamiento de citas, generación de placas QR, corte de caja y autenticación.
+2. **Diagnóstico Sistemático (Diagnose)**:
+   - Ante errores en pruebas o compilación, aísla la causa raíz a través de trazas de pila y logs reproducibles antes de aplicar cambios a ciegas.
+3. **Auditoría de Dependencias (Dependency Hygiene)**:
+   - No introducir paquetes npm superfluos si ya existen librerías nativas o equivalentes en el repositorio.
+   - Ejecutar verificaciones de vulnerabilidades conocidas (\`npm audit\`).
+4. **Seguridad y Cero Fugas (Security Audit)**:
+   - Toda consulta a la base de datos debe ser parametrizada contra inyección SQL.
+   - Los tokens de sesión deben validar su expiración y renovarse automáticamente vía refresh token.
+   - Prohibido loguear contraseñas, tokens JWT o datos sensibles de propietarios (PII).
+5. **Observabilidad (Sentry Telemetry)**:
+   - Proteger el renderizado del frontend con \`ErrorBoundary\` para capturar fallos sin dejar la pantalla en blanco.

@@ -27,7 +27,30 @@ export function AuditExplorerPage() {
   };
 
   useEffect(() => {
-    loadLogs();
+    let active = true;
+    api.get('/admin/audit-logs')
+      .then(res => {
+        if (!active) return;
+        const logsList = Array.isArray(res?.data?.data)
+          ? res.data.data
+          : Array.isArray(res?.data?.logs)
+          ? res.data.logs
+          : Array.isArray(res?.data)
+          ? res.data
+          : [];
+        setLogs(logsList);
+      })
+      .catch(err => {
+        if (!active) return;
+        console.error(err);
+        setLogs([]);
+      })
+      .finally(() => {
+        if (active) setLoading(false);
+      });
+    return () => {
+      active = false;
+    };
   }, []);
 
   const safeLogs = Array.isArray(logs) ? logs : [];
@@ -93,7 +116,7 @@ export function AuditExplorerPage() {
                 <tbody>
                   {filteredLogs.map((log, idx) => (
                     <tr key={idx}>
-                      <td><strong>{new Date(log.createdAt || log.creado_en || log.fecha || Date.now()).toLocaleString()}</strong></td>
+                      <td><strong>{(log.createdAt || log.creado_en || log.fecha) ? new Date(log.createdAt || log.creado_en || log.fecha).toLocaleString() : 'N/A'}</strong></td>
                       <td>
                         <span className={`badge ${(log.accion || '').includes('CONTROLADO') || (log.accion || '').includes('PASSWORD') ? 'bg-danger' : 'bg-primary-subtle text-primary'}`}>
                           {log.accion}

@@ -1,0 +1,93 @@
+/* =========================================================================
+   APPLE DESIGN SYSTEM — TOKENS MODO OSCURO (HIG)
+   OLED True Black (#000000), tarjetas grafito (#1C1C1E) y acentos vibrantes.
+   ========================================================================= */
+
+[data-theme="apple-dark"],
+.theme-apple.dark-mode,
+.apple-design.dark-mode,
+[data-bs-theme="dark"]:not(.theme-classic) {
+  /* Paleta Dinámica Oficial Apple Dark */
+  --bs-primary: #0a84ff;
+  --bs-primary-rgb: 10, 132, 255;
+  --bs-secondary: #5ac8fa;
+  --bs-secondary-rgb: 90, 200, 250;
+  --bs-success: #30d158;
+  --bs-success-rgb: 48, 209, 88;
+  --bs-info: #0a84ff;
+  --bs-info-rgb: 10, 132, 255;
+  --bs-warning: #ff9f0a;
+  --bs-warning-rgb: 255, 159, 10;
+  --bs-danger: #ff453a;
+  --bs-danger-rgb: 255, 69, 58;
+  --bs-light: #f2f2f7;
+  --bs-light-rgb: 242, 242, 247;
+  --bs-dark: #000000;
+  --bs-dark-rgb: 0, 0, 0;
+
+  /* Superficies Apple Dark Grouped */
+  --bs-body-bg: #000000;
+  --bs-body-bg-rgb: 0, 0, 0;
+  --bs-body-color: #f2f2f7;
+  --bs-body-color-rgb: 242, 242, 247;
+  --bs-emphasis-color: #ffffff;
+  --bs-emphasis-color-rgb: 255, 255, 255;
+  --bs-secondary-color: #aeaeb2;
+  --bs-secondary-color-rgb: 174, 174, 178;
+  --bs-tertiary-color: #636366;
+  --bs-secondary-bg: #1c1c1e;
+  --bs-tertiary-bg: #2c2c2e;
+  --bs-border-color: rgba(255, 255, 255, 0.12);
+  --bs-border-color-translucent: rgba(255, 255, 255, 0.08);
+
+  /* Componentes Apple Dark Cards & Modals */
+  --bs-card-bg: #1c1c1e;
+  --bs-card-border-color: rgba(255, 255, 255, 0.09);
+  --bs-card-cap-bg: #2c2c2e;
+  --bs-card-color: var(--bs-body-color);
+  --bs-dropdown-bg: rgba(28, 28, 30, 0.86);
+  --bs-dropdown-border-color: rgba(255, 255, 255, 0.12);
+  --bs-dropdown-link-color: #f2f2f7;
+  --bs-dropdown-link-hover-bg: rgba(10, 132, 255, 0.18);
+  --bs-dropdown-link-hover-color: #ffffff;
+  --bs-modal-bg: rgba(28, 28, 30, 0.94);
+  --bs-modal-border-color: rgba(255, 255, 255, 0.12);
+  --bs-offcanvas-bg: rgba(28, 28, 30, 0.94);
+  --bs-offcanvas-border-color: rgba(255, 255, 255, 0.12);
+  --bs-table-bg: transparent;
+  --bs-table-color: var(--bs-body-color);
+  --bs-table-border-color: rgba(255, 255, 255, 0.08);
+  --bs-table-striped-bg: rgba(255, 255, 255, 0.02);
+  --bs-table-hover-bg: rgba(10, 132, 255, 0.06);
+
+  /* Acordeón Apple Dark */
+  --bs-accordion-bg: #1c1c1e;
+  --bs-accordion-color: var(--bs-body-color);
+  --bs-accordion-border-color: rgba(255, 255, 255, 0.1);
+  --bs-accordion-btn-color: var(--bs-emphasis-color);
+  --bs-accordion-btn-bg: #1c1c1e;
+  --bs-accordion-active-color: var(--bs-primary);
+  --bs-accordion-active-bg: rgba(10, 132, 255, 0.15);
+  --bs-accordion-btn-focus-box-shadow: 0 0 0 0.2rem rgba(10, 132, 255, 0.25);
+
+  /* Liquid Glass Dark Navbar */
+  --navbar-bg: rgba(28, 28, 30, 0.78);
+  --navbar-border: rgba(255, 255, 255, 0.1);
+  --navbar-shadow: 0 1px 0 rgba(255, 255, 255, 0.06), 0 8px 30px rgba(0, 0, 0, 0.6);
+  --navbar-text: #ffffff;
+  --navbar-link: #aeaeb2;
+  --navbar-link-hover: #ffffff;
+  --navbar-link-hover-bg: rgba(255, 255, 255, 0.08);
+  --navbar-link-active: #ffffff;
+  --navbar-link-active-bg: rgba(10, 132, 255, 0.22);
+  --navbar-link-active-border: rgba(10, 132, 255, 0.4);
+
+  /* Sombras Apple Dark */
+  --apple-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.35);
+  --apple-shadow-card: 0 4px 18px rgba(0, 0, 0, 0.5);
+  --apple-shadow-card-hover: 0 12px 32px rgba(0, 0, 0, 0.75);
+  --apple-shadow-dropdown: 0 16px 40px rgba(0, 0, 0, 0.75), 0 0 1px 1px rgba(255, 255, 255, 0.1);
+  --apple-shadow-modal: 0 24px 60px rgba(0, 0, 0, 0.85), 0 0 1px 1px rgba(255, 255, 255, 0.1);
+
+  --hero-gradient: linear-gradient(180deg, #1c1c1e 0%, #000000 100%);
+}

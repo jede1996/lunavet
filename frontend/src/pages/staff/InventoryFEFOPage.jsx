@@ -18,7 +18,18 @@ export function InventoryFEFOPage() {
   };
 
   useEffect(() => {
-    loadInventory();
+    let active = true;
+    api.get('/admin/reports/inventory-risk')
+      .then(res => {
+        if (active && res.success) setRiskData(res.data);
+      })
+      .catch(console.error)
+      .finally(() => {
+        if (active) setLoading(false);
+      });
+    return () => {
+      active = false;
+    };
   }, []);
 
   if (loading) {

@@ -1,20 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useSearchParams, Link } from 'react-router-dom';
+import { useSearchParams, Link } from 'react-router-dom';
 import { api } from '../../services/api.client';
 import { useAuth } from '../../contexts/AuthContext';
 import { LoadingSpinner } from '../../components/common/LoadingSpinner';
 import { usePageSeo } from '../../hooks/usePageSeo';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 export function AppointmentBookingPage() {
+  const { t, isEnglish } = useLanguage();
   usePageSeo(
-    'Agendar Cita en Línea',
-    'Agenda tu consulta médica veterinaria, esterilización, vacunación o estética canina en Clínica Veterinaria Luna-Vet en El Coloso, Acapulco.'
+    isEnglish
+      ? 'Book Veterinary Appointment Online | Luna-Vet'
+      : 'Agendar Cita en Línea',
+    isEnglish
+      ? 'Book your veterinary appointment, spay/neuter surgery, vaccination, or pet grooming at Luna-Vet Veterinary Hospital in El Coloso, Acapulco.'
+      : 'Agenda tu consulta médica veterinaria, esterilización, vacunación o estética canina en Clínica Veterinaria Luna-Vet en El Coloso, Acapulco.'
   );
   const [searchParams] = useSearchParams();
   const preselectedService = searchParams.get('servicio');
 
-  const { isAuthenticated, user } = useAuth();
-  const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
 
   const [services, setServices] = useState([]);
   const [userPets, setUserPets] = useState([]);
@@ -40,11 +45,9 @@ export function AppointmentBookingPage() {
     async function loadInitData() {
       try {
         const servRes = await api.get('/appointments/services');
-        if (servRes.success) {
+        if (servRes.success && servRes.data) {
           setServices(servRes.data);
-          if (!servicioId && servRes.data.length > 0) {
-            setServicioId(String(servRes.data[0].id));
-          }
+          setServicioId(curr => curr || (servRes.data.length > 0 ? String(servRes.data[0].id) : ''));
         }
 
         // Si está autenticado como cliente, cargar sus mascotas
@@ -185,14 +188,14 @@ export function AppointmentBookingPage() {
               <div className="card shadow-sm border-0 rounded-4 p-4 p-md-5 bg-white">
                 <div className="text-center mb-4">
                   <span className="badge bg-primary-subtle text-primary px-3 py-2 rounded-pill mb-2">
-                    Citas en Línea • Luna-Vet Acapulco
+                    {isEnglish ? 'Online Appointments • Luna-Vet Acapulco' : 'Citas en Línea • Luna-Vet Acapulco'}
                   </span>
-                  <h1 className="h2 fw-bold text-dark">Agendar Consulta o Servicio</h1>
+                  <h1 className="h2 fw-bold text-dark">{t('appointments.title', 'Agendar Consulta o Servicio')}</h1>
                   <p className="text-muted small mb-2">
-                    📍 Atención en clínica: <strong>Av. Peña Blanca, Etapa 38, El Coloso, Acapulco</strong> (Cerca de Colegio Cri-Cri).
+                    📍 {isEnglish ? 'In-clinic care: Av. Peña Blanca, Stage 38, El Coloso, Acapulco (Near Colegio Cri-Cri).' : 'Atención en clínica: Av. Peña Blanca, Etapa 38, El Coloso, Acapulco (Cerca de Colegio Cri-Cri).'}
                   </p>
                   <p className="text-muted small">
-                    Para dudas urgentes comunícate también vía WhatsApp al{' '}
+                    {isEnglish ? 'For urgent questions, message us on WhatsApp at ' : 'Para dudas urgentes comunícate también vía WhatsApp al '}
                     <a href="https://wa.me/527442130868" target="_blank" rel="noopener noreferrer" className="text-success fw-bold text-decoration-none">
                       <i className="bi bi-whatsapp"></i> 744 213 0868
                     </a>.
@@ -210,10 +213,10 @@ export function AppointmentBookingPage() {
                   <div className="alert alert-info py-2 px-3 small d-flex justify-content-between align-items-center mb-4">
                     <div>
                       <i className="bi bi-info-circle me-2"></i>
-                      ¿Ya tienes cuenta en LunaVet? Inicia sesión para vincular a tu mascota directamente.
+                      {isEnglish ? 'Already have an account? Sign in to link your pet directly.' : '¿Ya tienes cuenta en LunaVet? Inicia sesión para vincular a tu mascota directamente.'}
                     </div>
                     <Link to="/login" className="btn btn-primary btn-sm rounded-pill ms-2 text-nowrap">
-                      Iniciar Sesión
+                      {t('nav.login', 'Iniciar Sesión')}
                     </Link>
                   </div>
                 )}

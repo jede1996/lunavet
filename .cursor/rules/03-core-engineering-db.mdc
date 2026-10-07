@@ -1,0 +1,25 @@
+---
+description: Fase 3 del SDLC - Implementación con TDD estricto, optimización de base de datos y loop engineering
+globs: **/*
+alwaysApply: false
+---
+
+# Fase 3: Core Engineering & Persistence Rule
+
+Esta regla rige el desarrollo de lógica de negocio, pruebas automatizadas y persistencia en base de datos.
+
+## Skills Involucradas
+- \`.skills/phase-3-core-engineering/tdd\`
+- \`.skills/phase-3-core-engineering/db-optimizer\`
+- \`.skills/phase-3-core-engineering/loop-engineering\`
+
+## Directivas Obligatorias
+1. **TDD Estricto**:
+   - **Fase Red**: Escribe o actualiza los tests antes de tocar la implementación. Ejecuta \`npm test -- --run\` para certificar que fallen por las razones correctas.
+   - **Fase Green**: Implementa el código mínimo para hacer pasar los tests.
+   - **Fase Refactor**: Limpia duplicidades y optimiza manteniendo los tests 100% pasando y 0 advertencias en \`stderr\`.
+2. **Optimización de Base de Datos (DB Optimizer)**:
+   - Toda consulta que involucre pacientes, citas o historial debe prevenir problemas N+1 mediante \`JOIN\` o batching.
+   - Las operaciones de modificación en inventario, corte de caja y recetas SENASICA deben ejecutarse bajo transacciones atómicas.
+   - Asegura la existencia de índices para claves foráneas y columnas de ordenamiento/filtro frecuente.
+3. **Loop Engineering**: Itera y auto-evalúa cada criterio de aceptación del requerimiento antes de dar por cerrada la fase.

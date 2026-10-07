@@ -103,7 +103,7 @@ export function updateFavicon(brand = {}, themeOrIsDark = false) {
   if (typeof document === 'undefined') return;
 
   const isDark = typeof themeOrIsDark === 'string'
-    ? themeOrIsDark === 'dark'
+    ? themeOrIsDark === 'dark' || themeOrIsDark === 'apple-dark'
     : Boolean(themeOrIsDark);
 
   const faviconUrl = getFaviconUrl(brand, isDark);

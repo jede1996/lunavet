@@ -1,10 +1,36 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import QRCode from 'qrcode';
 import { useBrand } from '../../contexts/BrandContext';
 import { useTheme } from '../../contexts/ThemeContext';
 import { api } from '../../services/api.client';
 
-export function QRGenerator({ initialMode = 'mascota', initialData = {}, onDone = null }) {
+// Helper para contraste de color sobre fondos dinámicos
+function getContrastColor(hex) {
+  if (!hex || hex.length < 6) return '#0f172a';
+  const cleanHex = hex.replace('#', '');
+  const r = parseInt(cleanHex.substring(0, 2), 16) || 0;
+  const g = parseInt(cleanHex.substring(2, 4), 16) || 0;
+  const b = parseInt(cleanHex.substring(4, 6), 16) || 0;
+  const yiq = (r * 299 + g * 587 + b * 114) / 1000;
+  return yiq >= 128 ? '#0f172a' : '#ffffff';
+}
+
+// Helper para rectángulos con esquinas redondeadas en canvas 2D
+function drawRoundedRect(ctx, x, y, width, height, radius) {
+  ctx.beginPath();
+  ctx.moveTo(x + radius, y);
+  ctx.lineTo(x + width - radius, y);
+  ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+  ctx.lineTo(x + width, y + height - radius);
+  ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+  ctx.lineTo(x + radius, y + height);
+  ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+  ctx.lineTo(x, y + radius);
+  ctx.quadraticCurveTo(x, y, x + radius, y);
+  ctx.closePath();
+}
+
+export function QRGenerator({ initialMode = 'mascota', initialData = {}, onDone: _onDone = null }) {
   const { brand } = useBrand();
   const { isDark } = useTheme();
 
@@ -53,7 +79,6 @@ export function QRGenerator({ initialMode = 'mascota', initialData = {}, onDone 
 
   // Referencias a elementos Canvas
   const qrCanvasRef = useRef(null);
-  const compositeCanvasRef = useRef(null);
 
   // Paletas de color recomendadas
   const COLOR_PALETTES = [
@@ -66,13 +91,13 @@ export function QRGenerator({ initialMode = 'mascota', initialData = {}, onDone 
   ];
 
   // Calcular el contenido exacto del QR según el tipo seleccionado
-  const computeQrPayload = () => {
+  const computeQrPayload = useCallback(() => {
     switch (contentType) {
       case 'mascota': {
         const cleanPhone = emergencyPhone.replace(/\D/g, '');
-        // Genera enlace directo a WhatsApp con datos de auxilio para escaneo rápido con cualquier smartphone
+        const noteExtra = petNotes ? ` - Notas: ${petNotes}` : '';
         const msg = encodeURIComponent(
-          `¡Hola! Encontré a tu mascota ${petName} (${petSpecies} - ${petBreed}). Su placa de identificación indica este número.`
+          `¡Hola! Encontré a tu mascota ${petName} (${petSpecies} - ${petBreed}). Su placa de identificación indica este número.${noteExtra}`
         );
         return `https://wa.me/52${cleanPhone || '7442130868'}?text=${msg}`;
       }
@@ -91,11 +116,229 @@ export function QRGenerator({ initialMode = 'mascota', initialData = {}, onDone 
       default:
         return customText || window.location.origin;
     }
-  };
+  }, [
+    contentType,
+    emergencyPhone,
+    petNotes,
+    petName,
+    petSpecies,
+    petBreed,
+    waPhone,
+    waMessage,
+    appointmentUrl,
+    locationUrl,
+    wifiType,
+    wifiSsid,
+    wifiPassword,
+    customText
+  ]);
 
   // Generar el código QR base y dibujar sobre el canvas compuesto
   useEffect(() => {
     let isMounted = true;
+
+    // Dibuja el icono central dentro del código QR
+    const drawCenterBadge = (ctx, cx, cy, baseQrSize) => {
+      if (centerLogo === 'none') return;
+
+      const badgeSize = Math.round(baseQrSize * 0.24);
+      const radius = Math.round(badgeSize / 2);
+
+      ctx.save();
+      ctx.beginPath();
+      ctx.arc(cx, cy, radius + 4, 0, Math.PI * 2);
+      ctx.fillStyle = '#ffffff';
+      ctx.shadowColor = 'rgba(0, 0, 0, 0.15)';
+      ctx.shadowBlur = 6;
+      ctx.shadowOffsetX = 0;
+      ctx.shadowOffsetY = 2;
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.arc(cx, cy, radius + 2, 0, Math.PI * 2);
+      ctx.strokeStyle = fgColor;
+      ctx.lineWidth = 2.5;
+      ctx.stroke();
+      ctx.restore();
+
+      ctx.save();
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+
+      if (centerLogo === 'luna-vet') {
+        ctx.beginPath();
+        ctx.arc(cx - 3, cy, radius * 0.65, 0.7 * Math.PI, 1.7 * Math.PI, false);
+        ctx.fillStyle = fgColor;
+        ctx.fill();
+
+        ctx.font = `${Math.round(badgeSize * 0.5)}px Arial, sans-serif`;
+        ctx.fillText('🐾', cx + 4, cy);
+      } else if (centerLogo === 'huella') {
+        ctx.font = `${Math.round(badgeSize * 0.65)}px Arial, sans-serif`;
+        ctx.fillText('🐾', cx, cy + 2);
+      } else if (centerLogo === 'cruz') {
+        const barW = Math.round(badgeSize * 0.22);
+        const barH = Math.round(badgeSize * 0.62);
+        ctx.fillStyle = fgColor;
+        ctx.fillRect(cx - barW / 2, cy - barH / 2, barW, barH);
+        ctx.fillRect(cx - barH / 2, cy - barW / 2, barH, barW);
+      } else if (centerLogo === 'corazon') {
+        ctx.font = `${Math.round(badgeSize * 0.65)}px Arial, sans-serif`;
+        ctx.fillText('❤️', cx, cy + 2);
+      } else if (centerLogo === 'custom' && customLogoUrl) {
+        const img = new Image();
+        img.crossOrigin = 'anonymous';
+        img.src = customLogoUrl;
+        img.onload = () => {
+          ctx.save();
+          ctx.beginPath();
+          ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+          ctx.clip();
+          ctx.drawImage(img, cx - radius, cy - radius, badgeSize, badgeSize);
+          ctx.restore();
+        };
+      }
+      ctx.restore();
+    };
+
+    // Dibuja el marco decorativo estilo "Placa de Mascota"
+    const drawPetTagFrame = (ctx, qrCanvas, w, h) => {
+      const textColor = getContrastColor(bgColor);
+      const subtextColor = textColor === '#ffffff' ? 'rgba(255,255,255,0.75)' : '#64748b';
+
+      ctx.save();
+      drawRoundedRect(ctx, 4, 4, w - 8, h - 8, 20);
+      ctx.fillStyle = bgColor;
+      ctx.fill();
+      ctx.strokeStyle = fgColor;
+      ctx.lineWidth = 3;
+      ctx.stroke();
+
+      ctx.save();
+      ctx.beginPath();
+      if (ctx.roundRect) {
+        ctx.roundRect(4, 4, w - 8, 48, [18, 18, 0, 0]);
+      } else {
+        ctx.rect(4, 4, w - 8, 48);
+      }
+      ctx.fillStyle = fgColor;
+      ctx.fill();
+
+      ctx.fillStyle = '#ffffff';
+      ctx.font = 'bold 12px system-ui, -apple-system, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('PLACA DE IDENTIFICACIÓN', w / 2, 22);
+      ctx.font = '10px system-ui, -apple-system, sans-serif';
+      ctx.fillText('ESCANÉAME SI ME ENCUENTRAS', w / 2, 38);
+      ctx.restore();
+
+      const qrX = (w - qrSize) / 2;
+      const qrY = 58;
+      ctx.drawImage(qrCanvas, qrX, qrY);
+      drawCenterBadge(ctx, w / 2, qrY + qrSize / 2, qrSize);
+
+      ctx.fillStyle = textColor;
+      ctx.font = 'bold 17px system-ui, -apple-system, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText(`🐾 ${petName.toUpperCase()} 🐾`, w / 2, qrY + qrSize + 24);
+
+      ctx.font = '12px system-ui, -apple-system, sans-serif';
+      ctx.fillStyle = subtextColor;
+      ctx.fillText(`${petSpecies} • ${petBreed || 'Mestizo'}`, w / 2, qrY + qrSize + 44);
+
+      ctx.font = 'bold 13px system-ui, -apple-system, sans-serif';
+      ctx.fillStyle = fgColor;
+      ctx.fillText(`📞 WhatsApp: ${emergencyPhone}`, w / 2, qrY + qrSize + 66);
+
+      ctx.restore();
+    };
+
+    // Dibuja el marco decorativo estilo "Credencial Clínica Oficial"
+    const drawClinicFrame = (ctx, qrCanvas, w, h) => {
+      const textColor = getContrastColor(bgColor);
+      const subtextColor = textColor === '#ffffff' ? 'rgba(255,255,255,0.75)' : '#64748b';
+
+      ctx.save();
+      drawRoundedRect(ctx, 4, 4, w - 8, h - 8, 18);
+      ctx.fillStyle = bgColor;
+      ctx.fill();
+      ctx.strokeStyle = fgColor;
+      ctx.lineWidth = 2.5;
+      ctx.stroke();
+
+      ctx.fillStyle = fgColor;
+      ctx.font = 'bold 15px system-ui, -apple-system, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText(brand.nombreCompleto || 'Clínica Veterinaria Luna-Vet', w / 2, 30);
+
+      ctx.fillStyle = subtextColor;
+      ctx.font = '10.5px system-ui, -apple-system, sans-serif';
+      ctx.fillText(brand.slogan || '¡Porque no son solo mascotas, sino familia!', w / 2, 46);
+
+      const qrX = (w - qrSize) / 2;
+      const qrY = 56;
+      ctx.drawImage(qrCanvas, qrX, qrY);
+      drawCenterBadge(ctx, w / 2, qrY + qrSize / 2, qrSize);
+
+      ctx.fillStyle = textColor;
+      ctx.font = 'bold 12.5px system-ui, -apple-system, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('Escanéalo con la cámara de tu smartphone', w / 2, qrY + qrSize + 24);
+
+      ctx.fillStyle = subtextColor;
+      ctx.font = '10.5px system-ui, -apple-system, sans-serif';
+      ctx.fillText('El Coloso, Acapulco • Tel: ' + (brand.telefono || '744 213 0868'), w / 2, qrY + qrSize + 42);
+
+      ctx.restore();
+    };
+
+    // Dibuja el marco decorativo estilo "Póster de Mostrador"
+    const drawPosterFrame = (ctx, qrCanvas, w, h) => {
+      const textColor = getContrastColor(bgColor);
+      const subtextColor = textColor === '#ffffff' ? 'rgba(255,255,255,0.75)' : '#64748b';
+
+      ctx.save();
+      drawRoundedRect(ctx, 4, 4, w - 8, h - 8, 20);
+      ctx.fillStyle = bgColor;
+      ctx.fill();
+      ctx.strokeStyle = fgColor;
+      ctx.lineWidth = 3;
+      ctx.stroke();
+
+      ctx.save();
+      ctx.fillStyle = fgColor;
+      ctx.beginPath();
+      if (ctx.roundRect) {
+        ctx.roundRect(4, 4, w - 8, 55, [18, 18, 0, 0]);
+      } else {
+        ctx.rect(4, 4, w - 8, 55);
+      }
+      ctx.fill();
+
+      ctx.fillStyle = '#ffffff';
+      ctx.font = 'bold 16px system-ui, -apple-system, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('📱 ESCANEA EL CÓDIGO QR', w / 2, 28);
+      ctx.font = '11px system-ui, -apple-system, sans-serif';
+      ctx.fillText(brand.nombreCompleto || 'Luna-Vet Acapulco', w / 2, 45);
+      ctx.restore();
+
+      const qrX = (w - qrSize) / 2;
+      const qrY = 68;
+      ctx.drawImage(qrCanvas, qrX, qrY);
+      drawCenterBadge(ctx, w / 2, qrY + qrSize / 2, qrSize);
+
+      ctx.fillStyle = textColor;
+      ctx.font = 'bold 14px system-ui, -apple-system, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('¡Acceso Inmediato desde tu Teléfono!', w / 2, qrY + qrSize + 26);
+
+      ctx.fillStyle = subtextColor;
+      ctx.font = '11px system-ui, -apple-system, sans-serif';
+      ctx.fillText('Apunta tu cámara hacia el código para abrir', w / 2, qrY + qrSize + 44);
+
+      ctx.restore();
+    };
 
     async function generateQR() {
       try {
@@ -139,23 +382,20 @@ export function QRGenerator({ initialMode = 'mascota', initialData = {}, onDone 
         targetCanvas.height = targetHeight;
 
         const ctx = targetCanvas.getContext('2d');
+        if (!ctx) return;
         ctx.clearRect(0, 0, targetWidth, targetHeight);
 
         // 3. Dibujar fondo y marco si aplica
         if (frameTemplate === 'none') {
-          // Solo QR
           ctx.fillStyle = bgColor;
           ctx.fillRect(0, 0, targetWidth, targetHeight);
           ctx.drawImage(qrCanvas, 0, 0);
           drawCenterBadge(ctx, targetWidth / 2, targetHeight / 2, qrSize);
         } else if (frameTemplate === 'placa') {
-          // Formato: Placa de Identificación de Mascota
           drawPetTagFrame(ctx, qrCanvas, targetWidth, targetHeight);
         } else if (frameTemplate === 'clinica') {
-          // Formato: Credencial Clínica Oficial
           drawClinicFrame(ctx, qrCanvas, targetWidth, targetHeight);
         } else if (frameTemplate === 'poster') {
-          // Formato: Póster Escanéame
           drawPosterFrame(ctx, qrCanvas, targetWidth, targetHeight);
         }
       } catch (err) {
@@ -169,21 +409,14 @@ export function QRGenerator({ initialMode = 'mascota', initialData = {}, onDone 
       isMounted = false;
     };
   }, [
-    contentType,
+    computeQrPayload,
     petName,
     petSpecies,
     petBreed,
-    ownerName,
     emergencyPhone,
-    petNotes,
-    waPhone,
-    waMessage,
-    appointmentUrl,
-    locationUrl,
-    wifiSsid,
-    wifiPassword,
-    wifiType,
-    customText,
+    brand.nombreCompleto,
+    brand.slogan,
+    brand.telefono,
     fgColor,
     bgColor,
     centerLogo,
@@ -192,246 +425,6 @@ export function QRGenerator({ initialMode = 'mascota', initialData = {}, onDone 
     qrSize,
     eccLevel
   ]);
-
-  // Dibuja el icono central dentro del código QR
-  const drawCenterBadge = (ctx, cx, cy, baseQrSize) => {
-    if (centerLogo === 'none') return;
-
-    const badgeSize = Math.round(baseQrSize * 0.24);
-    const radius = Math.round(badgeSize / 2);
-
-    // Fondo blanco circular para el icono con sombra
-    ctx.save();
-    ctx.beginPath();
-    ctx.arc(cx, cy, radius + 4, 0, Math.PI * 2);
-    ctx.fillStyle = '#ffffff';
-    ctx.shadowColor = 'rgba(0, 0, 0, 0.15)';
-    ctx.shadowBlur = 6;
-    ctx.shadowOffsetX = 0;
-    ctx.shadowOffsetY = 2;
-    ctx.fill();
-
-    // Borde fino del color del QR
-    ctx.beginPath();
-    ctx.arc(cx, cy, radius + 2, 0, Math.PI * 2);
-    ctx.strokeStyle = fgColor;
-    ctx.lineWidth = 2.5;
-    ctx.stroke();
-    ctx.restore();
-
-    // Dibujar icono o texto según el preset
-    ctx.save();
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-
-    if (centerLogo === 'luna-vet') {
-      // Dibujar Luna Creciente y Huellita
-      ctx.beginPath();
-      ctx.arc(cx - 3, cy, radius * 0.65, 0.7 * Math.PI, 1.7 * Math.PI, false);
-      ctx.fillStyle = fgColor;
-      ctx.fill();
-
-      // Huellita pequeña
-      ctx.font = `${Math.round(badgeSize * 0.5)}px Arial, sans-serif`;
-      ctx.fillText('🐾', cx + 4, cy);
-    } else if (centerLogo === 'huella') {
-      ctx.font = `${Math.round(badgeSize * 0.65)}px Arial, sans-serif`;
-      ctx.fillText('🐾', cx, cy + 2);
-    } else if (centerLogo === 'cruz') {
-      // Cruz médica
-      const barW = Math.round(badgeSize * 0.22);
-      const barH = Math.round(badgeSize * 0.62);
-      ctx.fillStyle = fgColor;
-      ctx.fillRect(cx - barW / 2, cy - barH / 2, barW, barH);
-      ctx.fillRect(cx - barH / 2, cy - barW / 2, barH, barW);
-    } else if (centerLogo === 'corazon') {
-      ctx.font = `${Math.round(badgeSize * 0.65)}px Arial, sans-serif`;
-      ctx.fillText('❤️', cx, cy + 2);
-    } else if (centerLogo === 'custom' && customLogoUrl) {
-      const img = new Image();
-      img.crossOrigin = 'anonymous';
-      img.src = customLogoUrl;
-      img.onload = () => {
-        ctx.save();
-        ctx.beginPath();
-        ctx.arc(cx, cy, radius, 0, Math.PI * 2);
-        ctx.clip();
-        ctx.drawImage(img, cx - radius, cy - radius, badgeSize, badgeSize);
-        ctx.restore();
-      };
-    }
-    ctx.restore();
-  };
-
-  // Helper para calcular contraste de texto sobre el fondo dinámico del marco
-  const getContrastColor = (hex) => {
-    if (!hex || hex.length < 6) return '#0f172a';
-    const cleanHex = hex.replace('#', '');
-    const r = parseInt(cleanHex.substring(0, 2), 16) || 0;
-    const g = parseInt(cleanHex.substring(2, 4), 16) || 0;
-    const b = parseInt(cleanHex.substring(4, 6), 16) || 0;
-    const yiq = (r * 299 + g * 587 + b * 114) / 1000;
-    return yiq >= 128 ? '#0f172a' : '#ffffff';
-  };
-
-  // Dibuja el marco decorativo estilo "Placa de Mascota"
-  const drawPetTagFrame = (ctx, qrCanvas, w, h) => {
-    const textColor = getContrastColor(bgColor);
-    const subtextColor = textColor === '#ffffff' ? 'rgba(255,255,255,0.75)' : '#64748b';
-
-    // Fondo de tarjeta con esquinas redondeadas según bgColor
-    ctx.save();
-    drawRoundedRect(ctx, 4, 4, w - 8, h - 8, 20);
-    ctx.fillStyle = bgColor;
-    ctx.fill();
-    ctx.strokeStyle = fgColor;
-    ctx.lineWidth = 3;
-    ctx.stroke();
-
-    // Franja superior estilizada con color de acento
-    ctx.save();
-    ctx.beginPath();
-    ctx.roundRect ? ctx.roundRect(4, 4, w - 8, 48, [18, 18, 0, 0]) : ctx.rect(4, 4, w - 8, 48);
-    ctx.fillStyle = fgColor;
-    ctx.fill();
-
-    // Texto superior estilizado
-    ctx.fillStyle = '#ffffff';
-    ctx.font = 'bold 12px system-ui, -apple-system, sans-serif';
-    ctx.textAlign = 'center';
-    ctx.fillText('PLACA DE IDENTIFICACIÓN', w / 2, 22);
-    ctx.font = '10px system-ui, -apple-system, sans-serif';
-    ctx.fillText('ESCANÉAME SI ME ENCUENTRAS', w / 2, 38);
-    ctx.restore();
-
-    // Dibujar QR centrado
-    const qrX = (w - qrSize) / 2;
-    const qrY = 58;
-    ctx.drawImage(qrCanvas, qrX, qrY);
-
-    // Dibujar Icono central sobre el QR
-    drawCenterBadge(ctx, w / 2, qrY + qrSize / 2, qrSize);
-
-    // Franja inferior estilizada con datos de la mascota
-    ctx.fillStyle = textColor;
-    ctx.font = 'bold 17px system-ui, -apple-system, sans-serif';
-    ctx.textAlign = 'center';
-    ctx.fillText(`🐾 ${petName.toUpperCase()} 🐾`, w / 2, qrY + qrSize + 24);
-
-    ctx.font = '12px system-ui, -apple-system, sans-serif';
-    ctx.fillStyle = subtextColor;
-    ctx.fillText(`${petSpecies} • ${petBreed || 'Mestizo'}`, w / 2, qrY + qrSize + 44);
-
-    ctx.font = 'bold 13px system-ui, -apple-system, sans-serif';
-    ctx.fillStyle = fgColor;
-    ctx.fillText(`📞 WhatsApp: ${emergencyPhone}`, w / 2, qrY + qrSize + 66);
-
-    ctx.restore();
-  };
-
-  // Dibuja el marco decorativo estilo "Credencial Clínica Oficial"
-  const drawClinicFrame = (ctx, qrCanvas, w, h) => {
-    const textColor = getContrastColor(bgColor);
-    const subtextColor = textColor === '#ffffff' ? 'rgba(255,255,255,0.75)' : '#64748b';
-
-    ctx.save();
-    drawRoundedRect(ctx, 4, 4, w - 8, h - 8, 18);
-    ctx.fillStyle = bgColor;
-    ctx.fill();
-    ctx.strokeStyle = fgColor;
-    ctx.lineWidth = 2.5;
-    ctx.stroke();
-
-    // Encabezado estilizado
-    ctx.fillStyle = fgColor;
-    ctx.font = 'bold 15px system-ui, -apple-system, sans-serif';
-    ctx.textAlign = 'center';
-    ctx.fillText(brand.nombreCompleto || 'Clínica Veterinaria Luna-Vet', w / 2, 30);
-
-    ctx.fillStyle = subtextColor;
-    ctx.font = '10.5px system-ui, -apple-system, sans-serif';
-    ctx.fillText(brand.slogan || '¡Porque no son solo mascotas, sino familia!', w / 2, 46);
-
-    // QR
-    const qrX = (w - qrSize) / 2;
-    const qrY = 56;
-    ctx.drawImage(qrCanvas, qrX, qrY);
-    drawCenterBadge(ctx, w / 2, qrY + qrSize / 2, qrSize);
-
-    // Pie de la credencial estilizado
-    ctx.fillStyle = textColor;
-    ctx.font = 'bold 12.5px system-ui, -apple-system, sans-serif';
-    ctx.textAlign = 'center';
-    ctx.fillText('Escanéalo con la cámara de tu smartphone', w / 2, qrY + qrSize + 24);
-
-    ctx.fillStyle = subtextColor;
-    ctx.font = '10.5px system-ui, -apple-system, sans-serif';
-    ctx.fillText('El Coloso, Acapulco • Tel: ' + (brand.telefono || '744 213 0868'), w / 2, qrY + qrSize + 42);
-
-    ctx.restore();
-  };
-
-  // Dibuja el marco decorativo estilo "Póster de Mostrador"
-  const drawPosterFrame = (ctx, qrCanvas, w, h) => {
-    const textColor = getContrastColor(bgColor);
-    const subtextColor = textColor === '#ffffff' ? 'rgba(255,255,255,0.75)' : '#64748b';
-
-    ctx.save();
-    drawRoundedRect(ctx, 4, 4, w - 8, h - 8, 20);
-    ctx.fillStyle = bgColor;
-    ctx.fill();
-    ctx.strokeStyle = fgColor;
-    ctx.lineWidth = 3;
-    ctx.stroke();
-
-    // Banner superior
-    ctx.save();
-    ctx.fillStyle = fgColor;
-    ctx.beginPath();
-    ctx.roundRect ? ctx.roundRect(4, 4, w - 8, 55, [18, 18, 0, 0]) : ctx.rect(4, 4, w - 8, 55);
-    ctx.fill();
-
-    ctx.fillStyle = '#ffffff';
-    ctx.font = 'bold 16px system-ui, -apple-system, sans-serif';
-    ctx.textAlign = 'center';
-    ctx.fillText('📱 ESCANEA EL CÓDIGO QR', w / 2, 28);
-    ctx.font = '11px system-ui, -apple-system, sans-serif';
-    ctx.fillText(brand.nombreCompleto || 'Luna-Vet Acapulco', w / 2, 45);
-    ctx.restore();
-
-    // QR
-    const qrX = (w - qrSize) / 2;
-    const qrY = 68;
-    ctx.drawImage(qrCanvas, qrX, qrY);
-    drawCenterBadge(ctx, w / 2, qrY + qrSize / 2, qrSize);
-
-    // Texto inferior
-    ctx.fillStyle = textColor;
-    ctx.font = 'bold 14px system-ui, -apple-system, sans-serif';
-    ctx.textAlign = 'center';
-    ctx.fillText('¡Acceso Inmediato desde tu Teléfono!', w / 2, qrY + qrSize + 26);
-
-    ctx.fillStyle = subtextColor;
-    ctx.font = '11px system-ui, -apple-system, sans-serif';
-    ctx.fillText('Apunta tu cámara hacia el código para abrir', w / 2, qrY + qrSize + 44);
-
-    ctx.restore();
-  };
-
-  // Helper para rectángulos con esquinas redondeadas
-  const drawRoundedRect = (ctx, x, y, width, height, radius) => {
-    ctx.beginPath();
-    ctx.moveTo(x + radius, y);
-    ctx.lineTo(x + width - radius, y);
-    ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
-    ctx.lineTo(x + width, y + height - radius);
-    ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
-    ctx.lineTo(x + radius, y + height);
-    ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
-    ctx.lineTo(x, y + radius);
-    ctx.quadraticCurveTo(x, y, x + radius, y);
-    ctx.closePath();
-  };
 
   // Descargar imagen en formato PNG de alta resolución
   const handleDownloadPNG = () => {
@@ -492,7 +485,7 @@ export function QRGenerator({ initialMode = 'mascota', initialData = {}, onDone 
         setTimeout(() => setCopied(false), 3000);
         setTimeout(() => setFeedback(null), 4000);
       });
-    } catch (err) {
+    } catch {
       setFeedback({ type: 'warning', message: 'No se pudo copiar directamente al portapapeles. Usa el botón "Descargar PNG".' });
     }
   };
@@ -805,6 +798,17 @@ export function QRGenerator({ initialMode = 'mascota', initialData = {}, onDone 
                     value={ownerName}
                     onChange={e => setOwnerName(e.target.value)}
                     placeholder="Ej. Familia Gómez"
+                  />
+                </div>
+
+                <div className="mb-1">
+                  <label className="form-label small fw-semibold">Notas Médicas o Mensaje de Auxilio</label>
+                  <input
+                    type="text"
+                    className="form-control form-control-sm"
+                    value={petNotes}
+                    onChange={e => setPetNotes(e.target.value)}
+                    placeholder="Ej. Recompensa / Requiere medicamento diario"
                   />
                 </div>
               </div>

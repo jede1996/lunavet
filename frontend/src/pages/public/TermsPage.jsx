@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { usePageSeo } from '../../hooks/usePageSeo';
 import { useBrand } from '../../contexts/BrandContext';
-import { useTheme } from '../../contexts/ThemeContext';
 
 export function TermsPage() {
   usePageSeo(
@@ -11,7 +10,6 @@ export function TermsPage() {
   );
 
   const { brand } = useBrand();
-  const { isDark } = useTheme();
   const [activeSection, setActiveSection] = useState('sec-1');
 
   const scrollTo = (id) => {

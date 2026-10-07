@@ -20,7 +20,7 @@ async function request(endpoint, options = {}) {
   const headers = { ...options.headers };
 
   // Inyectar Access Token si está disponible
-  const token = localStorage.getItem('lunavet_access_token');
+  const token = localStorage.getItem('lunavet_access_token') || localStorage.getItem('lunavet_token');
   if (token && !headers.Authorization) {
     headers.Authorization = `Bearer ${token}`;
   }
@@ -38,7 +38,7 @@ async function request(endpoint, options = {}) {
   let response;
   try {
     response = await fetch(url, config);
-  } catch (networkErr) {
+  } catch {
     throw new ApiError('No se pudo conectar con el servidor. Verifica tu conexión a internet.', 0, 'NETWORK_ERROR');
   }
 
@@ -57,6 +57,7 @@ async function request(endpoint, options = {}) {
           const refreshData = await refreshRes.json();
           if (refreshData.success && refreshData.data.accessToken) {
             localStorage.setItem('lunavet_access_token', refreshData.data.accessToken);
+            localStorage.setItem('lunavet_token', refreshData.data.accessToken);
             if (refreshData.data.refreshToken) {
               localStorage.setItem('lunavet_refresh_token', refreshData.data.refreshToken);
             }
@@ -67,6 +68,7 @@ async function request(endpoint, options = {}) {
       } catch {
         // Si falla la renovación, limpiar sesión
         localStorage.removeItem('lunavet_access_token');
+        localStorage.removeItem('lunavet_token');
         localStorage.removeItem('lunavet_refresh_token');
         localStorage.removeItem('lunavet_user');
       }

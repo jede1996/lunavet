@@ -150,7 +150,7 @@ class ReminderService {
       cliente_id,
       veterinario_id,
       fecha_programada,
-      tipo_caso = 'cirugia'
+      tipo_caso: _tipo_caso = 'cirugia'
     } = data;
 
     if (!mascota_id || !cliente_id || !veterinario_id || !fecha_programada) {

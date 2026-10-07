@@ -40,7 +40,30 @@ export function AdminStaffPage() {
   };
 
   useEffect(() => {
-    loadStaff();
+    let active = true;
+    api.get('/admin/staff')
+      .then(res => {
+        if (!active) return;
+        const staffList = Array.isArray(res?.data?.data)
+          ? res.data.data
+          : Array.isArray(res?.data?.staff)
+          ? res.data.staff
+          : Array.isArray(res?.data)
+          ? res.data
+          : [];
+        setStaff(staffList);
+      })
+      .catch(err => {
+        if (!active) return;
+        setFeedback({ type: 'danger', message: err.message });
+        setStaff([]);
+      })
+      .finally(() => {
+        if (active) setLoading(false);
+      });
+    return () => {
+      active = false;
+    };
   }, []);
 
   const handleCreateStaff = async (e) => {

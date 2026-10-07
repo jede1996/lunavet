@@ -1,0 +1,40 @@
+---
+description: Fase 2 del SDLC - Arquitectura conceptual, consenso de tradeoffs y contratos de API estrictos
+globs: **/*
+alwaysApply: false
+---
+
+# Fase 2: Architecture, Contracts & Planning Rule
+
+Esta regla rige el diseño de soluciones, validación documental y contratos entre frontend y backend.
+
+## Skills Involucradas
+- \`.skills/phase-2-architecture/napkin\`
+- \`.skills/phase-2-architecture/llm-council\`
+- \`.skills/phase-2-architecture/grill-with-docs\`
+- \`.skills/phase-2-architecture/api-contract\`
+- \`.skills/phase-2-architecture/prompt-master\`
+
+## Directivas Obligatorias
+1. **Esquema Conceptual (Napkin)**: Provee un diagrama Mermaid o ASCII que ilustre el flujo de datos y los límites arquitectónicos antes de iniciar el código de producción.
+2. **Consenso en Disyuntivas (LLM Council)**: Si existen alternativas con tradeoffs (ej. renderizado condicional vs modal, tabla vs listado paginado, persistencia local vs servidor), sintetiza los pros y contras explícitamente.
+3. **Cero Alucinaciones (Grill with Docs)**: Contrasta métodos y librerías con la versión real instalada en el proyecto (ej. Chart.js v4, FullCalendar v6, Bootstrap v5.3, React v18/v19).
+4. **Contratos Inmutables (API Contract)**: Todo endpoint debe definir esquemas de validación de entrada/salida consistentes:
+   \`\`\`json
+   {
+     "success": true,
+     "data": {},
+     "message": "Operación completada"
+   }
+   \`\`\`
+   Los errores deben retornar:
+   \`\`\`json
+   {
+     "success": false,
+     "error": {
+       "message": "Descripción clara para el usuario",
+       "code": "ERROR_CODE",
+       "details": null
+     }
+   }
+   \`\`\`
