@@ -1,7 +1,4 @@
 /* =========================================================================
-   TEMA CLÁSICO NEUMÓRFICO — ENTRADA DEL PAQUETE
+   TEMA CLÁSICO NEUMÓRFICO — OBSOLETO / DEPRECATED
+   Reemplazado por el Sistema Oficial Apple Segmented Glassmorphic.
    ========================================================================= */
-
-@import './tokens-light.css';
-@import './tokens-dark.css';
-@import './components.css';

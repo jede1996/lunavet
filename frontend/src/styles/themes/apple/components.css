@@ -1,17 +1,20 @@
 /* =========================================================================
    APPLE DESIGN SYSTEM — COMPONENTES & LIQUID GLASS (HIG)
-   Capa funcional translúcida, capa de contenido sólida y elevación Apple.
+   Apple Segmented Glassmorphic: Capa funcional translúcida, capa de contenido sólida
+   y controles segmentados con física de resortes y elevación Apple.
    ========================================================================= */
 
 /* 1. Capa Funcional: Barra de Navegación con Material Liquid Glass */
 .navbar-refined {
   background: var(--navbar-bg) !important;
-  backdrop-filter: blur(28px) saturate(180%);
-  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  backdrop-filter: var(--apple-glass-blur);
+  -webkit-backdrop-filter: var(--apple-glass-blur);
   border-bottom: 1px solid var(--navbar-border);
   box-shadow: var(--navbar-shadow);
   z-index: 1050 !important;
-  transition: background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  transition: background-color 0.25s cubic-bezier(0.25, 1, 0.5, 1),
+              border-color 0.25s cubic-bezier(0.25, 1, 0.5, 1),
+              box-shadow 0.25s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .navbar-refined .navbar-brand {
@@ -40,33 +43,37 @@
 
 /* Botones de Acción en Navbar */
 .navbar-action-btn {
-  background-color: var(--bs-secondary-bg);
+  background-color: var(--apple-glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   color: var(--bs-body-color);
-  border: 1px solid var(--bs-border-color) !important;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
-  transition: all 0.2s ease;
+  border: 1px solid var(--apple-glass-border-subtle) !important;
+  box-shadow: var(--apple-shadow-sm);
+  transition: all 0.2s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .navbar-action-btn:hover,
 .navbar-action-btn:focus {
-  background-color: var(--bs-tertiary-bg);
+  background-color: var(--apple-glass-bg-elevated);
   color: var(--bs-emphasis-color);
   border-color: var(--bs-primary) !important;
   transform: translateY(-1px);
 }
 
 .navbar-user-btn {
-  background-color: var(--bs-secondary-bg);
+  background-color: var(--apple-glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   color: var(--bs-body-color);
-  border: 1px solid var(--bs-border-color);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
-  transition: all 0.2s ease;
+  border: 1px solid var(--apple-glass-border-subtle);
+  box-shadow: var(--apple-shadow-sm);
+  transition: all 0.2s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .navbar-user-btn:hover,
 .navbar-user-btn:focus,
 .navbar-user-btn[aria-expanded="true"] {
-  background-color: var(--bs-tertiary-bg);
+  background-color: var(--apple-glass-bg-elevated);
   border-color: var(--bs-primary);
   color: var(--bs-emphasis-color);
   transform: translateY(-1px);
@@ -79,26 +86,145 @@
   font-weight: 600;
 }
 
-/* 2. Capa de Contenido: Tarjetas Apple Squircle */
-:root:not(.theme-classic) .card,
+/* =========================================================================
+   2. CONTROLES SEGMENTADOS APPLE (HIG Segmented Controls)
+   Pistas translúcidas con deslizador o píldora de elevación táctil
+   ========================================================================= */
+
+.apple-segmented-control {
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  background-color: var(--apple-segmented-bg);
+  border: 1px solid var(--apple-segmented-border);
+  border-radius: 9999px;
+  padding: 3px;
+  gap: 2px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  user-select: none;
+  box-shadow: inset 0 0.5px 1px rgba(0, 0, 0, 0.05);
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.apple-segmented-btn {
+  position: relative;
+  z-index: 1;
+  border: none;
+  background: transparent;
+  color: var(--apple-segmented-text);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  padding: 0.32rem 0.75rem;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.38rem;
+  cursor: pointer;
+  line-height: 1.25;
+  min-height: 30px;
+  transition: color 0.18s ease, transform 0.15s cubic-bezier(0.25, 1, 0.5, 1);
+  outline: none;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.apple-segmented-btn:hover {
+  color: var(--apple-segmented-text-hover);
+}
+
+.apple-segmented-btn:active {
+  transform: scale(0.96);
+}
+
+.apple-segmented-btn:focus-visible {
+  outline: 2px solid var(--bs-primary);
+  outline-offset: 1px;
+}
+
+.apple-segmented-btn.active {
+  color: var(--apple-segmented-text-active) !important;
+  font-weight: 600;
+  background-color: var(--apple-segmented-indicator);
+  box-shadow: var(--apple-segmented-indicator-shadow);
+}
+
+/* Nav-pills integradas con estética Apple Segmented */
+.nav-pills {
+  background-color: var(--apple-segmented-bg);
+  padding: 3px;
+  border-radius: 14px;
+  display: inline-flex;
+  gap: 2px;
+  border: 1px solid var(--apple-segmented-border);
+}
+
+.nav-pills .nav-link {
+  border-radius: 11px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--apple-segmented-text);
+  padding: 0.38rem 0.85rem;
+  transition: all 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+  border: none;
+  background: transparent;
+}
+
+.nav-pills .nav-link:hover {
+  color: var(--apple-segmented-text-hover);
+}
+
+.nav-pills .nav-link.active {
+  background-color: var(--apple-segmented-indicator) !important;
+  color: var(--apple-segmented-text-active) !important;
+  font-weight: 600;
+  box-shadow: var(--apple-segmented-indicator-shadow) !important;
+}
+
+/* =========================================================================
+   3. CAPA DE CONTENIDO: TARJETAS APPLE SEGMENTED GLASSMORPHIC
+   ========================================================================= */
+
+.card,
 .theme-apple .card,
-.apple-design .card {
+.apple-design .card,
+.apple-glass-card {
   background-color: var(--bs-card-bg);
+  backdrop-filter: var(--apple-glass-blur);
+  -webkit-backdrop-filter: var(--apple-glass-blur);
   border: 1px solid var(--bs-card-border-color) !important;
   border-radius: var(--bs-border-radius-lg) !important;
   box-shadow: var(--apple-shadow-card) !important;
-  transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.25s cubic-bezier(0.25, 1, 0.5, 1);
+  transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1),
+              box-shadow 0.25s cubic-bezier(0.25, 1, 0.5, 1),
+              border-color 0.2s ease;
 }
 
-:root:not(.theme-classic) .card:hover,
+.card:hover,
 .theme-apple .card:hover,
-.apple-design .card:hover {
+.apple-design .card:hover,
+.apple-glass-card:hover {
   transform: translateY(-2px);
   box-shadow: var(--apple-shadow-card-hover) !important;
 }
 
-/* 3. Botones Apple HIG con Feedback de Presión */
-:root:not(.theme-classic) .btn,
+/* Pozos y Contenedores Inset Glassmorphic */
+.apple-glass-well,
+.nm-inset-well {
+  background-color: var(--apple-glass-well-bg) !important;
+  border: 1px solid var(--apple-glass-well-border) !important;
+  box-shadow: var(--apple-glass-well-shadow) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+/* =========================================================================
+   4. BOTONES APPLE HIG CON FEEDBACK HÁPTICO
+   ========================================================================= */
+
+.btn,
 .theme-apple .btn,
 .apple-design .btn {
   border-radius: 12px;
@@ -112,13 +238,13 @@
   justify-content: center;
 }
 
-:root:not(.theme-classic) .btn:active,
+.btn:active,
 .theme-apple .btn:active,
 .apple-design .btn:active {
   transform: scale(0.975);
 }
 
-:root:not(.theme-classic) .btn-primary,
+.btn-primary,
 .theme-apple .btn-primary,
 .apple-design .btn-primary {
   background-color: var(--bs-primary) !important;
@@ -128,8 +254,8 @@
   box-shadow: 0 2px 8px rgba(var(--bs-primary-rgb), 0.28) !important;
 }
 
-:root:not(.theme-classic) .btn-primary:hover,
-:root:not(.theme-classic) .btn-primary:focus,
+.btn-primary:hover,
+.btn-primary:focus,
 .theme-apple .btn-primary:hover,
 .theme-apple .btn-primary:focus {
   filter: brightness(1.06);
@@ -137,7 +263,7 @@
   box-shadow: 0 4px 14px rgba(var(--bs-primary-rgb), 0.38) !important;
 }
 
-:root:not(.theme-classic) .btn-light,
+.btn-light,
 .theme-apple .btn-light,
 .apple-design .btn-light {
   background-color: var(--bs-tertiary-bg) !important;
@@ -146,8 +272,8 @@
   box-shadow: var(--apple-shadow-sm) !important;
 }
 
-:root:not(.theme-classic) .btn-light:hover,
-:root:not(.theme-classic) .btn-light:focus,
+.btn-light:hover,
+.btn-light:focus,
 .theme-apple .btn-light:hover,
 .theme-apple .btn-light:focus {
   background-color: var(--bs-secondary-bg) !important;
@@ -155,9 +281,30 @@
   border-color: rgba(60, 60, 67, 0.2) !important;
 }
 
-/* 4. Formularios e Inputs Estilo Inset Agrupado */
-:root:not(.theme-classic) .form-control,
-:root:not(.theme-classic) .form-select,
+/* Botón Glassmorphic Apple */
+.btn-glass {
+  background-color: var(--apple-glass-bg);
+  backdrop-filter: var(--apple-glass-blur);
+  -webkit-backdrop-filter: var(--apple-glass-blur);
+  border: 1px solid var(--apple-glass-border);
+  color: var(--bs-body-color);
+  box-shadow: var(--apple-shadow-sm);
+}
+
+.btn-glass:hover,
+.btn-glass:focus {
+  background-color: var(--apple-glass-bg-elevated);
+  border-color: var(--bs-primary);
+  color: var(--bs-emphasis-color);
+  transform: translateY(-1px);
+}
+
+/* =========================================================================
+   5. FORMULARIOS E INPUTS ESTILO INSET APPLE
+   ========================================================================= */
+
+.form-control,
+.form-select,
 .theme-apple .form-control,
 .theme-apple .form-select {
   background-color: var(--bs-tertiary-bg);
@@ -170,8 +317,8 @@
   transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
 }
 
-:root:not(.theme-classic) .form-control:focus,
-:root:not(.theme-classic) .form-select:focus,
+.form-control:focus,
+.form-select:focus,
 .theme-apple .form-control:focus,
 .theme-apple .form-select:focus {
   background-color: var(--bs-secondary-bg);
@@ -180,20 +327,23 @@
   box-shadow: 0 0 0 3.5px rgba(var(--bs-primary-rgb), 0.22) !important;
 }
 
-/* 5. Menús Desplegables & Modales Frosted Glass */
-:root:not(.theme-classic) .dropdown-menu,
+/* =========================================================================
+   6. MENÚS DESPLEGABLES & MODALES FROSTED GLASS
+   ========================================================================= */
+
+.dropdown-menu,
 .theme-apple .dropdown-menu,
 .apple-dropdown {
   background: var(--bs-dropdown-bg) !important;
-  backdrop-filter: blur(28px) saturate(180%);
-  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  backdrop-filter: var(--apple-glass-blur);
+  -webkit-backdrop-filter: var(--apple-glass-blur);
   border: 1px solid var(--bs-dropdown-border-color);
   border-radius: 16px;
   box-shadow: var(--apple-shadow-dropdown) !important;
   padding: 0.5rem;
 }
 
-:root:not(.theme-classic) .dropdown-item,
+.dropdown-item,
 .theme-apple .dropdown-item {
   border-radius: 10px;
   padding: 0.45rem 0.85rem;
@@ -203,15 +353,15 @@
   transition: background-color 0.15s ease, color 0.15s ease;
 }
 
-:root:not(.theme-classic) .dropdown-item:hover,
-:root:not(.theme-classic) .dropdown-item:focus,
+.dropdown-item:hover,
+.dropdown-item:focus,
 .theme-apple .dropdown-item:hover,
 .theme-apple .dropdown-item:focus {
   background-color: var(--bs-dropdown-link-hover-bg) !important;
   color: var(--bs-dropdown-link-hover-color) !important;
 }
 
-:root:not(.theme-classic) .dropdown-header,
+.dropdown-header,
 .theme-apple .dropdown-header {
   font-size: 0.7rem;
   font-weight: 700;
@@ -220,48 +370,25 @@
   color: var(--bs-secondary-color);
 }
 
-:root:not(.theme-classic) .modal-content,
+.modal-content,
 .theme-apple .modal-content {
   background: var(--bs-modal-bg) !important;
-  backdrop-filter: blur(28px) saturate(180%);
-  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  backdrop-filter: var(--apple-glass-blur);
+  -webkit-backdrop-filter: var(--apple-glass-blur);
   border: 1px solid var(--bs-modal-border-color);
   border-radius: 20px;
   box-shadow: var(--apple-shadow-modal) !important;
 }
 
-/* 6. Insignias & Controles Segmentados Apple */
-:root:not(.theme-classic) .badge,
+/* =========================================================================
+   7. INSIGNIAS (BADGES) APPLE HIG
+   ========================================================================= */
+
+.badge,
 .theme-apple .badge,
 .apple-design .badge {
   border-radius: 9999px;
   font-weight: 600;
   letter-spacing: 0.01em;
   padding: 0.35rem 0.7rem;
-}
-
-.apple-segmented-control,
-.nav-pills {
-  background-color: var(--bs-tertiary-bg);
-  padding: 3px;
-  border-radius: 12px;
-  display: inline-flex;
-  gap: 2px;
-}
-
-.apple-segmented-control .nav-link,
-.nav-pills .nav-link {
-  border-radius: 9px;
-  font-size: 0.85rem;
-  font-weight: 500;
-  color: var(--bs-body-color);
-  padding: 0.35rem 0.85rem;
-  transition: all 0.2s cubic-bezier(0.25, 1, 0.5, 1);
-}
-
-.apple-segmented-control .nav-link.active,
-.nav-pills .nav-link.active {
-  background-color: var(--bs-secondary-bg) !important;
-  color: var(--bs-emphasis-color) !important;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08) !important;
 }

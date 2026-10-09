@@ -1,22 +1,20 @@
 /* =========================================================================
-   LUNA-VET ACAPULCO — SISTEMA DE DISEÑO MODULAR MULTI-TEMA
-   Punto de entrada maestro que orquesta los temas organizados en carpetas.
+   LUNA-VET ACAPULCO — SISTEMA DE DISEÑO APPLE SEGMENTED GLASSMORPHIC (HIG)
+   Punto de entrada maestro: Claro y Oscuro con Liquid Glass y Segmented Controls.
    ========================================================================= */
 
 /* 1. Base tipográfica, reset y fondos globales */
 @import './themes/shared/base.css';
 
-/* 2. Tema Oficial por Defecto: Apple Design System (HIG) */
+/* 2. Sistema Oficial Apple Segmented Glassmorphic (Claro & Oscuro HIG) */
 @import './themes/apple/index.css';
 
-/* 3. Tema Alternativo: Neumórfico Clásico */
-@import './themes/classic/index.css';
-
-/* 4. Modo Accesibilidad: Alto Contraste Clínico / Quirófano */
+/* 3. Modo Accesibilidad: Alto Contraste Clínico / Quirófano (WCAG AA) */
 @import './themes/high-contrast/index.css';
 
-/* 5. Componentes y widgets propios de Luna-Vet (Alerta, QR, Calendario) */
+/* 4. Componentes y widgets propios de Luna-Vet (Alerta, QR, Calendario) */
 @import './themes/shared/brand-components.css';
 
-/* 6. Adaptabilidad del Sistema Operativo (Reducción de movimiento y transparencia) */
+/* 5. Adaptabilidad del Sistema Operativo (Reducción de movimiento y transparencia) */
 @import './themes/shared/accessibility.css';
+

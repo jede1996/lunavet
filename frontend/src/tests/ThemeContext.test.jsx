@@ -2,6 +2,7 @@ import React from 'react';
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { ThemeProvider, useTheme } from '../contexts/ThemeContext';
+import { AppleThemeSelector } from '../components/common/AppleThemeSelector';
 
 function TestComponent() {
   const { theme, isDark, toggleTheme } = useTheme();
@@ -42,8 +43,8 @@ describe('ThemeContext & ThemeProvider', () => {
     expect(localStorage.getItem('lunavet_theme')).toBe('apple');
   });
 
-  it('debe respetar el valor persistido en localStorage', () => {
-    localStorage.setItem('lunavet_theme', 'dark');
+  it('debe respetar el valor persistido en localStorage o normalizar temas heredados a Apple', () => {
+    localStorage.setItem('lunavet_theme', 'apple-dark');
 
     render(
       <ThemeProvider>
@@ -51,10 +52,12 @@ describe('ThemeContext & ThemeProvider', () => {
       </ThemeProvider>
     );
 
-    expect(screen.getByTestId('current-theme')).toHaveTextContent('dark');
+    expect(screen.getByTestId('current-theme')).toHaveTextContent('apple-dark');
     expect(screen.getByTestId('is-dark')).toHaveTextContent('yes');
     expect(document.documentElement.getAttribute('data-bs-theme')).toBe('dark');
     expect(document.documentElement.classList.contains('dark-mode')).toBe(true);
+    expect(document.documentElement.classList.contains('theme-apple')).toBe(true);
+    expect(document.documentElement.classList.contains('theme-classic')).toBe(false);
   });
 
   it('debe alternar entre claro y oscuro al invocar toggleTheme', () => {
@@ -83,7 +86,7 @@ describe('ThemeContext & ThemeProvider', () => {
     expect(localStorage.getItem('lunavet_theme')).toBe('apple');
   });
 
-  it('debe permitir cambiar directamente entre todos los temas disponibles con setTheme', () => {
+  it('debe permitir cambiar directamente entre todos los temas Apple disponibles con setTheme y normalizar temas descartados', () => {
     function SwitcherComponent() {
       const { theme, isApple, isDark, setTheme, toggleHighContrast, isHighContrast } = useTheme();
       return (
@@ -118,20 +121,21 @@ describe('ThemeContext & ThemeProvider', () => {
     expect(document.documentElement.getAttribute('data-bs-theme')).toBe('dark');
     expect(document.documentElement.classList.contains('theme-apple')).toBe(true);
 
-    // Cambiar a Neumórfico Claro
+    // Intentar cambiar a Neumórfico Claro descartado: se normaliza a Apple Claro
     fireEvent.click(screen.getByTestId('set-light'));
-    expect(screen.getByTestId('theme')).toHaveTextContent('light');
-    expect(screen.getByTestId('is-apple')).toHaveTextContent('no');
+    expect(screen.getByTestId('theme')).toHaveTextContent('apple');
+    expect(screen.getByTestId('is-apple')).toHaveTextContent('yes');
     expect(screen.getByTestId('is-dark')).toHaveTextContent('no');
-    expect(document.documentElement.classList.contains('theme-classic')).toBe(true);
-    expect(document.documentElement.classList.contains('theme-apple')).toBe(false);
+    expect(document.documentElement.classList.contains('theme-classic')).toBe(false);
+    expect(document.documentElement.classList.contains('theme-apple')).toBe(true);
 
-    // Cambiar a Neumórfico Oscuro
+    // Intentar cambiar a Neumórfico Oscuro descartado: se normaliza a Apple Oscuro
     fireEvent.click(screen.getByTestId('set-dark'));
-    expect(screen.getByTestId('theme')).toHaveTextContent('dark');
-    expect(screen.getByTestId('is-apple')).toHaveTextContent('no');
+    expect(screen.getByTestId('theme')).toHaveTextContent('apple-dark');
+    expect(screen.getByTestId('is-apple')).toHaveTextContent('yes');
     expect(screen.getByTestId('is-dark')).toHaveTextContent('yes');
-    expect(document.documentElement.classList.contains('theme-classic')).toBe(true);
+    expect(document.documentElement.classList.contains('theme-classic')).toBe(false);
+    expect(document.documentElement.classList.contains('theme-apple')).toBe(true);
 
     // Activar Alto Contraste
     fireEvent.click(screen.getByTestId('toggle-hc'));
@@ -146,4 +150,39 @@ describe('ThemeContext & ThemeProvider', () => {
 
     spy.mockRestore();
   });
+
+  it('debe renderizar AppleThemeSelector y alternar segmentos con interfaz glassmorphic', () => {
+    render(
+      <ThemeProvider>
+        <AppleThemeSelector />
+      </ThemeProvider>
+    );
+
+    const claroBtn = screen.getByRole('radio', { name: /Activar tema Apple Claro/i });
+    const oscuroBtn = screen.getByRole('radio', { name: /Activar tema Apple Oscuro/i });
+    const contrastBtn = screen.getByRole('button', { name: /Alternar modo quirófano de alto contraste/i });
+
+    expect(claroBtn).toHaveAttribute('aria-checked', 'true');
+    expect(claroBtn.classList.contains('active')).toBe(true);
+    expect(oscuroBtn).toHaveAttribute('aria-checked', 'false');
+
+    // Cambiar a Oscuro
+    fireEvent.click(oscuroBtn);
+    expect(oscuroBtn).toHaveAttribute('aria-checked', 'true');
+    expect(oscuroBtn.classList.contains('active')).toBe(true);
+    expect(claroBtn).toHaveAttribute('aria-checked', 'false');
+    expect(document.documentElement.getAttribute('data-bs-theme')).toBe('dark');
+
+    // Volver a Claro
+    fireEvent.click(claroBtn);
+    expect(claroBtn).toHaveAttribute('aria-checked', 'true');
+    expect(claroBtn.classList.contains('active')).toBe(true);
+    expect(document.documentElement.getAttribute('data-bs-theme')).toBe('light');
+
+    // Alternar Alto Contraste
+    fireEvent.click(contrastBtn);
+    expect(contrastBtn).toHaveAttribute('aria-pressed', 'true');
+    expect(document.documentElement.classList.contains('high-contrast')).toBe(true);
+  });
 });
+

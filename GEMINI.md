@@ -65,7 +65,7 @@ Todo agente operando en este repositorio debe respetar de forma mandatoria la si
 
 ### A. Directivas de Diseño y Frontend
 - **Apple HIG como Sistema por Defecto**: Las interfaces deben aplicar las directrices de diseño de Apple: bordes sutiles (`border: 1px solid var(--apple-border)`), esquinas redondeadas generosas (`border-radius: 16px` o `20px`), fondos con desenfoque de cristal (`backdrop-filter: blur(20px)`), tipografía moderna (San Francisco / Plus Jakarta Sans / Inter).
-- **Soporte Multi-Tema Obligatorio**: Todo componente nuevo debe utilizar variables CSS temáticas (`var(--apple-...)`, `var(--bg-card)`, etc.) para conmutar sin rupturas entre Apple Claro, Apple Oscuro, Neumórfico y Alto Contraste Clínico.
+- **Soporte de Temas Apple Segmented Glassmorphic**: Todo componente nuevo debe utilizar variables CSS temáticas (`var(--apple-...)`, `var(--apple-glass-...)`, etc.) para conmutar sin rupturas entre Apple Segmented Glassmorphic Claro, Apple Segmented Glassmorphic Oscuro y Alto Contraste Clínico (Quirófano).
 - **Sin Renders en Cascada (`react(set-state-in-effect)`)**: Las cargas iniciales de datos deben implementar guardas de cancelación (`active = false`) o derivarse síncronamente durante el render.
 - **Rendimiento**: Todo nuevo componente que pese más de 20KB debe cargarse mediante `React.lazy()` en [App.jsx](file:///frontend/src/App.jsx).
 

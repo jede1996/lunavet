@@ -1,13 +1,13 @@
 /* =========================================================================
    APPLE DESIGN SYSTEM — TOKENS MODO CLARO (HIG)
-   Superficies limpias, tipografía San Francisco y paleta dinámica Apple.
+   Apple Segmented Glassmorphic: Liquid Glass, San Francisco y superficies agrupadas.
    ========================================================================= */
 
 :root,
 [data-theme="apple"],
 .theme-apple,
 .apple-design,
-:root:not(.theme-classic) {
+.apple-glassmorphic {
   /* Paleta Dinámica Oficial Apple (iOS / macOS HIG) */
   --bs-primary: #0071e3;
   --bs-primary-rgb: 0, 113, 227;
@@ -41,20 +41,42 @@
   --bs-border-color: rgba(60, 60, 67, 0.14);
   --bs-border-color-translucent: rgba(60, 60, 67, 0.08);
 
+  /* Apple Liquid Glass (Superficies Translúcidas HIG) */
+  --apple-glass-bg: rgba(255, 255, 255, 0.72);
+  --apple-glass-bg-elevated: rgba(255, 255, 255, 0.86);
+  --apple-glass-border: rgba(255, 255, 255, 0.65);
+  --apple-glass-border-subtle: rgba(60, 60, 67, 0.12);
+  --apple-glass-blur: blur(24px) saturate(180%);
+  --apple-glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  --apple-glass-specular: inset 0 1px 0 rgba(255, 255, 255, 0.95), inset 0 -1px 0 rgba(0, 0, 0, 0.04);
+  --apple-glass-well-bg: rgba(120, 120, 128, 0.07);
+  --apple-glass-well-border: rgba(60, 60, 67, 0.1);
+  --apple-glass-well-shadow: inset 0 1.5px 3.5px rgba(0, 0, 0, 0.06);
+
+  /* Apple Segmented Controls (Selector Segmentado HIG) */
+  --apple-segmented-bg: rgba(118, 118, 128, 0.12);
+  --apple-segmented-border: rgba(0, 0, 0, 0.06);
+  --apple-segmented-indicator: #ffffff;
+  --apple-segmented-indicator-shadow: 0 2px 8px rgba(0, 0, 0, 0.12), 0 0.5px 1.5px rgba(0, 0, 0, 0.08);
+  --apple-segmented-text: #636366;
+  --apple-segmented-text-hover: #1c1c1e;
+  --apple-segmented-text-active: #000000;
+  --apple-segmented-active-accent: #0071e3;
+
   /* Componentes Apple Cards & Modals */
-  --bs-card-bg: #ffffff;
-  --bs-card-border-color: rgba(60, 60, 67, 0.1);
-  --bs-card-cap-bg: #f2f2f7;
+  --bs-card-bg: rgba(255, 255, 255, 0.88);
+  --bs-card-border-color: rgba(255, 255, 255, 0.65);
+  --bs-card-cap-bg: rgba(242, 242, 247, 0.7);
   --bs-card-color: var(--bs-body-color);
-  --bs-dropdown-bg: rgba(255, 255, 255, 0.84);
-  --bs-dropdown-border-color: rgba(0, 0, 0, 0.08);
+  --bs-dropdown-bg: rgba(255, 255, 255, 0.82);
+  --bs-dropdown-border-color: rgba(255, 255, 255, 0.7);
   --bs-dropdown-link-color: #1c1c1e;
   --bs-dropdown-link-hover-bg: rgba(0, 113, 227, 0.08);
   --bs-dropdown-link-hover-color: #0071e3;
-  --bs-modal-bg: rgba(255, 255, 255, 0.94);
-  --bs-modal-border-color: rgba(0, 0, 0, 0.08);
-  --bs-offcanvas-bg: rgba(255, 255, 255, 0.94);
-  --bs-offcanvas-border-color: rgba(0, 0, 0, 0.08);
+  --bs-modal-bg: rgba(255, 255, 255, 0.92);
+  --bs-modal-border-color: rgba(255, 255, 255, 0.7);
+  --bs-offcanvas-bg: rgba(255, 255, 255, 0.92);
+  --bs-offcanvas-border-color: rgba(255, 255, 255, 0.7);
   --bs-table-bg: transparent;
   --bs-table-color: var(--bs-body-color);
   --bs-table-border-color: rgba(60, 60, 67, 0.08);
@@ -62,11 +84,11 @@
   --bs-table-hover-bg: rgba(0, 113, 227, 0.035);
 
   /* Acordeón Apple HIG */
-  --bs-accordion-bg: #ffffff;
+  --bs-accordion-bg: rgba(255, 255, 255, 0.85);
   --bs-accordion-color: var(--bs-body-color);
   --bs-accordion-border-color: rgba(60, 60, 67, 0.12);
   --bs-accordion-btn-color: var(--bs-emphasis-color);
-  --bs-accordion-btn-bg: #ffffff;
+  --bs-accordion-btn-bg: rgba(255, 255, 255, 0.85);
   --bs-accordion-active-color: var(--bs-primary);
   --bs-accordion-active-bg: rgba(0, 113, 227, 0.06);
   --bs-accordion-btn-focus-box-shadow: 0 0 0 0.2rem rgba(0, 113, 227, 0.15);
@@ -80,7 +102,7 @@
 
   /* Barra de Navegación Liquid Glass (Capa Funcional HIG) */
   --navbar-bg: rgba(255, 255, 255, 0.78);
-  --navbar-border: rgba(0, 0, 0, 0.08);
+  --navbar-border: rgba(255, 255, 255, 0.65);
   --navbar-shadow: 0 1px 0 rgba(0, 0, 0, 0.04), 0 8px 24px -4px rgba(0, 0, 0, 0.03);
   --navbar-text: #1c1c1e;
   --navbar-link: #48484a;
@@ -92,10 +114,11 @@
 
   /* Sombras de Elevación Difusa Apple (Ambient Light) */
   --apple-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.03), 0 1px 2px rgba(0, 0, 0, 0.02);
-  --apple-shadow-card: 0 2px 10px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
-  --apple-shadow-card-hover: 0 10px 28px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.03);
-  --apple-shadow-dropdown: 0 16px 40px -4px rgba(0, 0, 0, 0.12), 0 0 1px 1px rgba(0, 0, 0, 0.04);
-  --apple-shadow-modal: 0 24px 60px -8px rgba(0, 0, 0, 0.18), 0 0 1px 1px rgba(0, 0, 0, 0.04);
+  --apple-shadow-card: 0 4px 20px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+  --apple-shadow-card-hover: 0 12px 32px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.03);
+  --apple-shadow-dropdown: 0 16px 40px -4px rgba(0, 0, 0, 0.12), 0 0 1px 1px rgba(255, 255, 255, 0.8);
+  --apple-shadow-modal: 0 24px 60px -8px rgba(0, 0, 0, 0.18), 0 0 1px 1px rgba(255, 255, 255, 0.8);
 
   --hero-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, #f2f2f7 100%);
 }
+

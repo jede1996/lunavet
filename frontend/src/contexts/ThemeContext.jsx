@@ -5,25 +5,31 @@ const ThemeContext = createContext(null);
 
 export const THEMES = {
   APPLE: 'apple',
-  APPLE_DARK: 'apple-dark',
-  LIGHT: 'light',
-  DARK: 'dark'
+  APPLE_DARK: 'apple-dark'
 };
 
 export const THEME_LIST = [
-  { id: 'apple', name: 'Apple Claro', family: 'apple', isDark: false, isDefault: true, icon: 'bi-apple' },
-  { id: 'apple-dark', name: 'Apple Oscuro', family: 'apple', isDark: true, isDefault: false, icon: 'bi-apple' },
-  { id: 'light', name: 'Neumórfico Claro', family: 'classic', isDark: false, isDefault: false, icon: 'bi-brightness-high' },
-  { id: 'dark', name: 'Neumórfico Oscuro', family: 'classic', isDark: true, isDefault: false, icon: 'bi-moon-stars' }
+  { id: 'apple', name: 'Apple Claro', family: 'apple', isDark: false, isDefault: true, icon: 'bi-sun-fill' },
+  { id: 'apple-dark', name: 'Apple Oscuro', family: 'apple', isDark: true, isDefault: false, icon: 'bi-moon-stars-fill' }
 ];
 
 export function ThemeProvider({ children }) {
   const [theme, setThemeState] = useState(() => {
-    const saved = localStorage.getItem('lunavet_theme');
-    if (['apple', 'apple-dark', 'light', 'dark'].includes(saved)) {
+    const urlParams = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : null;
+    const urlTheme = urlParams?.get('theme');
+    if (urlTheme === 'apple' || urlTheme === 'apple-dark') {
+      return urlTheme;
+    }
+
+    let saved = localStorage.getItem('lunavet_theme');
+    // Normalizar temas heredados o descartados a la variante Apple correspondiente
+    if (saved === 'light') saved = 'apple';
+    if (saved === 'dark') saved = 'apple-dark';
+    
+    if (saved === 'apple' || saved === 'apple-dark') {
       return saved;
     }
-    // Apple Design es el tema oficial por defecto de Luna-Vet
+    // Apple Segmented Glassmorphic es el estándar oficial de Luna-Vet
     if (typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
       return 'apple-dark';
     }
@@ -35,17 +41,15 @@ export function ThemeProvider({ children }) {
   });
 
   useEffect(() => {
-    const isDarkTheme = theme === 'apple-dark' || theme === 'dark';
-    const isAppleTheme = theme === 'apple' || theme === 'apple-dark';
+    const isDarkTheme = theme === 'apple-dark';
 
     // Sincronización con data-bs-theme para componentes internos de Bootstrap 5
     document.documentElement.setAttribute('data-bs-theme', isDarkTheme ? 'dark' : 'light');
     document.documentElement.setAttribute('data-theme', theme);
     document.documentElement.classList.toggle('dark-mode', isDarkTheme);
     document.documentElement.classList.toggle('light-mode', !isDarkTheme);
-    document.documentElement.classList.toggle('theme-apple', isAppleTheme);
-    document.documentElement.classList.toggle('apple-design', isAppleTheme);
-    document.documentElement.classList.toggle('theme-classic', !isAppleTheme);
+    document.documentElement.classList.add('theme-apple', 'apple-design', 'apple-glassmorphic');
+    document.documentElement.classList.remove('theme-classic');
     document.documentElement.classList.toggle('high-contrast', highContrast);
     document.documentElement.classList.toggle('or-mode', highContrast);
 
@@ -71,13 +75,7 @@ export function ThemeProvider({ children }) {
   }, [theme, highContrast]);
 
   const toggleTheme = () => {
-    setThemeState(prev => {
-      if (prev === 'apple') return 'apple-dark';
-      if (prev === 'apple-dark') return 'apple';
-      if (prev === 'light') return 'dark';
-      if (prev === 'dark') return 'light';
-      return 'apple-dark';
-    });
+    setThemeState(prev => (prev === 'apple' ? 'apple-dark' : 'apple'));
   };
 
   const toggleHighContrast = () => {
@@ -85,21 +83,21 @@ export function ThemeProvider({ children }) {
   };
 
   const setTheme = (newTheme) => {
-    if (['apple', 'apple-dark', 'light', 'dark'].includes(newTheme)) {
-      setThemeState(newTheme);
+    let target = newTheme;
+    // Normalización de compatibilidad
+    if (target === 'light') target = 'apple';
+    if (target === 'dark') target = 'apple-dark';
+    if (['apple', 'apple-dark'].includes(target)) {
+      setThemeState(target);
     }
   };
 
   const cycleTheme = () => {
-    const sequence = ['apple', 'apple-dark', 'light', 'dark'];
-    setThemeState(prev => {
-      const idx = sequence.indexOf(prev);
-      return sequence[(idx + 1) % sequence.length];
-    });
+    setThemeState(prev => (prev === 'apple' ? 'apple-dark' : 'apple'));
   };
 
-  const isDark = theme === 'apple-dark' || theme === 'dark';
-  const isApple = theme === 'apple' || theme === 'apple-dark';
+  const isDark = theme === 'apple-dark';
+  const isApple = true;
 
   return (
     <ThemeContext.Provider

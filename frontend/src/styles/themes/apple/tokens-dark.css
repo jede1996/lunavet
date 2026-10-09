@@ -1,12 +1,13 @@
 /* =========================================================================
    APPLE DESIGN SYSTEM — TOKENS MODO OSCURO (HIG)
-   OLED True Black (#000000), tarjetas grafito (#1C1C1E) y acentos vibrantes.
+   Apple Segmented Glassmorphic: Dark Liquid Glass, OLED True Black (#000000) y acentos vibrantes.
    ========================================================================= */
 
 [data-theme="apple-dark"],
 .theme-apple.dark-mode,
 .apple-design.dark-mode,
-[data-bs-theme="dark"]:not(.theme-classic) {
+.apple-glassmorphic.dark-mode,
+[data-bs-theme="dark"] {
   /* Paleta Dinámica Oficial Apple Dark */
   --bs-primary: #0a84ff;
   --bs-primary-rgb: 10, 132, 255;
@@ -40,20 +41,42 @@
   --bs-border-color: rgba(255, 255, 255, 0.12);
   --bs-border-color-translucent: rgba(255, 255, 255, 0.08);
 
+  /* Apple Liquid Glass Dark (Superficies Translúcidas HIG) */
+  --apple-glass-bg: rgba(28, 28, 30, 0.72);
+  --apple-glass-bg-elevated: rgba(38, 38, 42, 0.85);
+  --apple-glass-border: rgba(255, 255, 255, 0.13);
+  --apple-glass-border-subtle: rgba(255, 255, 255, 0.08);
+  --apple-glass-blur: blur(28px) saturate(190%);
+  --apple-glass-shadow: 0 12px 40px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  --apple-glass-specular: inset 0 1px 0 rgba(255, 255, 255, 0.2), inset 0 -1px 0 rgba(0, 0, 0, 0.5);
+  --apple-glass-well-bg: rgba(255, 255, 255, 0.04);
+  --apple-glass-well-border: rgba(255, 255, 255, 0.08);
+  --apple-glass-well-shadow: inset 0 1.5px 4px rgba(0, 0, 0, 0.45);
+
+  /* Apple Segmented Controls Dark (Selector Segmentado HIG) */
+  --apple-segmented-bg: rgba(118, 118, 128, 0.24);
+  --apple-segmented-border: rgba(255, 255, 255, 0.09);
+  --apple-segmented-indicator: rgba(255, 255, 255, 0.16);
+  --apple-segmented-indicator-shadow: 0 2px 8px rgba(0, 0, 0, 0.45), inset 0 0.5px 0 rgba(255, 255, 255, 0.25);
+  --apple-segmented-text: #8e8e93;
+  --apple-segmented-text-hover: #e5e5ea;
+  --apple-segmented-text-active: #ffffff;
+  --apple-segmented-active-accent: #0a84ff;
+
   /* Componentes Apple Dark Cards & Modals */
-  --bs-card-bg: #1c1c1e;
-  --bs-card-border-color: rgba(255, 255, 255, 0.09);
-  --bs-card-cap-bg: #2c2c2e;
+  --bs-card-bg: rgba(28, 28, 30, 0.78);
+  --bs-card-border-color: rgba(255, 255, 255, 0.11);
+  --bs-card-cap-bg: rgba(44, 44, 46, 0.7);
   --bs-card-color: var(--bs-body-color);
-  --bs-dropdown-bg: rgba(28, 28, 30, 0.86);
-  --bs-dropdown-border-color: rgba(255, 255, 255, 0.12);
+  --bs-dropdown-bg: rgba(28, 28, 30, 0.88);
+  --bs-dropdown-border-color: rgba(255, 255, 255, 0.14);
   --bs-dropdown-link-color: #f2f2f7;
   --bs-dropdown-link-hover-bg: rgba(10, 132, 255, 0.18);
   --bs-dropdown-link-hover-color: #ffffff;
   --bs-modal-bg: rgba(28, 28, 30, 0.94);
-  --bs-modal-border-color: rgba(255, 255, 255, 0.12);
+  --bs-modal-border-color: rgba(255, 255, 255, 0.14);
   --bs-offcanvas-bg: rgba(28, 28, 30, 0.94);
-  --bs-offcanvas-border-color: rgba(255, 255, 255, 0.12);
+  --bs-offcanvas-border-color: rgba(255, 255, 255, 0.14);
   --bs-table-bg: transparent;
   --bs-table-color: var(--bs-body-color);
   --bs-table-border-color: rgba(255, 255, 255, 0.08);
@@ -61,18 +84,18 @@
   --bs-table-hover-bg: rgba(10, 132, 255, 0.06);
 
   /* Acordeón Apple Dark */
-  --bs-accordion-bg: #1c1c1e;
+  --bs-accordion-bg: rgba(28, 28, 30, 0.8);
   --bs-accordion-color: var(--bs-body-color);
   --bs-accordion-border-color: rgba(255, 255, 255, 0.1);
   --bs-accordion-btn-color: var(--bs-emphasis-color);
-  --bs-accordion-btn-bg: #1c1c1e;
+  --bs-accordion-btn-bg: rgba(28, 28, 30, 0.8);
   --bs-accordion-active-color: var(--bs-primary);
   --bs-accordion-active-bg: rgba(10, 132, 255, 0.15);
   --bs-accordion-btn-focus-box-shadow: 0 0 0 0.2rem rgba(10, 132, 255, 0.25);
 
   /* Liquid Glass Dark Navbar */
-  --navbar-bg: rgba(28, 28, 30, 0.78);
-  --navbar-border: rgba(255, 255, 255, 0.1);
+  --navbar-bg: rgba(22, 22, 26, 0.78);
+  --navbar-border: rgba(255, 255, 255, 0.11);
   --navbar-shadow: 0 1px 0 rgba(255, 255, 255, 0.06), 0 8px 30px rgba(0, 0, 0, 0.6);
   --navbar-text: #ffffff;
   --navbar-link: #aeaeb2;
@@ -91,3 +114,4 @@
 
   --hero-gradient: linear-gradient(180deg, #1c1c1e 0%, #000000 100%);
 }
+

@@ -6,11 +6,12 @@ import { useTheme } from '../../contexts/ThemeContext';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { CartDrawer } from './CartDrawer';
 import { BrandLogo } from './BrandLogo';
+import { AppleThemeSelector } from './AppleThemeSelector';
 
 export function Navbar() {
   const { user, isAuthenticated, isClient, isStaff, isAdmin, logout } = useAuth();
   const { totalItems } = useCart();
-  const { theme, isDark, isApple, isHighContrast, toggleHighContrast, setTheme } = useTheme();
+  const { isDark, isHighContrast, toggleHighContrast } = useTheme();
   const { lang, setLang, t } = useLanguage();
   const [isCartOpen, setIsCartOpen] = useState(false);
   const navigate = useNavigate();
@@ -93,113 +94,8 @@ export function Navbar() {
                 )}
               </button>
 
-              {/* Selector de Temas Visuales: Apple Design (Default), Neumórfico y Accesibilidad */}
-              <div className="dropdown">
-                <button
-                  type="button"
-                  className="btn navbar-action-btn btn-sm rounded-pill px-2.5 py-1 d-flex align-items-center gap-1.5"
-                  id="themeSelectorDropdown"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                  title="Cambiar tema visual (Apple Design por defecto, Neumórfico, Quirófano)"
-                  aria-label="Selector de temas visuales"
-                  style={{ minHeight: '36px' }}
-                >
-                  <i className={`bi ${isApple ? 'bi-apple text-primary' : isDark ? 'bi-moon-stars-fill text-info' : 'bi-sun-fill text-warning'}`}></i>
-                  <span className="small fw-semibold d-none d-md-inline" style={{ fontSize: '11px', letterSpacing: '-0.01em' }}>
-                    {theme === 'apple' ? 'Apple Claro' : theme === 'apple-dark' ? 'Apple Oscuro' : theme === 'dark' ? 'Neumórfico Oscuro' : 'Neumórfico Claro'}
-                  </span>
-                  <i className="bi bi-chevron-down opacity-50 ms-0.5" style={{ fontSize: '9px' }}></i>
-                </button>
-
-                <ul
-                  className="dropdown-menu dropdown-menu-end apple-dropdown py-2 shadow-lg border-0"
-                  aria-labelledby="themeSelectorDropdown"
-                  style={{ minWidth: '235px' }}
-                >
-                  <li className="dropdown-header text-uppercase fw-bold pb-1 text-primary d-flex align-items-center gap-1.5" style={{ fontSize: '10px', letterSpacing: '0.06em' }}>
-                    <i className="bi bi-apple"></i> Apple Design (HIG)
-                  </li>
-                  <li>
-                    <button
-                      type="button"
-                      className={`dropdown-item d-flex align-items-center justify-content-between py-1.5 px-3 ${theme === 'apple' ? 'active fw-semibold' : ''}`}
-                      onClick={() => setTheme('apple')}
-                    >
-                      <span className="d-flex align-items-center gap-2">
-                        <i className="bi bi-sun text-warning"></i>
-                        <span>Apple Claro</span>
-                        <span className="badge bg-primary-subtle text-primary rounded-pill px-1.5 py-0.5" style={{ fontSize: '8.5px' }}>Default</span>
-                      </span>
-                      {theme === 'apple' && <i className="bi bi-check2 fw-bold text-primary"></i>}
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      type="button"
-                      className={`dropdown-item d-flex align-items-center justify-content-between py-1.5 px-3 ${theme === 'apple-dark' ? 'active fw-semibold' : ''}`}
-                      onClick={() => setTheme('apple-dark')}
-                    >
-                      <span className="d-flex align-items-center gap-2">
-                        <i className="bi bi-moon-stars text-info"></i>
-                        <span>Apple Oscuro</span>
-                      </span>
-                      {theme === 'apple-dark' && <i className="bi bi-check2 fw-bold text-primary"></i>}
-                    </button>
-                  </li>
-
-                  <li><hr className="dropdown-divider my-1.5 opacity-50" /></li>
-
-                  <li className="dropdown-header text-uppercase fw-bold pb-1 text-secondary d-flex align-items-center gap-1.5" style={{ fontSize: '10px', letterSpacing: '0.06em' }}>
-                    <i className="bi bi-palette"></i> Temas Clásicos
-                  </li>
-                  <li>
-                    <button
-                      type="button"
-                      className={`dropdown-item d-flex align-items-center justify-content-between py-1.5 px-3 ${theme === 'light' ? 'active fw-semibold' : ''}`}
-                      onClick={() => setTheme('light')}
-                    >
-                      <span className="d-flex align-items-center gap-2">
-                        <i className="bi bi-brightness-high text-warning"></i>
-                        <span>Neumórfico Claro</span>
-                      </span>
-                      {theme === 'light' && <i className="bi bi-check2 fw-bold text-primary"></i>}
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      type="button"
-                      className={`dropdown-item d-flex align-items-center justify-content-between py-1.5 px-3 ${theme === 'dark' ? 'active fw-semibold' : ''}`}
-                      onClick={() => setTheme('dark')}
-                    >
-                      <span className="d-flex align-items-center gap-2">
-                        <i className="bi bi-moon-fill text-primary"></i>
-                        <span>Neumórfico Oscuro</span>
-                      </span>
-                      {theme === 'dark' && <i className="bi bi-check2 fw-bold text-primary"></i>}
-                    </button>
-                  </li>
-
-                  <li><hr className="dropdown-divider my-1.5 opacity-50" /></li>
-
-                  <li className="dropdown-header text-uppercase fw-bold pb-1 text-secondary d-flex align-items-center gap-1.5" style={{ fontSize: '10px', letterSpacing: '0.06em' }}>
-                    <i className="bi bi-universal-access"></i> Accesibilidad
-                  </li>
-                  <li>
-                    <button
-                      type="button"
-                      className={`dropdown-item d-flex align-items-center justify-content-between py-1.5 px-3 ${isHighContrast ? 'active fw-semibold' : ''}`}
-                      onClick={toggleHighContrast}
-                    >
-                      <span className="d-flex align-items-center gap-2">
-                        <i className="bi bi-eye-fill text-success"></i>
-                        <span>Modo Alto Contraste</span>
-                      </span>
-                      {isHighContrast && <i className="bi bi-check2 fw-bold text-success"></i>}
-                    </button>
-                  </li>
-                </ul>
-              </div>
+              {/* Selector de Temas Visuales: Apple Segmented Glassmorphic (Claro & Oscuro HIG) */}
+              <AppleThemeSelector />
 
               {/* Selector de Idioma (i18n: ES / EN) */}
               <div className="dropdown">
