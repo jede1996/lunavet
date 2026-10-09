@@ -8,7 +8,8 @@
     "build": "vite build",
     "test": "vitest run",
     "lint": "oxlint",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "manual:pdf": "node ../docs/build-manual-pdf.js"
   },
   "dependencies": {
     "@fullcalendar/daygrid": "^6.1.21",
